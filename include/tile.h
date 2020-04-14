@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_H
 
-enum locations {bag, rack, board};
+enum locations {bag , rack, board}; // {0, 1, 2}
 
 class tile {
 	private:
@@ -14,9 +14,9 @@ class tile {
 		tile(tile& source);
 		/* ~tile(); */
 
-		/* char getLetter(); */
-		/* int getPoints(); */
-		/* int getLoc(); */
+		char getLetter();
+		int getPoints();
+		int getLoc();
 
 };
 
