@@ -1,4 +1,5 @@
 #include "tile.h"
+#include <iostream>
 
 tile::tile(char l, int p, locations p_loc)
 {
@@ -19,22 +20,45 @@ char tile::getLetter()
 	return letter;
 }
 
-int getPoints()
+int tile::getPoints()
 {
 	return points;
 }
 
-int getLoc()
+int tile::getLoc()
 {
 	switch(presentLoc){
-		case bag:
+		case BAG:
 			return 0;
 		break;
-		case rack:
+		case RACK:
 			return 1;
 		break;
-		case board:
+		case BOARD:
 			return 2;
+		break;
+		default:
+			return -1;
+	}
+}
+
+void tile::setLoc(int loc)
+{
+	switch(loc){
+		case 0:
+			presentLoc = BAG;
+		break;
+		case 1:
+			presentLoc = RACK;
+		break;
+		case 2:
+			presentLoc = BOARD;
 		break;
 	}
 }
+
+void tile::show()
+{
+	std::cout << letter << "-" << points << std::endl;
+}
+
