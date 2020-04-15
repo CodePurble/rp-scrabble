@@ -2,6 +2,8 @@
 #include "bag.h"
 #include <iostream>
 
+using namespace std;
+
 void testTile();
 void testBag();
 
@@ -28,5 +30,8 @@ void testTile()
 void testBag()
 {
 	Bag b;
+	b.show();
+	vector<Tile*> t = b.draw(200);
+	std::cout << std::endl;
 	b.show();
 }

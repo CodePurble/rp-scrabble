@@ -6,8 +6,7 @@
 class Bag {
 	private:
 		int tileCount = 100;
-		std::vector<Tile*> tiles;
-
+		std::vector<Tile*> bag;
 
 	public:
 		Bag();
@@ -15,6 +14,7 @@ class Bag {
 
 		void show();
 		void shuffle();
+		std::vector<Tile*> draw(int count);
 
 };
 
