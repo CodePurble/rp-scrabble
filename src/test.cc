@@ -1,18 +1,20 @@
 #include "tile.h"
+#include "bag.h"
 #include <iostream>
 
 void testTile();
+void testBag();
 
 int main()
 {
-	testTile();
+	testBag();
 	return 0;
 }
 
 void testTile()
 {
-	locations l1 = BAG;
-	tile t('a', 1, l1);
+	enum_location l1 = BAG;
+	Tile t('a', 1, l1);
 	t.show();
 
 	std::cout << t.getLetter() << std::endl;
@@ -21,4 +23,10 @@ void testTile()
 
 	t.setLoc(2);
 	std::cout << t.getLoc() << std::endl;
+}
+
+void testBag()
+{
+	Bag b;
+	b.show();
 }

@@ -1,31 +1,31 @@
 #include "tile.h"
 #include <iostream>
 
-tile::tile(char l, int p, locations p_loc)
+Tile::Tile(char l, int p, enum_location p_loc)
 {
 	letter = l;
 	points = p;
 	presentLoc = p_loc;
 }
 
-tile::tile(tile& source)
+Tile::Tile(Tile& source)
 {
 	letter = source.letter;
 	points = source.points;
 	presentLoc = source.presentLoc;
 }
 
-char tile::getLetter()
+char Tile::getLetter()
 {
 	return letter;
 }
 
-int tile::getPoints()
+int Tile::getPoints()
 {
 	return points;
 }
 
-int tile::getLoc()
+int Tile::getLoc()
 {
 	switch(presentLoc){
 		case BAG:
@@ -42,7 +42,7 @@ int tile::getLoc()
 	}
 }
 
-void tile::setLoc(int loc)
+void Tile::setLoc(int loc)
 {
 	switch(loc){
 		case 0:
@@ -57,7 +57,7 @@ void tile::setLoc(int loc)
 	}
 }
 
-void tile::show()
+void Tile::show()
 {
 	std::cout << letter << "-" << points << std::endl;
 }

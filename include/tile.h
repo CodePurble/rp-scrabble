@@ -1,18 +1,19 @@
 #ifndef TILE_H
 #define TILE_H
 
-enum locations {BAG , RACK, BOARD};
+enum enum_location {BAG , RACK, BOARD};
 
-class tile {
+class Tile {
 	private:
+		// square*, bag*, rack*
 		char letter;
 		int points;
-		locations presentLoc;
+		enum_location presentLoc;
 
 	public:
-		tile(char l, int p, locations p_loc);
-		tile(tile& source);
-		~tile(){}
+		Tile(char l, int p, enum_location p_loc);
+		Tile(Tile& source);
+		~Tile(){}
 
 		char getLetter();
 		int getPoints();

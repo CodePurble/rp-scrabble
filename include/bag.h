@@ -1,14 +1,21 @@
 #ifndef BAG_H
 #define BAG_H
+#include "tile.h"
+#include <vector>
 
-class bag {
+class Bag {
 	private:
-		int tileCount;
+		int tileCount = 100;
+		std::vector<Tile*> tiles;
+
 
 	public:
-		bag();
-		~bag(){};
+		Bag();
+		~Bag();
 
-}
+		void show();
+		void shuffle();
+
+};
 
 #endif
