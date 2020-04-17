@@ -1,15 +1,15 @@
-#include "tile.h"
-#include "bag.h"
+#include "rack.h"
 #include <iostream>
 
 using namespace std;
 
 void testTile();
 void testBag();
+void testRack();
 
 int main()
 {
-	testBag();
+	testRack();
 	return 0;
 }
 
@@ -34,4 +34,18 @@ void testBag()
 	vector<Tile*> t = b.draw(200);
 	std::cout << std::endl;
 	b.show();
+}
+
+void testRack()
+{
+	Bag b;
+	Rack r;
+	b.show();
+	r.show();
+	r.fill(b.draw(4));
+	b.show();
+	r.show();
+	r.fill(b.draw(1));
+	b.show();
+	r.show();
 }

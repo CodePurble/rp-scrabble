@@ -175,7 +175,8 @@ Bag::~Bag()
 void Bag::show()
 {
 	for(Tile* i : bag)
-	cout << i->getLetter();
+		cout << i->getLetter();
+	cout << endl;
 }
 
 void Bag::shuffle()
@@ -201,7 +202,6 @@ vector<Tile*> Bag::draw(int count)
 	shuffle();
 
 	for(int i = 0; i < count && i < prev_size; i++){
-		DEBUG("i",i);
 		drawn.push_back(bag.back());
 		bag.pop_back();
 	}
