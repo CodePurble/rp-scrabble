@@ -1,0 +1,86 @@
+[
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/bag.cc",
+   "-o",
+   "bin/bag.o"
+  ],
+  "file": "src/bag.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/rack.cc",
+   "-o",
+   "bin/rack.o"
+  ],
+  "file": "src/rack.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/test.cc",
+   "-o",
+   "bin/test.o"
+  ],
+  "file": "src/test.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/tile.cc",
+   "-o",
+   "bin/tile.o"
+  ],
+  "file": "src/tile.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/square.cc",
+   "-o",
+   "bin/square.o"
+  ],
+  "file": "src/square.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/board.cc",
+   "-o",
+   "bin/board.o"
+  ],
+  "file": "src/board.cc"
+ }
+]

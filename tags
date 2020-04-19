@@ -1,0 +1,175 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+$(BIN_DIR)/$(EXEC)	makefile	/^$(BIN_DIR)\/$(EXEC): $(SRC_OBJS)$/;"	t	language:Make
+$(BIN_DIR)/%.o	makefile	/^$(BIN_DIR)\/%.o: $(SRC_DIR)\/%.cc$/;"	t	language:Make
+.phony	makefile	/^.phony: all clean $/;"	t	language:Make
+0	compile_commands.json	/^   "g++",$/;"	s	language:JSON	array:0.arguments
+0	compile_commands.json	/^   "g++",$/;"	s	language:JSON	array:1.arguments
+0	compile_commands.json	/^   "g++",$/;"	s	language:JSON	array:2.arguments
+0	compile_commands.json	/^   "g++",$/;"	s	language:JSON	array:3.arguments
+0	compile_commands.json	/^   "g++",$/;"	s	language:JSON	array:4.arguments
+0	compile_commands.json	/^   "g++",$/;"	s	language:JSON	array:5.arguments
+0	compile_commands.json	/^ {$/;"	o	language:JSON
+1	compile_commands.json	/^   "-Wall",$/;"	s	language:JSON	array:0.arguments
+1	compile_commands.json	/^   "-Wall",$/;"	s	language:JSON	array:1.arguments
+1	compile_commands.json	/^   "-Wall",$/;"	s	language:JSON	array:2.arguments
+1	compile_commands.json	/^   "-Wall",$/;"	s	language:JSON	array:3.arguments
+1	compile_commands.json	/^   "-Wall",$/;"	s	language:JSON	array:4.arguments
+1	compile_commands.json	/^   "-Wall",$/;"	s	language:JSON	array:5.arguments
+1	compile_commands.json	/^ {$/;"	o	language:JSON
+2	compile_commands.json	/^   "-g",$/;"	s	language:JSON	array:0.arguments
+2	compile_commands.json	/^   "-g",$/;"	s	language:JSON	array:1.arguments
+2	compile_commands.json	/^   "-g",$/;"	s	language:JSON	array:2.arguments
+2	compile_commands.json	/^   "-g",$/;"	s	language:JSON	array:3.arguments
+2	compile_commands.json	/^   "-g",$/;"	s	language:JSON	array:4.arguments
+2	compile_commands.json	/^   "-g",$/;"	s	language:JSON	array:5.arguments
+2	compile_commands.json	/^ {$/;"	o	language:JSON
+3	compile_commands.json	/^   "-I.\/include\/",$/;"	s	language:JSON	array:0.arguments
+3	compile_commands.json	/^   "-I.\/include\/",$/;"	s	language:JSON	array:1.arguments
+3	compile_commands.json	/^   "-I.\/include\/",$/;"	s	language:JSON	array:2.arguments
+3	compile_commands.json	/^   "-I.\/include\/",$/;"	s	language:JSON	array:3.arguments
+3	compile_commands.json	/^   "-I.\/include\/",$/;"	s	language:JSON	array:4.arguments
+3	compile_commands.json	/^   "-I.\/include\/",$/;"	s	language:JSON	array:5.arguments
+3	compile_commands.json	/^ {$/;"	o	language:JSON
+4	compile_commands.json	/^   "-c",$/;"	s	language:JSON	array:0.arguments
+4	compile_commands.json	/^   "-c",$/;"	s	language:JSON	array:1.arguments
+4	compile_commands.json	/^   "-c",$/;"	s	language:JSON	array:2.arguments
+4	compile_commands.json	/^   "-c",$/;"	s	language:JSON	array:3.arguments
+4	compile_commands.json	/^   "-c",$/;"	s	language:JSON	array:4.arguments
+4	compile_commands.json	/^   "-c",$/;"	s	language:JSON	array:5.arguments
+4	compile_commands.json	/^ {$/;"	o	language:JSON
+5	compile_commands.json	/^   "src\/bag.cc",$/;"	s	language:JSON	array:0.arguments
+5	compile_commands.json	/^   "src\/board.cc",$/;"	s	language:JSON	array:5.arguments
+5	compile_commands.json	/^   "src\/rack.cc",$/;"	s	language:JSON	array:1.arguments
+5	compile_commands.json	/^   "src\/square.cc",$/;"	s	language:JSON	array:4.arguments
+5	compile_commands.json	/^   "src\/test.cc",$/;"	s	language:JSON	array:2.arguments
+5	compile_commands.json	/^   "src\/tile.cc",$/;"	s	language:JSON	array:3.arguments
+5	compile_commands.json	/^ {$/;"	o	language:JSON
+6	compile_commands.json	/^   "-o",$/;"	s	language:JSON	array:0.arguments
+6	compile_commands.json	/^   "-o",$/;"	s	language:JSON	array:1.arguments
+6	compile_commands.json	/^   "-o",$/;"	s	language:JSON	array:2.arguments
+6	compile_commands.json	/^   "-o",$/;"	s	language:JSON	array:3.arguments
+6	compile_commands.json	/^   "-o",$/;"	s	language:JSON	array:4.arguments
+6	compile_commands.json	/^   "-o",$/;"	s	language:JSON	array:5.arguments
+7	compile_commands.json	/^   "bin\/bag.o"$/;"	s	language:JSON	array:0.arguments
+7	compile_commands.json	/^   "bin\/board.o"$/;"	s	language:JSON	array:5.arguments
+7	compile_commands.json	/^   "bin\/rack.o"$/;"	s	language:JSON	array:1.arguments
+7	compile_commands.json	/^   "bin\/square.o"$/;"	s	language:JSON	array:4.arguments
+7	compile_commands.json	/^   "bin\/test.o"$/;"	s	language:JSON	array:2.arguments
+7	compile_commands.json	/^   "bin\/tile.o"$/;"	s	language:JSON	array:3.arguments
+BAG	include/tile.h	/^enum enum_location {BAG , RACK, BOARD};$/;"	e	language:C++	enum:enum_location
+BAG_H	include/bag.h	/^#define BAG_H$/;"	d	language:C++
+BIN_DIR	makefile	/^BIN_DIR=.\/bin$/;"	m	language:Make
+BOARD	include/tile.h	/^enum enum_location {BAG , RACK, BOARD};$/;"	e	language:C++	enum:enum_location
+BOARD_H	include/board.h	/^#define BOARD_H$/;"	d	language:C++
+Bag	include/bag.h	/^class Bag {$/;"	c	language:C++
+Bag	src/bag.cc	/^Bag::Bag()$/;"	f	language:C++	class:Bag
+Board	include/board.h	/^class Board {$/;"	c	language:C++
+Board	src/board.cc	/^Board::Board()$/;"	f	language:C++	class:Board
+COMPILE	makefile	/^COMPILE=$(CXX) $(CFLAGS) -c $^ -o $@$/;"	m	language:Make
+DEBUG	include/utils.h	/^#define DEBUG(/;"	d	language:C++
+DISCLAIMER	README.md	/^# DISCLAIMER$/;"	c	language:Markdown
+DLS	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
+DWS	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
+EXEC	makefile	/^EXEC=test$/;"	m	language:Make
+INCLUDE_DIR	makefile	/^INCLUDE_DIR=.\/include$/;"	m	language:Make
+LINK_EXE	makefile	/^LINK_EXE=$(CXX) $(CFLAGS) -o $@ $^$/;"	m	language:Make
+N	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
+NUM_COLS	include/utils.h	/^#define NUM_COLS /;"	d	language:C++
+NUM_ROWS	include/utils.h	/^#define NUM_ROWS /;"	d	language:C++
+RACK	include/tile.h	/^enum enum_location {BAG , RACK, BOARD};$/;"	e	language:C++	enum:enum_location
+RACK_H	include/rack.h	/^#define RACK_H$/;"	d	language:C++
+Rack	include/rack.h	/^class Rack {$/;"	c	language:C++
+Rack	src/rack.cc	/^Rack::Rack()$/;"	f	language:C++	class:Rack
+SQUARE_H	include/square.h	/^#define SQUARE_H$/;"	d	language:C++
+SRC_DIR	makefile	/^SRC_DIR=.\/src$/;"	m	language:Make
+SRC_FILES	makefile	/^SRC_FILES=$(wildcard $(SRC_DIR)\/*.cc)									# Get .c files in source$/;"	m	language:Make
+SRC_OBJS	makefile	/^SRC_OBJS=$(patsubst $(SRC_DIR)\/%.cc,$(BIN_DIR)\/%.o, $(SRC_FILES))		# Get name of .o files in s/;"	m	language:Make
+Square	include/square.h	/^class Square {$/;"	c	language:C++
+Square	src/square.cc	/^Square::Square(enum_sqType st, int r, int c)$/;"	f	language:C++	class:Square
+TILE_H	include/tile.h	/^#define TILE_H$/;"	d	language:C++
+TLS	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
+TWS	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
+This project is under development and may not work as intended	README.md	/^## This project is under development and may not work as intended$/;"	s	language:Markdown
+Tile	include/tile.h	/^class Tile {$/;"	c	language:C++
+Tile	src/tile.cc	/^Tile::Tile(Tile& source)$/;"	f	language:C++	class:Tile
+Tile	src/tile.cc	/^Tile::Tile(char l, int p, enum_location p_loc)$/;"	f	language:C++	class:Tile
+UTILS_H	include/utils.h	/^#define UTILS_H$/;"	d	language:C++
+all	makefile	/^all: $(BIN_DIR)\/$(EXEC)$/;"	t	language:Make
+arguments	compile_commands.json	/^  "arguments": [$/;"	a	language:JSON	object:0
+arguments	compile_commands.json	/^  "arguments": [$/;"	a	language:JSON	object:1
+arguments	compile_commands.json	/^  "arguments": [$/;"	a	language:JSON	object:2
+arguments	compile_commands.json	/^  "arguments": [$/;"	a	language:JSON	object:3
+arguments	compile_commands.json	/^  "arguments": [$/;"	a	language:JSON	object:4
+arguments	compile_commands.json	/^  "arguments": [$/;"	a	language:JSON	object:5
+bag	include/bag.h	/^		std::vector<Tile*> bag;$/;"	m	language:C++	class:Bag	typeref:typename:std::vector<Tile * >
+board	include/board.h	/^		Square* board[NUM_ROWS][NUM_COLS];$/;"	m	language:C++	class:Board	typeref:typename:Square * [][]
+clean	makefile	/^clean:$/;"	t	language:Make
+col	include/square.h	/^		int col;$/;"	m	language:C++	class:Square	typeref:typename:int
+directory	compile_commands.json	/^  "directory": "\/home\/ramprakash\/RPDATA\/Repos\/scrabble",$/;"	s	language:JSON	object:0
+directory	compile_commands.json	/^  "directory": "\/home\/ramprakash\/RPDATA\/Repos\/scrabble",$/;"	s	language:JSON	object:1
+directory	compile_commands.json	/^  "directory": "\/home\/ramprakash\/RPDATA\/Repos\/scrabble",$/;"	s	language:JSON	object:2
+directory	compile_commands.json	/^  "directory": "\/home\/ramprakash\/RPDATA\/Repos\/scrabble",$/;"	s	language:JSON	object:3
+directory	compile_commands.json	/^  "directory": "\/home\/ramprakash\/RPDATA\/Repos\/scrabble",$/;"	s	language:JSON	object:4
+directory	compile_commands.json	/^  "directory": "\/home\/ramprakash\/RPDATA\/Repos\/scrabble",$/;"	s	language:JSON	object:5
+down	include/square.h	/^		Square* down;$/;"	m	language:C++	class:Square	typeref:typename:Square *
+draw	src/bag.cc	/^vector<Tile*> Bag::draw(int count)$/;"	f	language:C++	class:Bag	typeref:typename:vector<Tile * >
+enum_location	include/tile.h	/^enum enum_location {BAG , RACK, BOARD};$/;"	g	language:C++
+enum_sqType	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	g	language:C++
+file	compile_commands.json	/^  "file": "src\/bag.cc"$/;"	s	language:JSON	object:0
+file	compile_commands.json	/^  "file": "src\/board.cc"$/;"	s	language:JSON	object:5
+file	compile_commands.json	/^  "file": "src\/rack.cc"$/;"	s	language:JSON	object:1
+file	compile_commands.json	/^  "file": "src\/square.cc"$/;"	s	language:JSON	object:4
+file	compile_commands.json	/^  "file": "src\/test.cc"$/;"	s	language:JSON	object:2
+file	compile_commands.json	/^  "file": "src\/tile.cc"$/;"	s	language:JSON	object:3
+fill	src/rack.cc	/^void Rack::fill(vector<Tile*> t)$/;"	f	language:C++	class:Rack	typeref:typename:void
+getCol	src/square.cc	/^int Square::getCol()$/;"	f	language:C++	class:Square	typeref:typename:int
+getDown	src/square.cc	/^Square* Square::getDown()$/;"	f	language:C++	class:Square	typeref:typename:Square *
+getLeft	src/square.cc	/^Square* Square::getLeft()$/;"	f	language:C++	class:Square	typeref:typename:Square *
+getLetter	src/tile.cc	/^char Tile::getLetter()$/;"	f	language:C++	class:Tile	typeref:typename:char
+getLoc	src/tile.cc	/^int Tile::getLoc()$/;"	f	language:C++	class:Tile	typeref:typename:int
+getPoints	src/tile.cc	/^int Tile::getPoints()$/;"	f	language:C++	class:Tile	typeref:typename:int
+getRight	src/square.cc	/^Square* Square::getRight()$/;"	f	language:C++	class:Square	typeref:typename:Square *
+getRow	src/square.cc	/^int Square::getRow()$/;"	f	language:C++	class:Square	typeref:typename:int
+getType	src/square.cc	/^int Square::getType()$/;"	f	language:C++	class:Square	typeref:typename:int
+getUp	src/square.cc	/^Square* Square::getUp()$/;"	f	language:C++	class:Square	typeref:typename:Square *
+left	include/square.h	/^		Square* left;$/;"	m	language:C++	class:Square	typeref:typename:Square *
+letter	include/tile.h	/^		char letter;$/;"	m	language:C++	class:Tile	typeref:typename:char
+loc	src/bag.cc	/^enum_location loc = BAG;$/;"	v	language:C++	typeref:typename:enum_location
+main	src/test.cc	/^int main()$/;"	f	language:C++	typeref:typename:int
+myBag	include/tile.h	/^		Bag* myBag;$/;"	m	language:C++	class:Tile	typeref:typename:Bag *
+myRack	include/tile.h	/^		Rack* myRack;$/;"	m	language:C++	class:Tile	typeref:typename:Rack *
+points	include/tile.h	/^		int points;$/;"	m	language:C++	class:Tile	typeref:typename:int
+presentLoc	include/tile.h	/^		enum_location presentLoc;$/;"	m	language:C++	class:Tile	typeref:typename:enum_location
+rack	include/rack.h	/^		std::array<Tile*, 7> rack;$/;"	m	language:C++	class:Rack	typeref:typename:std::array<Tile *,7>
+right	include/square.h	/^		Square* right;$/;"	m	language:C++	class:Square	typeref:typename:Square *
+row	include/square.h	/^		int row;$/;"	m	language:C++	class:Square	typeref:typename:int
+scrabble	README.md	/^# scrabble$/;"	c	language:Markdown
+setBag	src/tile.cc	/^void Tile::setBag(Bag* b)$/;"	f	language:C++	class:Tile	typeref:typename:void
+setRack	src/tile.cc	/^void Tile::setRack(Rack* r)$/;"	f	language:C++	class:Tile	typeref:typename:void
+show	src/bag.cc	/^void Bag::show()$/;"	f	language:C++	class:Bag	typeref:typename:void
+show	src/board.cc	/^void Board::show()$/;"	f	language:C++	class:Board	typeref:typename:void
+show	src/rack.cc	/^void Rack::show()$/;"	f	language:C++	class:Rack	typeref:typename:void
+show	src/square.cc	/^void Square::show()$/;"	f	language:C++	class:Square	typeref:typename:void
+show	src/tile.cc	/^void Tile::show()$/;"	f	language:C++	class:Tile	typeref:typename:void
+shuffle	src/bag.cc	/^void Bag::shuffle()$/;"	f	language:C++	class:Bag	typeref:typename:void
+sqType	include/square.h	/^		enum_sqType sqType;$/;"	m	language:C++	class:Square	typeref:typename:enum_sqType
+testBag	src/test.cc	/^void testBag()$/;"	f	language:C++	typeref:typename:void
+testBoard	src/test.cc	/^void testBoard()$/;"	f	language:C++	typeref:typename:void
+testRack	src/test.cc	/^void testRack()$/;"	f	language:C++	typeref:typename:void
+testSquare	src/test.cc	/^void testSquare()$/;"	f	language:C++	typeref:typename:void
+testTile	src/test.cc	/^void testTile()$/;"	f	language:C++	typeref:typename:void
+tileCount	include/bag.h	/^		int tileCount = 100;$/;"	m	language:C++	class:Bag	typeref:typename:int
+tileInSquare	include/square.h	/^		Tile* tileInSquare;$/;"	m	language:C++	class:Square	typeref:typename:Tile *
+up	include/square.h	/^		Square* up;$/;"	m	language:C++	class:Square	typeref:typename:Square *
+~Bag	src/bag.cc	/^Bag::~Bag()$/;"	f	language:C++	class:Bag
+~Board	src/board.cc	/^Board::~Board()$/;"	f	language:C++	class:Board
+~Rack	include/rack.h	/^		~Rack(){};$/;"	f	language:C++	class:Rack
+~Square	include/square.h	/^		~Square(){}$/;"	f	language:C++	class:Square
+~Tile	include/tile.h	/^		~Tile(){}$/;"	f	language:C++	class:Tile

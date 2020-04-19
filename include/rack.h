@@ -1,7 +1,9 @@
 #ifndef RACK_H
 #define RACK_H
 #include <array>
-#include "bag.h"
+#include <vector>
+
+class Tile;
 
 class Rack {
 	private:

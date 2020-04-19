@@ -1,8 +1,8 @@
-#include "bag.h"
 #include <iostream>
-#include <iterator>
 #include <stdlib.h>
 #include <time.h>
+#include "bag.h"
+#include "tile.h"
 #include "utils.h"
 
 using namespace std;

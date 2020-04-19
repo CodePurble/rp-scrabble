@@ -1,15 +1,21 @@
-#include "rack.h"
 #include <iostream>
+#include "rack.h"
+#include "tile.h"
+#include "bag.h"
+#include "square.h"
+#include "board.h"
 
 using namespace std;
 
 void testTile();
 void testBag();
 void testRack();
+void testSquare();
+void testBoard();
 
 int main()
 {
-	testRack();
+	testBoard();
 	return 0;
 }
 
@@ -18,13 +24,6 @@ void testTile()
 	enum_location l1 = BAG;
 	Tile t('a', 1, l1);
 	t.show();
-
-	std::cout << t.getLetter() << std::endl;
-	std::cout << t.getPoints() << std::endl;
-	std::cout << t.getLoc() << std::endl;
-
-	t.setLoc(2);
-	std::cout << t.getLoc() << std::endl;
 }
 
 void testBag()
@@ -48,4 +47,17 @@ void testRack()
 	r.fill(b.draw(1));
 	b.show();
 	r.show();
+}
+
+void testSquare()
+{
+	enum_sqType type = DWS;
+	Square s(type, 4, 5);
+	s.show();
+}
+
+void testBoard()
+{
+	Board b;
+	b.show();
 }

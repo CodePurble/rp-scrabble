@@ -1,7 +1,8 @@
 #ifndef BAG_H
 #define BAG_H
-#include "tile.h"
 #include <vector>
+
+class Tile;
 
 class Bag {
 	private:

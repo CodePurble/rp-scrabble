@@ -1,5 +1,7 @@
-#include "tile.h"
 #include <iostream>
+#include "tile.h"
+#include "bag.h"
+#include "rack.h"
 
 Tile::Tile(char l, int p, enum_location p_loc)
 {
@@ -42,23 +44,19 @@ int Tile::getLoc()
 	}
 }
 
-void Tile::setLoc(int loc)
-{
-	switch(loc){
-		case 0:
-			presentLoc = BAG;
-		break;
-		case 1:
-			presentLoc = RACK;
-		break;
-		case 2:
-			presentLoc = BOARD;
-		break;
-	}
-}
-
 void Tile::show()
 {
 	std::cout << letter << "-" << points << std::endl;
 }
 
+void Tile::setBag(Bag* b)
+{
+	myBag = b;
+	presentLoc = BAG;
+}
+
+void Tile::setRack(Rack* r)
+{
+	myRack = r;
+	presentLoc = RACK;
+}
