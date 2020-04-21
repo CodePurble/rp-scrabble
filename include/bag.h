@@ -6,7 +6,6 @@ class Tile;
 
 class Bag {
 	private:
-		int tileCount = 100;
 		std::vector<Tile*> bag;
 
 	public:

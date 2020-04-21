@@ -23,7 +23,7 @@ void Rack::fill(vector<Tile*> t)
 void Rack::show()
 {
 	for(Tile* t : rack){
-		if(t)	
+		if(t)
 			cout << t->getLetter();
 	}
 	cout << endl;

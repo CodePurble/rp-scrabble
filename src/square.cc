@@ -52,3 +52,41 @@ int Square::getType()
 {
 	return sqType;
 }
+
+bool Square::isEmpty()
+{
+	if(tileInSquare)
+		return false;
+	else
+		return true;
+}
+
+void Square::setTile(Tile* t)
+{
+	tileInSquare = t;
+}
+
+Tile* Square::getTile()
+{
+	return tileInSquare;
+}
+
+void Square::setLeft(Square* l)
+{
+	left = l;
+}
+
+void Square::setRight(Square* r)
+{
+	right = r;
+}
+
+void Square::setUp(Square* u)
+{
+	up = u;
+}
+
+void Square::setDown(Square* d)
+{
+	down = d;
+}

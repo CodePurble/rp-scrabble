@@ -83,6 +83,8 @@ LINK_EXE	makefile	/^LINK_EXE=$(CXX) $(CFLAGS) -o $@ $^$/;"	m	language:Make
 N	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
 NUM_COLS	include/utils.h	/^#define NUM_COLS /;"	d	language:C++
 NUM_ROWS	include/utils.h	/^#define NUM_ROWS /;"	d	language:C++
+PLAYER_H	include/player.h	/^#define PLAYER_H$/;"	d	language:C++
+Player	include/player.h	/^class Player {$/;"	c	language:C++
 RACK	include/tile.h	/^enum enum_location {BAG , RACK, BOARD};$/;"	e	language:C++	enum:enum_location
 RACK_H	include/rack.h	/^#define RACK_H$/;"	d	language:C++
 Rack	include/rack.h	/^class Rack {$/;"	c	language:C++
@@ -137,22 +139,28 @@ getLoc	src/tile.cc	/^int Tile::getLoc()$/;"	f	language:C++	class:Tile	typeref:ty
 getPoints	src/tile.cc	/^int Tile::getPoints()$/;"	f	language:C++	class:Tile	typeref:typename:int
 getRight	src/square.cc	/^Square* Square::getRight()$/;"	f	language:C++	class:Square	typeref:typename:Square *
 getRow	src/square.cc	/^int Square::getRow()$/;"	f	language:C++	class:Square	typeref:typename:int
+getTile	src/square.cc	/^Tile* Square::getTile()$/;"	f	language:C++	class:Square	typeref:typename:Tile *
 getType	src/square.cc	/^int Square::getType()$/;"	f	language:C++	class:Square	typeref:typename:int
 getUp	src/square.cc	/^Square* Square::getUp()$/;"	f	language:C++	class:Square	typeref:typename:Square *
+isEmpty	src/square.cc	/^bool Square::isEmpty()$/;"	f	language:C++	class:Square	typeref:typename:bool
 left	include/square.h	/^		Square* left;$/;"	m	language:C++	class:Square	typeref:typename:Square *
 letter	include/tile.h	/^		char letter;$/;"	m	language:C++	class:Tile	typeref:typename:char
 loc	src/bag.cc	/^enum_location loc = BAG;$/;"	v	language:C++	typeref:typename:enum_location
 main	src/test.cc	/^int main()$/;"	f	language:C++	typeref:typename:int
 myBag	include/tile.h	/^		Bag* myBag;$/;"	m	language:C++	class:Tile	typeref:typename:Bag *
 myRack	include/tile.h	/^		Rack* myRack;$/;"	m	language:C++	class:Tile	typeref:typename:Rack *
+placeTile	src/board.cc	/^bool Board::placeTile(Tile* t, int r, int c)$/;"	f	language:C++	class:Board	typeref:typename:bool
 points	include/tile.h	/^		int points;$/;"	m	language:C++	class:Tile	typeref:typename:int
 presentLoc	include/tile.h	/^		enum_location presentLoc;$/;"	m	language:C++	class:Tile	typeref:typename:enum_location
+rack	include/player.h	/^		Rack* rack;$/;"	m	language:C++	class:Player	typeref:typename:Rack *
 rack	include/rack.h	/^		std::array<Tile*, 7> rack;$/;"	m	language:C++	class:Rack	typeref:typename:std::array<Tile *,7>
 right	include/square.h	/^		Square* right;$/;"	m	language:C++	class:Square	typeref:typename:Square *
 row	include/square.h	/^		int row;$/;"	m	language:C++	class:Square	typeref:typename:int
+score	include/player.h	/^		int score;$/;"	m	language:C++	class:Player	typeref:typename:int
 scrabble	README.md	/^# scrabble$/;"	c	language:Markdown
 setBag	src/tile.cc	/^void Tile::setBag(Bag* b)$/;"	f	language:C++	class:Tile	typeref:typename:void
 setRack	src/tile.cc	/^void Tile::setRack(Rack* r)$/;"	f	language:C++	class:Tile	typeref:typename:void
+setTile	src/square.cc	/^void Square::setTile(Tile* t)$/;"	f	language:C++	class:Square	typeref:typename:void
 show	src/bag.cc	/^void Bag::show()$/;"	f	language:C++	class:Bag	typeref:typename:void
 show	src/board.cc	/^void Board::show()$/;"	f	language:C++	class:Board	typeref:typename:void
 show	src/rack.cc	/^void Rack::show()$/;"	f	language:C++	class:Rack	typeref:typename:void
@@ -165,11 +173,11 @@ testBoard	src/test.cc	/^void testBoard()$/;"	f	language:C++	typeref:typename:voi
 testRack	src/test.cc	/^void testRack()$/;"	f	language:C++	typeref:typename:void
 testSquare	src/test.cc	/^void testSquare()$/;"	f	language:C++	typeref:typename:void
 testTile	src/test.cc	/^void testTile()$/;"	f	language:C++	typeref:typename:void
-tileCount	include/bag.h	/^		int tileCount = 100;$/;"	m	language:C++	class:Bag	typeref:typename:int
 tileInSquare	include/square.h	/^		Tile* tileInSquare;$/;"	m	language:C++	class:Square	typeref:typename:Tile *
 up	include/square.h	/^		Square* up;$/;"	m	language:C++	class:Square	typeref:typename:Square *
 ~Bag	src/bag.cc	/^Bag::~Bag()$/;"	f	language:C++	class:Bag
 ~Board	src/board.cc	/^Board::~Board()$/;"	f	language:C++	class:Board
+~Player	include/player.h	/^		~Player(){}$/;"	f	language:C++	class:Player
 ~Rack	include/rack.h	/^		~Rack(){};$/;"	f	language:C++	class:Rack
 ~Square	include/square.h	/^		~Square(){}$/;"	f	language:C++	class:Square
 ~Tile	include/tile.h	/^		~Tile(){}$/;"	f	language:C++	class:Tile

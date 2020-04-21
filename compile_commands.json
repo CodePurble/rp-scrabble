@@ -82,5 +82,19 @@
    "bin/board.o"
   ],
   "file": "src/board.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/player.cc",
+   "-o",
+   "bin/player.o"
+  ],
+  "file": "src/player.cc"
  }
 ]
