@@ -123,6 +123,7 @@ bool Board::placeTile(Tile* t, int r, int c)
 	Square* curr = board[r][c];
 	if(curr->isEmpty()){
 		curr->setTile(t);
+		t->setLoc(2);
 		return true;
 	}
 	else

@@ -5,11 +5,14 @@
 class Player {
 	private:
 		int score;
+		std::string playerName;
 		Rack* rack;
 
 	public:
-		Player();
+		Player(std::string n);
 		~Player();
+
+		void placeTile(Tile* t, int r, int c);
 		void show();
 };
 

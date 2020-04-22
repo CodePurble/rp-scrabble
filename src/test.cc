@@ -58,6 +58,9 @@ void testSquare()
 
 void testBoard()
 {
+	Bag bag;
 	Board b;
+	b.show();
+	b.placeTile(bag.draw(1).back(), 7, 7);
 	b.show();
 }

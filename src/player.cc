@@ -1,11 +1,13 @@
 #include <iostream>
 #include "player.h"
 #include "utils.h"
+
 using namespace std;
 
-Player::Player()
+Player::Player(string n)
 {
 	score = 0;
+	playerName = n;
 	rack = new Rack();
 }
 
@@ -16,5 +18,5 @@ Player::~Player()
 
 void Player::show()
 {
-	cout << "Score:" << score << endl;
+	cout << playerName << " Score:" << score << endl;
 }

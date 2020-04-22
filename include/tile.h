@@ -8,7 +8,7 @@ enum enum_location {BAG , RACK, BOARD};
 
 class Tile {
 	private:
-		// square*, bag*, rack*
+		// square*
 		char letter;
 		int points;
 		Bag* myBag;
@@ -23,6 +23,8 @@ class Tile {
 		char getLetter();
 		int getPoints();
 		int getLoc();
+
+		void setLoc(int loc);
 		void setBag(Bag* b);
 		void setRack(Rack* r);
 		void show();

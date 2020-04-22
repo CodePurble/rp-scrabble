@@ -52,11 +52,27 @@ void Tile::show()
 void Tile::setBag(Bag* b)
 {
 	myBag = b;
-	presentLoc = BAG;
+	setLoc(0);
 }
 
 void Tile::setRack(Rack* r)
 {
 	myRack = r;
-	presentLoc = RACK;
+	setLoc(1);
+}
+
+void Tile::setLoc(int loc)
+{
+	switch(loc){
+		case 0:
+			presentLoc = BAG;
+		break;
+		case 1:
+			presentLoc = RACK;
+		break;
+		case 2:
+			presentLoc = BOARD;
+		default:
+			return;
+	}
 }
