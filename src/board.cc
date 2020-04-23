@@ -112,23 +112,27 @@ void Board::show()
 			toPrint = "   ";
 			currSquare = board[i][j];
 			if(currSquare->isEmpty()){
-				toPrint = sqStrings[currSquare->getType()];
-				switch(currSquare->getType()){
-					case 0:
-						cout << toPrint;
-					break;
-					case 1:
-						BOLD_PINK(toPrint);
-					break;
-					case 2:
-						BOLD_ORANGE(toPrint);
-					break;
-					case 3:
-						BOLD_CYAN(toPrint);
-					break;
-					case 4:
-						BOLD_BLUE(toPrint);
-					break;
+				if(i == 7 && j == 7)
+					BOLD_PINK("");
+				else{
+					toPrint = sqStrings[currSquare->getType()];
+					switch(currSquare->getType()){
+						case 0:
+							cout << toPrint;
+						break;
+						case 1:
+							BOLD_PINK(toPrint);
+						break;
+						case 2:
+							BOLD_ORANGE(toPrint);
+						break;
+						case 3:
+							BOLD_CYAN(toPrint);
+						break;
+						case 4:
+							BOLD_BLUE(toPrint);
+						break;
+					}
 				}
 			}
 			else{
