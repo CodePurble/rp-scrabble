@@ -1,6 +1,7 @@
 #include "rack.h"
 #include "tile.h"
 #include <iostream>
+
 using namespace std;
 
 Rack::Rack()

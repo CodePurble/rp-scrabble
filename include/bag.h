@@ -13,6 +13,7 @@ class Bag {
 		~Bag();
 
 		void show();
+		bool isEmpty();
 		void shuffle();
 		std::vector<Tile*> draw(int count);
 

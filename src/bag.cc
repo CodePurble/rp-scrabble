@@ -208,4 +208,8 @@ vector<Tile*> Bag::draw(int count)
 	return drawn;
 }
 
+bool Bag::isEmpty()
+{
+	return(bag.empty());
+}
 

@@ -51,7 +51,7 @@ void testRack()
 
 void testSquare()
 {
-	enum_sqType type = DWS;
+	enum_sqType type = N;
 	Square s(type, 4, 5);
 	s.show();
 }
@@ -61,6 +61,7 @@ void testBoard()
 	Bag bag;
 	Board b;
 	b.show();
+	cout << "\n\n\n\n\n\n";
 	b.placeTile(bag.draw(1).back(), 7, 7);
 	b.show();
 }

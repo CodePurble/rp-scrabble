@@ -19,6 +19,8 @@ Board::Board()
 
 	enum_sqType strip[7] = {TWS, N, N, DLS, N, N, N};
 
+	sqStrings = {"   ", "DWS", "TWS", "DLS", "TLS"};
+
 	// Top Left quarter
 	for(int i = 0; i < NUM_ROWS/2; i++){
 		for(int j = 0; j < NUM_COLS/2; j++){
@@ -95,26 +97,54 @@ Board::~Board()
 
 void Board::show()
 {
-	char toPrint;
+	string toPrint;
 	Square* currSquare;
-	Tile* currTile;
 
 	for(int k = 0; k < NUM_COLS; k++)
-		cout << "+---";
-	cout << "+" << endl;
+		BOLD_BROWN("+-----");
+
+	BOLD_BROWN("+");
+	cout << endl;
 
 	for(int i = 0; i < NUM_ROWS; i++){
-		cout << "| ";
+		BOLD_BROWN("| ");
 		for(int j = 0; j < NUM_COLS; j++){
+			toPrint = "   ";
 			currSquare = board[i][j];
-			currTile = currSquare->getTile();
-			toPrint = currSquare->isEmpty() ? ' ' : currTile->getLetter();
-			cout << toPrint << " | ";
+			if(currSquare->isEmpty()){
+				toPrint = sqStrings[currSquare->getType()];
+				switch(currSquare->getType()){
+					case 0:
+						cout << toPrint;
+					break;
+					case 1:
+						BOLD_PINK(toPrint);
+					break;
+					case 2:
+						BOLD_ORANGE(toPrint);
+					break;
+					case 3:
+						BOLD_CYAN(toPrint);
+					break;
+					case 4:
+						BOLD_BLUE(toPrint);
+					break;
+				}
+			}
+			else{
+				toPrint = " ";
+				toPrint += currSquare->getTile()->getLetter();
+				toPrint += " ";
+				BOLD_WHITE(toPrint);
+			}
+			BOLD_BROWN(" | ");
 		}
 		cout << endl;
 		for(int k = 0; k < NUM_COLS; k++)
-			cout << "+---";
-		cout << "+" << endl;
+			BOLD_BROWN("+-----");
+
+		BOLD_BROWN("+");
+		cout << endl;
 	}
 }
 

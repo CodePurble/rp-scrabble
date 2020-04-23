@@ -1,6 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "rack.h"
+#include <string>
+
+class Rack;
+class Bag;
+class Tile;
 
 class Player {
 	private:
@@ -12,7 +16,12 @@ class Player {
 		Player(std::string n);
 		~Player();
 
+		std::string getName();
+		void setName(std::string);
+		void updateScore(int points);
+
 		void placeTile(Tile* t, int r, int c);
+		void draw(int count, Bag* b);
 		void show();
 };
 

@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <vector>
+
 class Board;
 class Bag;
 class Player;
@@ -14,7 +15,9 @@ class Game {
 	public:
 		Game();
 		~Game();
+
 		void addPlayer(Player* p);
+		void run();
 
 };
 
