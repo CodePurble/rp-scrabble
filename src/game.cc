@@ -40,5 +40,10 @@ void Game::addPlayer(Player* p)
 
 void Game::run()
 {
-
+	// while(!gameBag->bag.isEmpty()){
+	//     gameBoard->show()
+	//     for(Player* p : players){
+    //
+	//     }
+	// }
 }
