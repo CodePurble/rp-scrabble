@@ -3,6 +3,7 @@
 #include "bag.h"
 #include "tile.h"
 #include "rack.h"
+#include "board.h"
 #include "utils.h"
 
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 Player::Player(string n)
 {
 	score = 0;
+	turn = false;
 	playerName = n;
 	rack = new Rack();
 }
@@ -21,7 +23,13 @@ Player::~Player()
 
 void Player::show()
 {
-	cout << playerName << " Score:" << score << endl;
+	if(turn)
+		BOLD_BRIGHT_GREEN(playerName + ": " + to_string(score) + " points\n");
+	else
+		BOLD(playerName + ": " + to_string(score) + " points\n");
+
+	rack->show();
+	cout << "\n";
 }
 
 string Player::getName()
@@ -42,4 +50,14 @@ void Player::updateScore(int points)
 void Player::draw(int count, Bag* b)
 {
 	rack->fill(b->draw(count));
+}
+
+bool placeTile(Tile* t, Board* b, int r, int c)
+{
+	return(b->placeTile(t, r, c));
+}
+
+void Player::toggleTurn()
+{
+	turn = !turn;
 }

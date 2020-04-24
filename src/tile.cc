@@ -3,6 +3,8 @@
 #include "bag.h"
 #include "rack.h"
 
+using namespace std;
+
 Tile::Tile(char l, int p, enum_location p_loc)
 {
 	letter = l;
@@ -46,7 +48,7 @@ int Tile::getLoc()
 
 void Tile::show()
 {
-	std::cout << letter << "-" << points << std::endl;
+	cout << letter << "-" << points << "\n";
 }
 
 void Tile::setBag(Bag* b)
@@ -75,4 +77,9 @@ void Tile::setLoc(int loc)
 		default:
 			return;
 	}
+}
+
+string Tile::getLetterStr()
+{
+	return string(1, letter);
 }

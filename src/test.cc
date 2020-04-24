@@ -4,6 +4,7 @@
 #include "bag.h"
 #include "square.h"
 #include "board.h"
+#include "game.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ void testBag();
 void testRack();
 void testSquare();
 void testBoard();
+void testGame();
 
 int main()
 {
@@ -31,7 +33,7 @@ void testBag()
 	Bag b;
 	b.show();
 	vector<Tile*> t = b.draw(200);
-	std::cout << std::endl;
+	cout << "\n";
 	b.show();
 }
 
@@ -64,4 +66,10 @@ void testBoard()
 	cout << "\n\n\n\n\n\n";
 	b.placeTile(bag.draw(1).back(), 7, 7);
 	b.show();
+}
+
+void testGame()
+{
+	Game g;
+	g.run();
 }

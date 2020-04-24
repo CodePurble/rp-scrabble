@@ -176,7 +176,7 @@ void Bag::show()
 {
 	for(Tile* i : bag)
 		cout << i->getLetter();
-	cout << endl;
+	cout << "\n";
 }
 
 void Bag::shuffle()

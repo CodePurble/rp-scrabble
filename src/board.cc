@@ -100,13 +100,26 @@ void Board::show()
 	string toPrint;
 	Square* currSquare;
 
+	BOLD_WHITE("       0   ");
+	for(int k = 1; k < NUM_COLS; k++)
+		if(k < 10)
+			BOLD_WHITE("  " + to_string(k) + "   ");
+		else
+			BOLD_WHITE(" " + to_string(k) + "   ");
+	cout << "\n";
+
+	cout << "    ";
 	for(int k = 0; k < NUM_COLS; k++)
 		BOLD_BROWN("+-----");
 
 	BOLD_BROWN("+");
-	cout << endl;
+	cout << "\n";
 
 	for(int i = 0; i < NUM_ROWS; i++){
+		if(i < 10)
+			BOLD_WHITE(" " + to_string(i) + "  ");
+		else
+			BOLD_WHITE(" " + to_string(i) + " ");
 		BOLD_BROWN("| ");
 		for(int j = 0; j < NUM_COLS; j++){
 			toPrint = "   ";
@@ -136,19 +149,18 @@ void Board::show()
 				}
 			}
 			else{
-				toPrint = " ";
-				toPrint += currSquare->getTile()->getLetter();
-				toPrint += " ";
+				toPrint = " " + currSquare->getTile()->getLetterStr() + " ";
 				BOLD_WHITE(toPrint);
 			}
 			BOLD_BROWN(" | ");
 		}
-		cout << endl;
+		cout << "\n";
+		cout << "    ";
 		for(int k = 0; k < NUM_COLS; k++)
 			BOLD_BROWN("+-----");
 
 		BOLD_BROWN("+");
-		cout << endl;
+		cout << "\n";
 	}
 }
 

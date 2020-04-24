@@ -1,5 +1,6 @@
 #ifndef TILE_H
 #define TILE_H
+#include <string>
 
 class Bag;
 class Rack;
@@ -21,6 +22,7 @@ class Tile {
 		~Tile(){}
 
 		char getLetter();
+		std::string getLetterStr();
 		int getPoints();
 		int getLoc();
 

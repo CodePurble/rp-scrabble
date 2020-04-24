@@ -5,10 +5,12 @@
 class Rack;
 class Bag;
 class Tile;
+class Board;
 
 class Player {
 	private:
 		int score;
+		bool turn;
 		std::string playerName;
 		Rack* rack;
 
@@ -18,9 +20,10 @@ class Player {
 
 		std::string getName();
 		void setName(std::string);
+		void toggleTurn();
 		void updateScore(int points);
 
-		void placeTile(Tile* t, int r, int c);
+		bool placeTile(Tile* t, Board* b, int r, int c);
 		void draw(int count, Bag* b);
 		void show();
 };

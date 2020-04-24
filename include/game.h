@@ -11,6 +11,7 @@ class Game {
 		Board* gameBoard;
 		Bag* gameBag;
 		std::vector<Player*> players;
+		void init();
 
 	public:
 		Game();

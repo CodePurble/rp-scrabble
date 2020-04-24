@@ -13,6 +13,8 @@ class Rack {
 		Rack();
 		~Rack(){};
 
+		Tile* getTile(char c);
+
 		void fill(std::vector<Tile*> t);
 		void show();
 };
