@@ -22,6 +22,7 @@ class Player {
 		void setName(std::string);
 		void toggleTurn();
 		void updateScore(int points);
+		Tile* tileFromRack(int index);
 
 		bool placeTile(Tile* t, Board* b, int r, int c);
 		void draw(int count, Bag* b);

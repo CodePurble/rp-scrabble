@@ -55,16 +55,15 @@ void Game::init()
 	cout << " Would you like to add more players? (y/n)? ";
 	cin >> response;
 	if(response == 'y'){
-		cout << " How many more (max 2)?\n";
+		cout << " How many more (max 2)? ";
 		cin >> i;
 		for(j = 0; j < i; j++){
-			cout << " Name of Player " + to_string(j + i + 1) + ": ";
+			cout << " Name of Player " + to_string(j + i + 2) + ": ";
 			cin >> tempName;
 			addPlayer(new Player(tempName));
 		}
 	}
 	cout << "\n";
-
 }
 
 void Game::run()
@@ -75,13 +74,43 @@ void Game::run()
 		p->draw(7, gameBag);
 	}
 
+	// Main game loop
 	while(!gameBag->isEmpty()){
 		for(Player* currPlayer : players){
-			currPlayer->show();
-			gameBoard->show();
+			int tileIndex, row, col, tileCount;
+			bool endTurn = false;
 
+			currPlayer->toggleTurn(); // Turn begins
+			gameBoard->show();
+			currPlayer->show();
+			for(Player* others : players){
+				if(others != currPlayer)
+					others->show();
+			}
+
+			tileCount = 0;
+			while(!endTurn){
+				cout << " " + currPlayer->getName() + ", choose a tile to place" << endl;
+				cout << "(select tile by entering its corresponding number or press '99' to end your turn) ";
+				cin >> tileIndex;
+				if(tileIndex != 99){
+					cout << " Where to place it? ";
+					cin >> row >> col;
+					if(!currPlayer->placeTile(currPlayer->tileFromRack(tileIndex), gameBoard, row, col))
+						// TODO Put tile back in rack if cannot place (don't set tile to null until
+						// successfully placed
+						BOLD_RED(" Can't place a tile there!!\n");
+					else{
+						gameBoard->show();
+						currPlayer->show();
+						tileCount++;
+					}
+				}
+				else
+					endTurn = !endTurn;
+			}
+			currPlayer->draw(tileCount, gameBag);
+			currPlayer->toggleTurn(); // Turn ends
 		}
 	}
-
-
 }

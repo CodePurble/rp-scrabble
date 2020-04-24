@@ -27,12 +27,21 @@ void Rack::show()
 {
 	int rackSize = rack.size();
 
+	for(int i = 0; i < rackSize; i++){
+		if(i == 0)
+			BOLD_WHITE("   " + to_string(i) + "  ");
+		else
+			BOLD_WHITE(" " + to_string(i) + "  ");
+	}
+	cout << "\n";
+
+	cout << " ";
 	for(int i = 0; i < rackSize; i++)
 		BOLD_BROWN("+---");
 
 	BOLD_BROWN("+");
 	cout << "\n";
-	BOLD_BROWN("| ");
+	BOLD_BROWN(" | ");
 
 	for(Tile* t : rack){
 		if(t){
@@ -43,7 +52,7 @@ void Rack::show()
 			BOLD_BROWN("  | ");
 		}
 	}
-	cout << "\n";
+	cout << "\n" << " ";
 	for(int i = 0; i < rackSize; i++)
 		BOLD_BROWN("+---");
 
@@ -51,13 +60,12 @@ void Rack::show()
 	cout << "\n";
 }
 
-Tile* Rack::getTile(char c)
+Tile* Rack::getTile(int index)
 {
-	for(Tile* t : rack){
-		if(t){
-			if(t->getLetter() == c)
-				return t;
-		}
+	Tile* t = nullptr;
+	if(index > -1 && index < 7){
+		t = rack[index];
+		rack[index] = nullptr;
 	}
-	return nullptr;
+	return(t);
 }

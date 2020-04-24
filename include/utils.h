@@ -25,5 +25,6 @@ inline void BOLD_PINK(std::string x) { std::cout << "\033[1;38;2;203;6;104m" + x
 inline void BOLD_ORANGE(std::string x) { std::cout << "\033[1;38;2;248;28;28m" + x + "\033[0m"; }
 inline void BOLD_BROWN(std::string x) { std::cout << "\033[1;38;2;149;0;19m" + x + "\033[0m"; }
 inline void BOLD_WHITE(std::string x) { std::cout << "\033[1;38;2;255;255;255m" + x + "\033[0m"; }
+inline void BOLD_RED(std::string x) { std::cout << "\033[1;38;2;255;0;0m" + x + "\033[0m"; }
 
 #endif

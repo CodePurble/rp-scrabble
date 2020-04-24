@@ -162,6 +162,7 @@ void Board::show()
 		BOLD_BROWN("+");
 		cout << "\n";
 	}
+	cout << "\n";
 }
 
 bool Board::placeTile(Tile* t, int r, int c)

@@ -24,9 +24,9 @@ Player::~Player()
 void Player::show()
 {
 	if(turn)
-		BOLD_BRIGHT_GREEN(playerName + ": " + to_string(score) + " points\n");
+		BOLD_BRIGHT_GREEN(" " + playerName + ": " + to_string(score) + " points\n");
 	else
-		BOLD(playerName + ": " + to_string(score) + " points\n");
+		BOLD(" " + playerName + ": " + to_string(score) + " points\n");
 
 	rack->show();
 	cout << "\n";
@@ -52,7 +52,7 @@ void Player::draw(int count, Bag* b)
 	rack->fill(b->draw(count));
 }
 
-bool placeTile(Tile* t, Board* b, int r, int c)
+bool Player::placeTile(Tile* t, Board* b, int r, int c)
 {
 	return(b->placeTile(t, r, c));
 }
@@ -60,4 +60,9 @@ bool placeTile(Tile* t, Board* b, int r, int c)
 void Player::toggleTurn()
 {
 	turn = !turn;
+}
+
+Tile* Player::tileFromRack(int index)
+{
+	return(rack->getTile(index));
 }

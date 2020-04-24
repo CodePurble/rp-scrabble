@@ -17,7 +17,7 @@ void testGame();
 
 int main()
 {
-	testBoard();
+	testGame();
 	return 0;
 }
 
