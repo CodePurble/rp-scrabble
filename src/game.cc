@@ -68,6 +68,11 @@ void Game::init()
 
 void Game::run()
 {
+	int row, col;
+	bool endTurn;
+	string tileStr;
+	char dir;
+
 	init();
 
 	for(Player* p : players){
@@ -77,8 +82,9 @@ void Game::run()
 	// Main game loop
 	while(!gameBag->isEmpty()){
 		for(Player* currPlayer : players){
-			int tileIndex, row, col, tileCount;
-			bool endTurn = false;
+			row = col = 0;
+			endTurn = false;
+			tileStr = "";
 
 			currPlayer->toggleTurn(); // Turn begins
 			gameBoard->show();
@@ -88,29 +94,26 @@ void Game::run()
 					others->show();
 			}
 
-			tileCount = 0;
 			while(!endTurn){
-				cout << " " + currPlayer->getName() + ", choose a tile to place" << endl;
-				cout << "(select tile by entering its corresponding number or press '99' to end your turn) ";
-				cin >> tileIndex;
-				if(tileIndex != 99){
-					cout << " Where to place it? ";
+				try{
+					cout << " " + currPlayer->getName() + ", enter the word you want to place" << endl << " ";
+					cin >> tileStr;
+
+					cout << " Where does the first tile go? ";
 					cin >> row >> col;
-					if(!currPlayer->placeTile(currPlayer->tileFromRack(tileIndex), gameBoard, row, col))
-						// TODO Put tile back in rack if cannot place (don't set tile to null until
-						// successfully placed
-						BOLD_RED(" Can't place a tile there!!\n");
-					else{
-						gameBoard->show();
-						currPlayer->show();
-						tileCount++;
-					}
+
+					cout << " Horizontal or vertical? ";
+					cin >> dir;
+
+					currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+					currPlayer->draw(tileStr.length(), gameBag);
+					currPlayer->toggleTurn();
+					endTurn = !endTurn; // Turn ends
 				}
-				else
-					endTurn = !endTurn;
+				catch(string ex){
+					BOLD_RED("Error: " + ex);
+				}
 			}
-			currPlayer->draw(tileCount, gameBag);
-			currPlayer->toggleTurn(); // Turn ends
 		}
 	}
 }

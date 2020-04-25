@@ -1,4 +1,5 @@
 #include <iostream>
+#include "player.h"
 #include "board.h"
 #include "tile.h"
 
@@ -175,4 +176,22 @@ bool Board::placeTile(Tile* t, int r, int c)
 	}
 	else
 		return false;
+}
+
+bool Board::placeTileStr(vector<Tile*> tilesInStr, int r, int c, char dir)
+{
+	int rInc = 0;
+	int cInc = 0;
+	for(Tile* t : tilesInStr){
+		if(placeTile(t, r + rInc, c + cInc)){
+			if(dir == 'h')
+				cInc++;
+			else if(dir == 'v')
+				rInc++;
+		}
+		else{
+			return false;
+		}
+	}
+	return true;
 }

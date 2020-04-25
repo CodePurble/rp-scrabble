@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <iostream>
+#include <algorithm>
 
 #define DEBUG(x, y) std::cout << x << ":" << y << std::endl
 #define NUM_ROWS 15
@@ -26,5 +27,15 @@ inline void BOLD_ORANGE(std::string x) { std::cout << "\033[1;38;2;248;28;28m" +
 inline void BOLD_BROWN(std::string x) { std::cout << "\033[1;38;2;149;0;19m" + x + "\033[0m"; }
 inline void BOLD_WHITE(std::string x) { std::cout << "\033[1;38;2;255;255;255m" + x + "\033[0m"; }
 inline void BOLD_RED(std::string x) { std::cout << "\033[1;38;2;255;0;0m" + x + "\033[0m"; }
+
+
+bool findInStr(std::string str, char target)
+{
+	auto it = std::find(str.begin(), str.end(), target);
+	if(it != str.end())
+		return true;
+	else
+		return false;
+}
 
 #endif

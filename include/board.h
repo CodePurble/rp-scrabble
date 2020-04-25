@@ -3,8 +3,10 @@
 #include "square.h"
 #include "utils.h"
 #include <array>
+#include <vector>
 
 class Tile;
+class Player;
 
 class Board {
 	private:
@@ -16,6 +18,7 @@ class Board {
 		~Board();
 		void show();
 		bool placeTile(Tile* t, int r, int c);
+		bool placeTileStr(std::vector<Tile*> tilesInStr, int r, int c, char dir);
 };
 
 #endif

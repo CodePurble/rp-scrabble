@@ -60,12 +60,51 @@ void Rack::show()
 	cout << "\n";
 }
 
-Tile* Rack::getTile(int index)
+Tile* Rack::getTile(char ch)
 {
-	Tile* t = nullptr;
-	if(index > -1 && index < 7){
-		t = rack[index];
-		rack[index] = nullptr;
+	for(Tile* t : rack){
+		if(t){
+			if(t->getLetter() == ch)
+				return t;
+		}
 	}
-	return(t);
+	return nullptr;
+}
+
+vector<Tile*> Rack::getTileStrVec(string tileStr)
+{
+	vector<Tile*> tileStrVec;
+	Tile* temp;
+	bool found = false;
+	string visited = "";
+
+	for(char ch : tileStr){
+		for(Tile* t : rack){
+			if(ch == t->getLetter()){
+				found = true;
+				temp = t;
+				break;
+			}
+		}
+		if(!found)
+			throw string(string(1, ch) + " not found\n");
+		else
+			tileStrVec.push_back(temp);
+	}
+
+	// Remove placed tiles from rack
+	for(Tile* t : tileStrVec){
+		for(auto& rackTile : rack){
+			if(rackTile){
+				if(t->getLetter() == rackTile->getLetter()
+					&&
+					!findInStr(visited, rackTile->getLetter())){
+
+					visited += t->getLetterStr();
+					rackTile = nullptr;
+				}
+			}
+		}
+	}
+	return tileStrVec;
 }
