@@ -39,16 +39,26 @@ void testBag()
 
 void testRack()
 {
-	Bag b;
+	enum_location l1 = RACK;
+	vector<Tile*> t;
+
+	for(int i = 0; i < 7; i++)
+		t.push_back(new Tile('A', 1, l1));
+
 	Rack r;
-	b.show();
+	r.fill(t);
 	r.show();
-	r.fill(b.draw(4));
-	b.show();
-	r.show();
-	r.fill(b.draw(1));
-	b.show();
-	r.show();
+	try{
+		t.clear();
+		t = r.getTileStrVec("AAA");
+		r.show();
+		for(Tile* x : t)
+			cout << x->getLetterStr();
+	}
+	catch(string e){
+		BOLD_RED(e);
+		cout << endl;
+	}
 }
 
 void testSquare()

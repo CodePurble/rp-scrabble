@@ -88,10 +88,8 @@ void Game::run()
 
 			currPlayer->toggleTurn(); // Turn begins
 			gameBoard->show();
-			currPlayer->show();
-			for(Player* others : players){
-				if(others != currPlayer)
-					others->show();
+			for(Player* p : players){
+					p->show();
 			}
 
 			while(!endTurn){

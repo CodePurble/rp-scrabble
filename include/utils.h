@@ -28,14 +28,6 @@ inline void BOLD_BROWN(std::string x) { std::cout << "\033[1;38;2;149;0;19m" + x
 inline void BOLD_WHITE(std::string x) { std::cout << "\033[1;38;2;255;255;255m" + x + "\033[0m"; }
 inline void BOLD_RED(std::string x) { std::cout << "\033[1;38;2;255;0;0m" + x + "\033[0m"; }
 
-
-bool findInStr(std::string str, char target)
-{
-	auto it = std::find(str.begin(), str.end(), target);
-	if(it != str.end())
-		return true;
-	else
-		return false;
-}
+inline bool findInStr(std::string str, char target) {auto it = std::find(str.begin(), str.end(), target); return(it == str.end() ?  false : true);}
 
 #endif

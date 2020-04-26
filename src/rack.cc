@@ -74,37 +74,21 @@ Tile* Rack::getTile(char ch)
 vector<Tile*> Rack::getTileStrVec(string tileStr)
 {
 	vector<Tile*> tileStrVec;
-	Tile* temp;
+	// Tile* temp;
 	bool found = false;
-	string visited = "";
+	// string visited = "";
 
 	for(char ch : tileStr){
-		for(Tile* t : rack){
-			if(ch == t->getLetter()){
+		for(auto& t: rack){
+			if(t && ch == t->getLetter()){
 				found = true;
-				temp = t;
+				tileStrVec.push_back(t);
+				t = nullptr; // "Remove" from rack
 				break;
 			}
 		}
 		if(!found)
 			throw string(string(1, ch) + " not found\n");
-		else
-			tileStrVec.push_back(temp);
-	}
-
-	// Remove placed tiles from rack
-	for(Tile* t : tileStrVec){
-		for(auto& rackTile : rack){
-			if(rackTile){
-				if(t->getLetter() == rackTile->getLetter()
-					&&
-					!findInStr(visited, rackTile->getLetter())){
-
-					visited += t->getLetterStr();
-					rackTile = nullptr;
-				}
-			}
-		}
 	}
 	return tileStrVec;
 }
