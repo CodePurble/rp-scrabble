@@ -50,7 +50,7 @@ void testRack()
 	r.show();
 	try{
 		t.clear();
-		t = r.getTileStrVec("AAA");
+		t = r.getTileStrVec("ABA");
 		r.show();
 		for(Tile* x : t)
 			cout << x->getLetterStr();

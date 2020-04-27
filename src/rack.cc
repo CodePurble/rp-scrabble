@@ -74,11 +74,10 @@ Tile* Rack::getTile(char ch)
 vector<Tile*> Rack::getTileStrVec(string tileStr)
 {
 	vector<Tile*> tileStrVec;
-	// Tile* temp;
-	bool found = false;
-	// string visited = "";
+	bool found;
 
 	for(char ch : tileStr){
+		found = false;
 		for(auto& t: rack){
 			if(t && ch == t->getLetter()){
 				found = true;
