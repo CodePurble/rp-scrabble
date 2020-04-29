@@ -25,7 +25,7 @@ class Player {
 		Tile* tileFromRack(int index);
 
 		bool placeTile(Tile* t, Board* b, int r, int c);
-		bool placeTileStr(std::string str, Board* b, int r, int c, char dir);
+		void placeTileStr(std::string str, Board* b, int r, int c, char dir);
 		void draw(int count, Bag* b);
 		void show();
 };

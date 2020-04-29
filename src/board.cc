@@ -101,14 +101,6 @@ void Board::show()
 	string toPrint;
 	Square* currSquare;
 
-	BOLD_WHITE("       0   ");
-	for(int k = 1; k < NUM_COLS; k++)
-		if(k < 10)
-			BOLD_WHITE("  " + to_string(k) + "   ");
-		else
-			BOLD_WHITE(" " + to_string(k) + "   ");
-	cout << "\n";
-
 	cout << "    ";
 	for(int k = 0; k < NUM_COLS; k++)
 		BOLD_BROWN("+-----");
@@ -163,35 +155,47 @@ void Board::show()
 		BOLD_BROWN("+");
 		cout << "\n";
 	}
-	cout << "\n";
+
+	BOLD_WHITE("       0   ");
+	for(int k = 1; k < NUM_COLS; k++)
+		if(k < 10)
+			BOLD_WHITE("  " + to_string(k) + "   ");
+		else
+			BOLD_WHITE(" " + to_string(k) + "   ");
+	cout << "\n\n";
 }
 
 bool Board::placeTile(Tile* t, int r, int c)
 {
-	Square* curr = board[r][c];
-	if(curr->isEmpty()){
-		curr->setTile(t);
-		t->setLoc(2);
-		return true;
+	if(r < 0 || r > NUM_ROWS - 1){
+		throw string("Invalid row number\n");
 	}
-	else
-		return false;
+	else if (c < 0 || c > NUM_COLS - 1){
+		throw string("Invalid column number\n");
+	}
+	else{
+		Square* curr = board[r][c];
+		if(curr->isEmpty()){
+			curr->setTile(t);
+			t->setLoc(2);
+			return true;
+		}
+		else
+			return false;
+	}
 }
 
-bool Board::placeTileStr(vector<Tile*> tilesInStr, int r, int c, char dir)
+void Board::placeTileStr(vector<Tile*> tilesInStr, int r, int c, char dir)
 {
-	int rInc = 0;
-	int cInc = 0;
-	for(Tile* t : tilesInStr){
-		if(placeTile(t, r + rInc, c + cInc)){
-			if(dir == 'h')
-				cInc++;
-			else if(dir == 'v')
-				rInc++;
+	auto it = tilesInStr.begin();
+	while(it != tilesInStr.end()){
+		if(dir == 'h'){
+			if(placeTile(*it, r, c++))
+				it++;
 		}
-		else{
-			return false;
+		else if(dir == 'v'){
+			if(placeTile(*it, r++, c))
+				it++;
 		}
 	}
-	return true;
 }

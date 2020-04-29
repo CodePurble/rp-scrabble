@@ -18,7 +18,7 @@ class Board {
 		~Board();
 		void show();
 		bool placeTile(Tile* t, int r, int c);
-		bool placeTileStr(std::vector<Tile*> tilesInStr, int r, int c, char dir);
+		void placeTileStr(std::vector<Tile*> tilesInStr, int r, int c, char dir);
 };
 
 #endif

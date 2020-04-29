@@ -73,9 +73,6 @@ void testBoard()
 	Bag bag;
 	Board b;
 	b.show();
-	cout << "\n\n\n\n\n\n";
-	b.placeTile(bag.draw(1).back(), 7, 7);
-	b.show();
 }
 
 void testGame()

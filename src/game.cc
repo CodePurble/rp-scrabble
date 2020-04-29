@@ -88,6 +88,9 @@ void Game::run()
 
 			currPlayer->toggleTurn(); // Turn begins
 			gameBoard->show();
+			BOLD(" Bag: ");
+			gameBag->show();
+			cout << "\n";
 			for(Player* p : players){
 					p->show();
 			}
@@ -109,7 +112,7 @@ void Game::run()
 					endTurn = !endTurn; // Turn ends
 				}
 				catch(string ex){
-					BOLD_RED("Error: " + ex);
+					BOLD_RED(" Error: " + ex);
 				}
 			}
 		}
