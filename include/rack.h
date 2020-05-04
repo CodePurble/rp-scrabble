@@ -17,6 +17,7 @@ class Rack {
 		std::vector<Tile*> getTileStrVec(std::string tileStr);
 
 		void fill(std::vector<Tile*> t);
+		void addTile(Tile* t);
 		void show();
 };
 

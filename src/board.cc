@@ -2,6 +2,7 @@
 #include "player.h"
 #include "board.h"
 #include "tile.h"
+#include "rack.h"
 
 using namespace std;
 
@@ -81,9 +82,9 @@ Board::Board()
 			if(j + 1 < NUM_COLS)
 				currSquare->setRight(board[i][j + 1]);
 			if(i - 1 > -1)
-				currSquare->setUp(board[i - 1][j]);
+				currSquare->setAbove(board[i - 1][j]);
 			if(i + 1 < NUM_ROWS)
-				currSquare->setDown(board[i + 1][j]);
+				currSquare->setBelow(board[i + 1][j]);
 		}
 	}
 }
@@ -165,6 +166,19 @@ void Board::show()
 	cout << "\n\n";
 }
 
+void Board::showDebug()
+{
+	for(int i = 0; i < NUM_ROWS; i++){
+		for(int j = 0; j < NUM_COLS; j++){
+			cout << "(" << i << "," << j << ")" << "-";
+			board[i][j]->show();
+			cout << "   ";
+		}
+		cout << "\n";
+	}
+	cout << "\n";
+}
+
 bool Board::placeTile(Tile* t, int r, int c)
 {
 	if(r < 0 || r > NUM_ROWS - 1){
@@ -177,6 +191,7 @@ bool Board::placeTile(Tile* t, int r, int c)
 		Square* curr = board[r][c];
 		if(curr->isEmpty()){
 			curr->setTile(t);
+			t->setSquare(curr);
 			t->setLoc(2);
 			return true;
 		}
@@ -197,5 +212,24 @@ void Board::placeTileStr(vector<Tile*> tilesInStr, int r, int c, char dir)
 			if(placeTile(*it, r++, c))
 				it++;
 		}
+	}
+}
+
+void Board::retrieve(Rack* rack, int r, int c)
+{
+	if(!board[r][c]->isEmpty()){
+		rack->addTile(board[r][c]->getTile());
+		board[r][c]->setTile(nullptr);
+	}
+}
+
+Square* Board::getSquare(int r, int c)
+{
+	if(r > -1 && r < NUM_ROWS && c > -1 && c < NUM_COLS){
+		return board[r][c];
+	}
+	else{
+		cout << "in board getSquare else\n";
+		return nullptr;
 	}
 }

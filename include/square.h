@@ -13,8 +13,8 @@ class Square {
 		int col;
 		Square* left;
 		Square* right;
-		Square* up;
-		Square* down;
+		Square* above;
+		Square* below;
 
 
 	public:
@@ -26,17 +26,19 @@ class Square {
 		int getType();
 		Square* getLeft();
 		Square* getRight();
-		Square* getUp();
-		Square* getDown();
+		Square* getAbove();
+		Square* getBelow();
 		Tile* getTile();
 
 		void setLeft(Square* l);
 		void setRight(Square* r);
-		void setUp(Square* u);
-		void setDown(Square* d);
+		void setAbove(Square* u);
+		void setBelow(Square* d);
 		void setTile(Tile* t);
 
 		bool isEmpty();
+		bool checkNeighboursH();
+		bool checkNeighboursV();
 		void show();
 };
 

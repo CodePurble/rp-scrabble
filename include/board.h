@@ -7,6 +7,7 @@
 
 class Tile;
 class Player;
+class Rack;
 
 class Board {
 	private:
@@ -16,9 +17,14 @@ class Board {
 	public:
 		Board();
 		~Board();
+
+		Square* getSquare(int r, int c);
+
 		void show();
+		void showDebug();
 		bool placeTile(Tile* t, int r, int c);
 		void placeTileStr(std::vector<Tile*> tilesInStr, int r, int c, char dir);
+		void retrieve(Rack* rack, int r, int c);
 };
 
 #endif

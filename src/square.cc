@@ -1,6 +1,6 @@
+#include <iostream>
 #include "square.h"
 #include "tile.h"
-#include <iostream>
 
 using namespace std;
 
@@ -8,14 +8,14 @@ Square::Square(enum_sqType st, int r, int c)
 {
 	sqType = st;
 	tileInSquare = nullptr;
-	left = right = up = down = nullptr;
+	left = right = above = below = nullptr;
 	row = r;
 	col = c;
 }
 
 void Square::show()
 {
-	cout << sqType << " @ (" << row << "," << col << ")" << "\n";
+	cout << sqType << " @ (" << row << "," << col << ")";
 }
 
 Square* Square::getLeft()
@@ -28,14 +28,14 @@ Square* Square::getRight()
 	return right;
 }
 
-Square* Square::getUp()
+Square* Square::getAbove()
 {
-	return up;
+	return above;
 }
 
-Square* Square::getDown()
+Square* Square::getBelow()
 {
-	return down;
+	return below;
 }
 
 int Square::getRow()
@@ -81,12 +81,28 @@ void Square::setRight(Square* r)
 	right = r;
 }
 
-void Square::setUp(Square* u)
+void Square::setAbove(Square* u)
 {
-	up = u;
+	above = u;
 }
 
-void Square::setDown(Square* d)
+void Square::setBelow(Square* d)
 {
-	down = d;
+	below = d;
+}
+
+bool Square::checkNeighboursH()
+{
+	if(left || above || below)
+		return true;
+	else
+		return false;
+}
+
+bool Square::checkNeighboursV()
+{
+	if(left || above || right)
+		return true;
+	else
+		return false;
 }

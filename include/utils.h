@@ -2,6 +2,10 @@
 #define UTILS_H
 #include <iostream>
 #include <algorithm>
+#include <vector>
+
+class Tile;
+class Square;
 
 #define DEBUG(x, y) std::cout << x << ":" << y << std::endl
 #define NUM_ROWS 15
@@ -28,6 +32,22 @@ inline void BOLD_BROWN(std::string x) { std::cout << "\033[1;38;2;149;0;19m" + x
 inline void BOLD_WHITE(std::string x) { std::cout << "\033[1;38;2;255;255;255m" + x + "\033[0m"; }
 inline void BOLD_RED(std::string x) { std::cout << "\033[1;38;2;255;0;0m" + x + "\033[0m"; }
 
-inline bool findInStr(std::string str, char target) {auto it = std::find(str.begin(), str.end(), target); return(it == str.end() ?  false : true);}
+inline bool findInStr(std::string str, char target) { auto it = std::find(str.begin(), str.end(), target); return(it == str.end() ?  false : true); }
+
+inline bool findSquare(std::vector<Square*> s, Square* target)
+{
+	auto it = s.end();
+	if(target)
+		it = std::find(s.begin(), s.end(), target);
+	return(it == s.end() ? false : true);
+}
+
+inline bool findTile(std::vector<Tile*> t, Tile* target)
+{
+	auto it = t.end();
+	if(target)
+		it = std::find(t.begin(), t.end(), target);
+	return(it == t.end() ? false : true);
+}
 
 #endif

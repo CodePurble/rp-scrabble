@@ -162,6 +162,10 @@ Bag::Bag()
 		curTile = new Tile('?', 0, loc);
 		bag.push_back(curTile);
 	}
+
+	for(auto& t : bag){
+		t->setBag(this);
+	}
 }
 
 Bag::~Bag()

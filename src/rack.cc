@@ -17,9 +17,22 @@ void Rack::fill(vector<Tile*> t)
 		if(!rack[i]){
 			rack[i] = t.back();
 			rack[i]->setLoc(1);
+			rack[i]->setRack(this);
 			t.pop_back();
 		}
 		i++;
+	}
+}
+
+void Rack::addTile(Tile* t)
+{
+	for(int i = 0; i < rack.size(); i++){
+		if(!rack[i]){
+			rack[i] = t;
+			rack[i]->setLoc(1);
+			rack[i]->setRack(this);
+			break;
+		}
 	}
 }
 

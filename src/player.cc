@@ -72,6 +72,6 @@ void Player::placeTileStr(string str, Board* b, int r, int c, char dir)
 	for(char& c : str)
 		c = toupper(c);
 
-	vector<Tile*> tiles = rack->getTileStrVec(str);
-	b->placeTileStr(tiles, r, c, dir);
+	b->placeTileStr(rack->getTileStrVec(str), r, c, dir);
 }
+

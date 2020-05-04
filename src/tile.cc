@@ -1,6 +1,7 @@
 #include <iostream>
 #include "tile.h"
 #include "bag.h"
+#include "square.h"
 #include "rack.h"
 
 using namespace std;
@@ -10,6 +11,9 @@ Tile::Tile(char l, int p, enum_location p_loc)
 	letter = l;
 	points = p;
 	presentLoc = p_loc;
+	tBag = nullptr;
+	tRack = nullptr;
+	tSquare = nullptr;
 }
 
 Tile::Tile(Tile& source)
@@ -53,13 +57,13 @@ void Tile::show()
 
 void Tile::setBag(Bag* b)
 {
-	myBag = b;
+	tBag = b;
 	setLoc(0);
 }
 
 void Tile::setRack(Rack* r)
 {
-	myRack = r;
+	tRack = r;
 	setLoc(1);
 }
 
@@ -82,4 +86,24 @@ void Tile::setLoc(int loc)
 string Tile::getLetterStr()
 {
 	return string(1, letter);
+}
+
+Rack* Tile::getRack()
+{
+	return tRack;
+}
+
+Bag* Tile::getBag()
+{
+	return tBag;
+}
+
+Square* Tile::getSquare()
+{
+	return tSquare;
+}
+
+void Tile::setSquare(Square* s)
+{
+	tSquare = s;
 }
