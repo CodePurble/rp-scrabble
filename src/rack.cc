@@ -40,13 +40,13 @@ void Rack::show()
 {
 	int rackSize = rack.size();
 
-	for(int i = 0; i < rackSize; i++){
-		if(i == 0)
-			BOLD_WHITE("   " + to_string(i) + "  ");
-		else
-			BOLD_WHITE(" " + to_string(i) + "  ");
-	}
-	cout << "\n";
+	// for(int i = 0; i < rackSize; i++){
+	//     if(i == 0)
+	//         BOLD_WHITE("   " + to_string(i) + "  ");
+	//     else
+	//         BOLD_WHITE(" " + to_string(i) + "  ");
+	// }
+	// cout << "\n";
 
 	cout << " ";
 	for(int i = 0; i < rackSize; i++)
@@ -99,8 +99,10 @@ vector<Tile*> Rack::getTileStrVec(string tileStr)
 				break;
 			}
 		}
-		if(!found)
+		if(!found){
+			fill(tileStrVec);
 			throw string(string(1, ch) + " not found\n");
+		}
 	}
 	return tileStrVec;
 }

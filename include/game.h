@@ -5,12 +5,14 @@
 class Board;
 class Bag;
 class Player;
+class Play;
 
 class Game {
 	private:
 		Board* gameBoard;
 		Bag* gameBag;
 		std::vector<Player*> players;
+		std::vector<Play*> plays;
 		void init();
 
 	public:

@@ -6,6 +6,7 @@
 #include "board.h"
 #include "game.h"
 #include "play.h"
+#include "player.h"
 #include "utils.h"
 
 using namespace std;
@@ -20,7 +21,7 @@ void testPlay();
 
 int main()
 {
-	testPlay();
+	testGame();
 	return 0;
 }
 
@@ -75,11 +76,11 @@ void testBoard()
 {
 	Bag bag;
 	Board b;
-	int r = 6, c = 7;
-	b.placeTile(new Tile('a', 1, BAG), r, c);
-	c++;
-	b.placeTile(new Tile('b', 1, BAG), r, c);
-	b.getSquare(r, c)->show();
+	// int r = 6, c = 7;
+	// b.placeTile(new Tile('a', 1, BAG), r, c);
+	// c++;
+	// b.placeTile(new Tile('b', 1, BAG), r, c);
+	// b.getSquare(r, c)->show();
 	b.show();
 }
 
@@ -97,15 +98,12 @@ void testPlay()
 	for(int i = 0; i < 3; i++)
 		t1.push_back(new Tile('A', 1, l1));
 
-	for(int i = 0; i < 3; i++)
-		t2.push_back(new Tile('B', 1, l1));
-
 	Board* b = new Board();
-	Play p;
+	Play p(new Player("p1"));
 
 	cout << boolalpha;
 	b->placeTileStr(t1, 7, 7, 'h');
 	b->show();
 
-	cout << p.validate(t2, b, 4, 23, 'v');
+	cout << p.validate("bbb", b, 4, 23, 'v');
 }

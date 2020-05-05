@@ -10,12 +10,6 @@ using namespace std;
  * The Play class tracks all aspects of the placement of tiles by a player such as points earned,
  * words made, duration of play, tiles placed, etc
  */
-Play::Play()
-{
-	pointsEarned = 0;
-	playMaker = nullptr;
-}
-
 Play::Play(Player* p)
 {
 	pointsEarned = 0;
@@ -32,9 +26,9 @@ void Play::setPlayer(Player* p)
 	playMaker = p;
 }
 
-bool Play::validate(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
+bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 {
-	int max = tilesInStr.size();
+	int max = tileStr.length();
 	bool result = false;
 	Square* curr;
 

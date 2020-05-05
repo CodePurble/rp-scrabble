@@ -110,10 +110,7 @@ void Board::show()
 	cout << "\n";
 
 	for(int i = 0; i < NUM_ROWS; i++){
-		if(i < 10)
-			BOLD_WHITE(" " + to_string(i) + "  ");
-		else
-			BOLD_WHITE(" " + to_string(i) + " ");
+		cout << "    ";
 		BOLD_BROWN("| ");
 		for(int j = 0; j < NUM_COLS; j++){
 			toPrint = "   ";
@@ -148,6 +145,7 @@ void Board::show()
 			}
 			BOLD_BROWN(" | ");
 		}
+		BOLD_WHITE(to_string(i));
 		cout << "\n";
 		cout << "    ";
 		for(int k = 0; k < NUM_COLS; k++)

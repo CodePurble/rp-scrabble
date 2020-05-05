@@ -23,12 +23,11 @@ class Play {
 		Player* playMaker;
 
 	public:
-		Play();
 		Play(Player* p);
 		~Play();
 
 		void setPlayer(Player* p);
-		bool validate(std::vector<Tile*> tilesInStr, Board* b, int r, int c, char dir);
+		bool validate(std::string tileStr, Board* b, int r, int c, char dir);
 };
 
 #endif

@@ -1,8 +1,10 @@
+#include <iostream>
 #include "game.h"
 #include "bag.h"
 #include "board.h"
 #include "player.h"
 #include "utils.h"
+#include "play.h"
 
 using namespace std;
 
@@ -11,10 +13,8 @@ Game::Game()
 	gameBoard = new Board;
 	gameBag = new Bag;
 
-	// 2 player game by default
-	for(int i = 0; i < 2; i++){
-		addPlayer(new Player(to_string(i)));
-	}
+	// Solitaire game by default
+	addPlayer(new Player(to_string(1)));
 }
 
 Game::~Game()
@@ -46,16 +46,16 @@ void Game::init()
 	BOLD(" Welcome to Scrabble!");
 	cout << "\n";
 
-	for(i = 0; i < 2; i++){
-		cout << " Name of Player " + to_string(i+1) + ": ";
+	for(Player* p : players){
+		cout << " Name of Player " + p->getName() + ": ";
 		cin >> tempName;
-		players[i]->setName(tempName);
+		p->setName(tempName);
 	}
 
 	cout << " Would you like to add more players? (y/n)? ";
 	cin >> response;
 	if(response == 'y'){
-		cout << " How many more (max 2)? ";
+		cout << " How many more (max 3 more)? ";
 		cin >> i;
 		for(j = 0; j < i; j++){
 			cout << " Name of Player " + to_string(j + i + 2) + ": ";
@@ -70,8 +70,9 @@ void Game::run()
 {
 	int row, col;
 	bool endTurn;
-	string tileStr;
+	string tileStr, in;
 	char dir;
+	vector<string> parsed;
 
 	init();
 
@@ -82,7 +83,9 @@ void Game::run()
 	// Main game loop
 	while(!gameBag->isEmpty()){
 		for(Player* currPlayer : players){
-			row = col = 0;
+			plays.push_back(new Play(currPlayer));
+			Play* currPlay = plays.back();
+			row = col = 7;
 			endTurn = false;
 			tileStr = "";
 
@@ -97,19 +100,49 @@ void Game::run()
 
 			while(!endTurn){
 				try{
-					cout << " " + currPlayer->getName() + ", enter the word you want to place" << endl << " ";
-					cin >> tileStr;
+					if(plays.size() == 1){
+						BOLD(" " + currPlayer->getName());
+						cout << ", enter the word you want to place" << endl << " ";
+						cin >> tileStr;
 
-					cout << " Where does the first tile go? ";
-					cin >> row >> col;
+						cout << " This is the first turn, so the first tile of your word goes in the middle\n";
 
-					cout << " Horizontal or vertical? ";
-					cin >> dir;
+						cout << " Horizontal or vertical? ";
+						cin >> dir;
 
-					currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
-					currPlayer->draw(tileStr.length(), gameBag);
-					currPlayer->toggleTurn();
-					endTurn = !endTurn; // Turn ends
+						currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+						currPlayer->draw(tileStr.length(), gameBag);
+						currPlayer->toggleTurn();
+						endTurn = !endTurn; // Turn ends
+					}
+					else{
+						BOLD(" " + currPlayer->getName());
+						cout << " Enter your play (e.g. bag-5-5-h) ";
+						cin >> in;
+						parsed = parsePlay(in);
+						tileStr = parsed[0];
+						row = stoi(parsed[1]);
+						col = stoi(parsed[2]);
+						dir = parsed[3][0];
+						// cout << ", enter the word you want to place" << endl << " ";
+						// cin >> tileStr;
+                        //
+						// cout << " Where does the first tile go? ";
+						// cin >> row >> col;
+                        //
+						// cout << " Horizontal or vertical? ";
+						// cin >> dir;
+
+						if(currPlay->validate(tileStr, gameBoard, row, col, dir)){
+							currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+							currPlayer->draw(tileStr.length(), gameBag);
+							currPlayer->toggleTurn();
+							endTurn = !endTurn; // Turn ends
+						}
+						else{
+							BOLD_RED(" You can't place a word there!\n");
+						}
+					}
 				}
 				catch(string ex){
 					BOLD_RED(" Error: " + ex);
