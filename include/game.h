@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <vector>
+#include <string>
 
 class Board;
 class Bag;
@@ -14,6 +15,7 @@ class Game {
 		std::vector<Player*> players;
 		std::vector<Play*> plays;
 		void init();
+		bool firstTurnCheck(std::string str, int r, int c, char dir);
 
 	public:
 		Game();

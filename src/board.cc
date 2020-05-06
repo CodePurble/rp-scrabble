@@ -102,7 +102,8 @@ void Board::show()
 	string toPrint;
 	Square* currSquare;
 
-	cout << "    ";
+
+	cout << "                                   "; // 35 spaces
 	for(int k = 0; k < NUM_COLS; k++)
 		BOLD_BROWN("+-----");
 
@@ -110,7 +111,11 @@ void Board::show()
 	cout << "\n";
 
 	for(int i = 0; i < NUM_ROWS; i++){
-		cout << "    ";
+		if(i < 10)
+			BOLD_WHITE("                                 " + to_string(i) + " ");
+		else
+			BOLD_WHITE("                                " + to_string(i) + " ");
+
 		BOLD_BROWN("| ");
 		for(int j = 0; j < NUM_COLS; j++){
 			toPrint = "   ";
@@ -145,9 +150,8 @@ void Board::show()
 			}
 			BOLD_BROWN(" | ");
 		}
-		BOLD_WHITE(to_string(i));
 		cout << "\n";
-		cout << "    ";
+		cout << "                                   ";
 		for(int k = 0; k < NUM_COLS; k++)
 			BOLD_BROWN("+-----");
 
@@ -155,7 +159,7 @@ void Board::show()
 		cout << "\n";
 	}
 
-	BOLD_WHITE("       0   ");
+	BOLD_WHITE("                                      0   ");
 	for(int k = 1; k < NUM_COLS; k++)
 		if(k < 10)
 			BOLD_WHITE("  " + to_string(k) + "   ");
@@ -227,7 +231,6 @@ Square* Board::getSquare(int r, int c)
 		return board[r][c];
 	}
 	else{
-		cout << "in board getSquare else\n";
 		return nullptr;
 	}
 }

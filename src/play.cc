@@ -54,7 +54,7 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 					currCol++;
 			}
 			else
-				throw(string("Invalid square co-ordinates"));
+				throw(string("Invalid square co-ordinates\n"));
 		}
 	}
 	else if(dir == 'v'){

@@ -157,11 +157,13 @@ Bag::Bag()
 	curTile = new Tile('Z', 10, loc);
 	bag.push_back(curTile);
 
-	/* Add ?'s */
-	for(int i = 0; i < 2; i++){
-		curTile = new Tile('?', 0, loc);
-		bag.push_back(curTile);
-	}
+	/*
+	 * [> Add blanks <]
+	 * for(int i = 0; i < 2; i++){
+	 *     curTile = new Tile('#', 0, loc);
+	 *     bag.push_back(curTile);
+	 * }
+	 */
 
 	for(auto& t : bag){
 		t->setBag(this);
@@ -181,6 +183,8 @@ void Bag::show()
 	for(Tile* i : bag)
 		cout << i->getLetter();
 	cout << "\n";
+	BOLD(" " + to_string(bag.size()));
+	cout << " tiles remaining\n";
 }
 
 void Bag::shuffle()

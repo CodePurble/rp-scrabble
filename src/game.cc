@@ -66,6 +66,24 @@ void Game::init()
 	cout << "\n";
 }
 
+bool Game::firstTurnCheck(string tileStr, int row, int col, char dir)
+{
+	if(dir == 'h'){
+		for(int j = col; j < col + tileStr.length(); j++){
+			if(j == 7 && row == 7)
+				return true;
+		}
+	}
+	else if(dir == 'v'){
+		for(int i = row; i < row + tileStr.length(); i++){
+			if(i == 7 && col == 7)
+				return true;
+		}
+	}
+
+	return false;
+}
+
 void Game::run()
 {
 	int row, col;
@@ -100,47 +118,45 @@ void Game::run()
 
 			while(!endTurn){
 				try{
-					if(plays.size() == 1){
-						BOLD(" " + currPlayer->getName());
-						cout << ", enter the word you want to place" << endl << " ";
-						cin >> tileStr;
+					BOLD(" " + currPlayer->getName());
+					cout << " Enter your play (? for help) ";
+					cin >> in;
 
-						cout << " This is the first turn, so the first tile of your word goes in the middle\n";
-
-						cout << " Horizontal or vertical? ";
-						cin >> dir;
-
-						currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
-						currPlayer->draw(tileStr.length(), gameBag);
-						currPlayer->toggleTurn();
-						endTurn = !endTurn; // Turn ends
+					if(in == "?"){
+						PALE_GREEN("\n A square is denoted by the pair (row, column)\n\n");
+						PALE_GREEN(" Plays are denoted as follows-\n");
+						PALE_GREEN(" <tiles>-<row>-<column>-<direction>\n");
+						PALE_GREEN(" e.g. hat-4-6-v means that the tiles 'h', 'a' and 't' should be placed vertically and the first tile ('h') should be placed at (4, 6)\n\n");
+						PALE_GREEN(" If you have a blank tile (#) and you want to use it, you must give what letter it should be used as in the play\n");
+						PALE_GREEN(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
 					}
 					else{
-						BOLD(" " + currPlayer->getName());
-						cout << " Enter your play (e.g. bag-5-5-h) ";
-						cin >> in;
 						parsed = parsePlay(in);
 						tileStr = parsed[0];
 						row = stoi(parsed[1]);
 						col = stoi(parsed[2]);
 						dir = parsed[3][0];
-						// cout << ", enter the word you want to place" << endl << " ";
-						// cin >> tileStr;
-                        //
-						// cout << " Where does the first tile go? ";
-						// cin >> row >> col;
-                        //
-						// cout << " Horizontal or vertical? ";
-						// cin >> dir;
 
-						if(currPlay->validate(tileStr, gameBoard, row, col, dir)){
-							currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
-							currPlayer->draw(tileStr.length(), gameBag);
-							currPlayer->toggleTurn();
-							endTurn = !endTurn; // Turn ends
+						if(plays.size() == 1){
+							if(!firstTurnCheck(tileStr, row, col, dir))
+								BOLD_RED(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
+							else{
+								currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								currPlayer->draw(tileStr.length(), gameBag);
+								currPlayer->toggleTurn();
+								endTurn = !endTurn; // Turn ends
+							}
 						}
 						else{
-							BOLD_RED(" You can't place a word there!\n");
+							if(currPlay->validate(tileStr, gameBoard, row, col, dir)){
+								currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								currPlayer->draw(tileStr.length(), gameBag);
+								currPlayer->toggleTurn();
+								endTurn = !endTurn; // Turn ends
+							}
+							else{
+								BOLD_RED(" You can't place a word there!\n");
+							}
 						}
 					}
 				}
