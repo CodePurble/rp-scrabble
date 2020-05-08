@@ -5,17 +5,17 @@
 class Tile;
 
 class Bag {
-	private:
-		std::vector<Tile*> bag;
+private:
+	std::vector<Tile*> bag;
 
-	public:
-		Bag();
-		~Bag();
+public:
+	Bag();
+	~Bag();
 
-		void show();
-		bool isEmpty();
-		void shuffle();
-		std::vector<Tile*> draw(int count);
+	void show();
+	bool isEmpty();
+	void shuffle();
+	std::vector<Tile*> draw(int count);
 
 };
 

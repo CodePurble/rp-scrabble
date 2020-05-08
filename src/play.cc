@@ -32,54 +32,60 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 	bool result = false;
 	Square* curr;
 
-	if(dir == 'h'){
+	if(dir == 'h') {
 		int currCol = c;
-		for(int i = 0; i < max; i++){
+		for(int i = 0; i < max; i++) {
 			curr = b->getSquare(r, currCol);
-			if(curr){
+			if(curr) {
 				Square* currLeft = curr->getLeft();
 				Square* currRight = curr->getRight();
 				Square* currAbove = curr->getAbove();
 				Square* currBelow = curr->getBelow();
 
 				result =
-					( currLeft && !currLeft->isEmpty() ) ||
-					( currRight && !currRight->isEmpty() ) ||
-					( currAbove && !currAbove->isEmpty() ) ||
-					( currBelow && !currBelow->isEmpty() );
+				    ( currLeft && !currLeft->isEmpty() ) ||
+				    ( currRight && !currRight->isEmpty() ) ||
+				    ( currAbove && !currAbove->isEmpty() ) ||
+				    ( currBelow && !currBelow->isEmpty() );
 
-				if(result)
+				if(result) {
 					break;
-				else
+				}
+				else {
 					currCol++;
+				}
 			}
-			else
+			else {
 				throw(string("Invalid square co-ordinates\n"));
+			}
 		}
 	}
-	else if(dir == 'v'){
+	else if(dir == 'v') {
 		int currRow = r;
-		for(int i = 0; i < max; i++){
+		for(int i = 0; i < max; i++) {
 			curr = b->getSquare(currRow, c);
-			if(curr){
+			if(curr) {
 				Square* currLeft = curr->getLeft();
 				Square* currRight = curr->getRight();
 				Square* currAbove = curr->getAbove();
 				Square* currBelow = curr->getBelow();
 
 				result =
-					( currLeft && !currLeft->isEmpty() ) ||
-					( currRight && !currRight->isEmpty() ) ||
-					( currAbove && !currAbove->isEmpty() ) ||
-					( currBelow && !currBelow->isEmpty() );
+				    ( currLeft && !currLeft->isEmpty() ) ||
+				    ( currRight && !currRight->isEmpty() ) ||
+				    ( currAbove && !currAbove->isEmpty() ) ||
+				    ( currBelow && !currBelow->isEmpty() );
 
-				if(result)
+				if(result) {
 					break;
-				else
+				}
+				else {
 					currRow++;
+				}
 			}
-			else
+			else {
 				throw(string("Invalid square co-ordinates"));
+			}
 		}
 	}
 

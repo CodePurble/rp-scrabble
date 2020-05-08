@@ -35,18 +35,18 @@ int Tile::getPoints()
 
 int Tile::getLoc()
 {
-	switch(presentLoc){
-		case BAG:
-			return 0;
+	switch(presentLoc) {
+	case BAG:
+		return 0;
 		break;
-		case RACK:
-			return 1;
+	case RACK:
+		return 1;
 		break;
-		case BOARD:
-			return 2;
+	case BOARD:
+		return 2;
 		break;
-		default:
-			return -1;
+	default:
+		return -1;
 	}
 }
 
@@ -69,17 +69,17 @@ void Tile::setRack(Rack* r)
 
 void Tile::setLoc(int loc)
 {
-	switch(loc){
-		case 0:
-			presentLoc = BAG;
+	switch(loc) {
+	case 0:
+		presentLoc = BAG;
 		break;
-		case 1:
-			presentLoc = RACK;
+	case 1:
+		presentLoc = RACK;
 		break;
-		case 2:
-			presentLoc = BOARD;
-		default:
-			return;
+	case 2:
+		presentLoc = BOARD;
+	default:
+		return;
 	}
 }
 

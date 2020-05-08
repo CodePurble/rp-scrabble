@@ -19,22 +19,26 @@ Game::Game()
 
 Game::~Game()
 {
-	if(gameBag)
+	if(gameBag) {
 		delete gameBag;
+	}
 
-	if(gameBoard)
+	if(gameBoard) {
 		delete gameBoard;
+	}
 
-	for(Player* p : players){
-		if(p)
+	for(Player* p : players) {
+		if(p) {
 			delete p;
+		}
 	}
 }
 
 void Game::addPlayer(Player* p)
 {
-	if(p)
+	if(p) {
 		players.push_back(p);
+	}
 }
 
 void Game::init()
@@ -42,11 +46,12 @@ void Game::init()
 	string tempName;
 	char response;
 	int i, j;
+	bool complete = false;
 
 	BOLD(" Welcome to Scrabble!");
 	cout << "\n";
 
-	for(Player* p : players){
+	for(Player* p : players) {
 		cout << " Name of Player " + p->getName() + ": ";
 		cin >> tempName;
 		p->setName(tempName);
@@ -54,13 +59,26 @@ void Game::init()
 
 	cout << " Would you like to add more players? (y/n)? ";
 	cin >> response;
-	if(response == 'y'){
-		cout << " How many more (max 3 more)? ";
-		cin >> i;
-		for(j = 0; j < i; j++){
-			cout << " Name of Player " + to_string(j + i + 2) + ": ";
-			cin >> tempName;
-			addPlayer(new Player(tempName));
+	if(response == 'y') {
+		while(!complete) {
+			cout << " How many more (max 3 more)? ";
+			cin >> i;
+			if(i > 0 && i < 4) {
+				for(j = 0; j < i; j++) {
+					cout << " Name of Player " + to_string(j + i + 1) + ": ";
+					cin >> tempName;
+					addPlayer(new Player(tempName));
+				}
+				complete = true;
+			}
+			else {
+				if(i != 0) {
+					BOLD(" You can only add upto 3 more players!\n");
+				}
+				else {
+					break;
+				}
+			}
 		}
 	}
 	cout << "\n";
@@ -68,16 +86,18 @@ void Game::init()
 
 bool Game::firstTurnCheck(string tileStr, int row, int col, char dir)
 {
-	if(dir == 'h'){
-		for(int j = col; j < col + tileStr.length(); j++){
-			if(j == 7 && row == 7)
+	if(dir == 'h') {
+		for(int j = col; j < col + tileStr.length(); j++) {
+			if(j == 7 && row == 7) {
 				return true;
+			}
 		}
 	}
-	else if(dir == 'v'){
-		for(int i = row; i < row + tileStr.length(); i++){
-			if(i == 7 && col == 7)
+	else if(dir == 'v') {
+		for(int i = row; i < row + tileStr.length(); i++) {
+			if(i == 7 && col == 7) {
 				return true;
+			}
 		}
 	}
 
@@ -88,19 +108,21 @@ void Game::run()
 {
 	int row, col;
 	bool endTurn;
+	bool allEmpty = false;
 	string tileStr, in;
 	char dir;
 	vector<string> parsed;
 
 	init();
 
-	for(Player* p : players){
+	for(Player* p : players) {
 		p->draw(7, gameBag);
 	}
 
 	// Main game loop
-	while(!gameBag->isEmpty()){
-		for(Player* currPlayer : players){
+	while(!allEmpty) {
+
+		for(Player* currPlayer : players) {
 			plays.push_back(new Play(currPlayer));
 			Play* currPlay = plays.back();
 			row = col = 7;
@@ -112,17 +134,17 @@ void Game::run()
 			BOLD(" Bag: ");
 			gameBag->show();
 			cout << "\n";
-			for(Player* p : players){
-					p->show();
+			for(Player* p : players) {
+				p->show();
 			}
 
-			while(!endTurn){
-				try{
+			while(!endTurn) {
+				try {
 					BOLD(" " + currPlayer->getName());
 					cout << " Enter your play (? for help) ";
 					cin >> in;
 
-					if(in == "?"){
+					if(in == "?") {
 						PALE_GREEN("\n A square is denoted by the pair (row, column)\n\n");
 						PALE_GREEN(" Plays are denoted as follows-\n");
 						PALE_GREEN(" <tiles>-<row>-<column>-<direction>\n");
@@ -130,39 +152,44 @@ void Game::run()
 						PALE_GREEN(" If you have a blank tile (#) and you want to use it, you must give what letter it should be used as in the play\n");
 						PALE_GREEN(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
 					}
-					else{
+					else {
 						parsed = parsePlay(in);
 						tileStr = parsed[0];
 						row = stoi(parsed[1]);
 						col = stoi(parsed[2]);
 						dir = parsed[3][0];
 
-						if(plays.size() == 1){
-							if(!firstTurnCheck(tileStr, row, col, dir))
+						if(plays.size() == 1) {
+							if(!firstTurnCheck(tileStr, row, col, dir)) {
 								BOLD_RED(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
-							else{
+							}
+							else {
 								currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
 								currPlayer->draw(tileStr.length(), gameBag);
 								currPlayer->toggleTurn();
 								endTurn = !endTurn; // Turn ends
 							}
 						}
-						else{
-							if(currPlay->validate(tileStr, gameBoard, row, col, dir)){
+						else {
+							if(currPlay->validate(tileStr, gameBoard, row, col, dir)) {
 								currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
 								currPlayer->draw(tileStr.length(), gameBag);
 								currPlayer->toggleTurn();
 								endTurn = !endTurn; // Turn ends
 							}
-							else{
+							else {
 								BOLD_RED(" You can't place a word there!\n");
 							}
 						}
 					}
 				}
-				catch(string ex){
+				catch(string ex) {
 					BOLD_RED(" Error: " + ex);
 				}
+			}
+			// Check whether all racks are empty
+			for(Player* p : players) {
+				allEmpty = allEmpty && p->rackIsEmpty();
 			}
 		}
 	}

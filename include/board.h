@@ -10,21 +10,21 @@ class Player;
 class Rack;
 
 class Board {
-	private:
-		Square* board[NUM_ROWS][NUM_COLS];
-		std::array<std::string, 5> sqStrings;
+private:
+	Square* board[NUM_ROWS][NUM_COLS];
+	std::array<std::string, 5> sqStrings;
 
-	public:
-		Board();
-		~Board();
+public:
+	Board();
+	~Board();
 
-		Square* getSquare(int r, int c);
+	Square* getSquare(int r, int c);
 
-		void show();
-		void showDebug();
-		bool placeTile(Tile* t, int r, int c);
-		void placeTileStr(std::vector<Tile*> tilesInStr, int r, int c, char dir);
-		void retrieve(Rack* rack, int r, int c);
+	void show();
+	void showDebug();
+	bool placeTile(Tile* t, int r, int c);
+	void placeTileStr(Rack* rack, std::vector<Tile*> tilesInStr, int r, int c, char dir);
+	Tile* retrieve(int r, int c);
 };
 
 #endif

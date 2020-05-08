@@ -8,16 +8,18 @@ using namespace std;
 bool findSquare(std::vector<Square*> s, Square* target)
 {
 	auto it = s.end();
-	if(target)
+	if(target) {
 		it = std::find(s.begin(), s.end(), target);
+	}
 	return(it == s.end() ? false : true);
 }
 
 bool findTile(std::vector<Tile*> t, Tile* target)
 {
 	auto it = t.end();
-	if(target)
+	if(target) {
 		it = std::find(t.begin(), t.end(), target);
+	}
 	return(it == t.end() ? false : true);
 }
 
@@ -27,10 +29,11 @@ std::vector<std::string> parsePlay(std::string in)
 
 	parse.push_back("");
 
-	for(char ch : in){
-		if(ch == '-')
+	for(char ch : in) {
+		if(ch == '-') {
 			parse.push_back("");
-		else{
+		}
+		else {
 			parse.back().append(1u, ch);
 		}
 	}

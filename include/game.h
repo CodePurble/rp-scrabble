@@ -9,20 +9,20 @@ class Player;
 class Play;
 
 class Game {
-	private:
-		Board* gameBoard;
-		Bag* gameBag;
-		std::vector<Player*> players;
-		std::vector<Play*> plays;
-		void init();
-		bool firstTurnCheck(std::string str, int r, int c, char dir);
+private:
+	Board* gameBoard;
+	Bag* gameBag;
+	std::vector<Player*> players;
+	std::vector<Play*> plays;
+	void init();
+	bool firstTurnCheck(std::string str, int r, int c, char dir);
 
-	public:
-		Game();
-		~Game();
+public:
+	Game();
+	~Game();
 
-		void addPlayer(Player* p);
-		void run();
+	void addPlayer(Player* p);
+	void run();
 
 };
 

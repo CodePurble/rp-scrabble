@@ -18,16 +18,16 @@ class Board;
 class Tile;
 
 class Play {
-	private:
-		int pointsEarned;
-		Player* playMaker;
+private:
+	int pointsEarned;
+	Player* playMaker;
 
-	public:
-		Play(Player* p);
-		~Play();
+public:
+	Play(Player* p);
+	~Play();
 
-		void setPlayer(Player* p);
-		bool validate(std::string tileStr, Board* b, int r, int c, char dir);
+	void setPlayer(Player* p);
+	bool validate(std::string tileStr, Board* b, int r, int c, char dir);
 };
 
 #endif

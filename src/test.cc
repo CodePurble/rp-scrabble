@@ -46,20 +46,23 @@ void testRack()
 	enum_location l1 = RACK;
 	vector<Tile*> t;
 
-	for(int i = 0; i < 7; i++)
+	for(int i = 0; i < 3; i++) {
 		t.push_back(new Tile('A', 1, l1));
+	}
 
 	Rack r;
 	r.fill(t);
 	r.show();
-	try{
-		t.clear();
-		t = r.getTileStrVec("ABA");
-		r.show();
-		for(Tile* x : t)
-			cout << x->getLetterStr();
+	try {
+		cout << boolalpha;
+		cout << r.isEmpty();
+		// t.clear();
+		// t = r.getTileStrVec("ABA");
+		// r.show();
+		// for(Tile* x : t)
+		//     cout << x->getLetterStr();
 	}
-	catch(string e){
+	catch(string e) {
 		BOLD_RED(e);
 		cout << endl;
 	}
@@ -76,12 +79,21 @@ void testBoard()
 {
 	Bag bag;
 	Board b;
-	// int r = 6, c = 7;
-	// b.placeTile(new Tile('a', 1, BAG), r, c);
-	// c++;
-	// b.placeTile(new Tile('b', 1, BAG), r, c);
-	// b.getSquare(r, c)->show();
+	vector<Tile*> t;
+	Rack r;
+
+	for(int i = 0; i < 3; i++) {
+		t.push_back(new Tile('A', 1, RACK));
+	}
+	b.placeTile(t.back(), 7, 7);
 	b.show();
+	r.show();
+	Tile* temp = b.retrieve(7, 7);
+	r.addTile(temp);
+	b.show();
+	temp->show();
+	r.show();
+
 }
 
 void testGame()
@@ -92,18 +104,4 @@ void testGame()
 
 void testPlay()
 {
-	enum_location l1 = RACK;
-	vector<Tile*> t1, t2;
-
-	for(int i = 0; i < 3; i++)
-		t1.push_back(new Tile('A', 1, l1));
-
-	Board* b = new Board();
-	Play p(new Player("p1"));
-
-	cout << boolalpha;
-	b->placeTileStr(t1, 7, 7, 'h');
-	b->show();
-
-	cout << p.validate("bbb", b, 4, 23, 'v');
 }

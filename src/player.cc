@@ -23,10 +23,12 @@ Player::~Player()
 
 void Player::show()
 {
-	if(turn)
+	if(turn) {
 		BOLD_BRIGHT_GREEN(" " + playerName + ": " + to_string(score) + " points\n");
-	else
+	}
+	else {
 		BOLD(" " + playerName + ": " + to_string(score) + " points\n");
+	}
 
 	rack->show();
 	cout << "\n";
@@ -69,9 +71,14 @@ Tile* Player::tileFromRack(int index)
 
 void Player::placeTileStr(string str, Board* b, int r, int c, char dir)
 {
-	for(char& c : str)
+	for(char& c : str) {
 		c = toupper(c);
+	}
 
-	b->placeTileStr(rack->getTileStrVec(str), r, c, dir);
+	b->placeTileStr(rack, rack->getTileStrVec(str), r, c, dir);
 }
 
+bool Player::rackIsEmpty()
+{
+	return rack->isEmpty();
+}

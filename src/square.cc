@@ -55,10 +55,12 @@ int Square::getType()
 
 bool Square::isEmpty()
 {
-	if(tileInSquare)
+	if(tileInSquare) {
 		return false;
-	else
+	}
+	else {
 		return true;
+	}
 }
 
 void Square::setTile(Tile* t)
@@ -93,16 +95,20 @@ void Square::setBelow(Square* d)
 
 bool Square::checkNeighboursH()
 {
-	if(left || above || below)
+	if(left || above || below) {
 		return true;
-	else
+	}
+	else {
 		return false;
+	}
 }
 
 bool Square::checkNeighboursV()
 {
-	if(left || above || right)
+	if(left || above || right) {
 		return true;
-	else
+	}
+	else {
 		return false;
+	}
 }

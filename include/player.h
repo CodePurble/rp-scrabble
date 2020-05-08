@@ -8,26 +8,27 @@ class Tile;
 class Board;
 
 class Player {
-	private:
-		int score;
-		bool turn;
-		std::string playerName;
-		Rack* rack;
+private:
+	int score;
+	bool turn;
+	std::string playerName;
+	Rack* rack;
 
-	public:
-		Player(std::string n);
-		~Player();
+public:
+	Player(std::string n);
+	~Player();
 
-		std::string getName();
-		void setName(std::string);
-		void toggleTurn();
-		void updateScore(int points);
-		Tile* tileFromRack(int index);
+	std::string getName();
+	void setName(std::string);
+	void toggleTurn();
+	void updateScore(int points);
+	Tile* tileFromRack(int index);
 
-		bool placeTile(Tile* t, Board* b, int r, int c);
-		void placeTileStr(std::string str, Board* b, int r, int c, char dir);
-		void draw(int count, Bag* b);
-		void show();
+	bool placeTile(Tile* t, Board* b, int r, int c);
+	void placeTileStr(std::string str, Board* b, int r, int c, char dir);
+	void draw(int count, Bag* b);
+	bool rackIsEmpty();
+	void show();
 };
 
 #endif
