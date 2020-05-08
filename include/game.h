@@ -16,12 +16,12 @@ private:
 	std::vector<Play*> plays;
 	void init();
 	bool firstTurnCheck(std::string str, int r, int c, char dir);
+	void addPlayer(Player* p);
 
 public:
 	Game();
 	~Game();
 
-	void addPlayer(Player* p);
 	void run();
 
 };

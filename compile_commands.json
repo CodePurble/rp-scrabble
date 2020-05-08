@@ -96,5 +96,47 @@
    "bin/player.o"
   ],
   "file": "src/player.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/game.cc",
+   "-o",
+   "bin/game.o"
+  ],
+  "file": "src/game.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/play.cc",
+   "-o",
+   "bin/play.o"
+  ],
+  "file": "src/play.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-c",
+   "src/utils.cc",
+   "-o",
+   "bin/utils.o"
+  ],
+  "file": "src/utils.cc"
  }
 ]

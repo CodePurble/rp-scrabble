@@ -193,4 +193,9 @@ void Game::run()
 			}
 		}
 	}
+
+	BOLD(" You have placed all tiles!!! Final scores are-\n");
+	for(Player* p : players) {
+		p->show();
+	}
 }
