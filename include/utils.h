@@ -6,6 +6,7 @@
 
 class Tile;
 class Square;
+class Play;
 
 #define DEBUG(x, y) std::cout << x << ":" << y << std::endl
 #define NUM_ROWS 15
@@ -62,9 +63,13 @@ inline void PALE_GREEN(std::string x)
 	std::cout << "\033[38;2;50;193;110m" + x + "\033[0m";
 }
 
+/*
+ * Other helper functions
+ */
 bool findSquare(std::vector<Square*> s, Square* target);
 bool findTile(std::vector<Tile*> t, Tile* target);
-
 std::vector<std::string> parsePlay(std::string in);
+void log(std::string logFilePath, std::string str);
+std::string RawTimeToString(const time_t& t);
 
 #endif

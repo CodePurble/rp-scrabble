@@ -14,6 +14,7 @@ Play::Play(Player* p)
 {
 	pointsEarned = 0;
 	playMaker = p;
+	playStr = "";
 }
 
 Play::~Play()
@@ -43,12 +44,13 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 				Square* currBelow = curr->getBelow();
 
 				result =
-				    ( currLeft && !currLeft->isEmpty() ) ||
-				    ( currRight && !currRight->isEmpty() ) ||
-				    ( currAbove && !currAbove->isEmpty() ) ||
-				    ( currBelow && !currBelow->isEmpty() );
+					( currLeft && !currLeft->isEmpty() )
+					|| ( currRight && !currRight->isEmpty() )
+					|| ( currAbove && !currAbove->isEmpty() )
+					|| ( currBelow && !currBelow->isEmpty() );
 
 				if(result) {
+					playStr = tileStr;
 					break;
 				}
 				else {
@@ -71,12 +73,13 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 				Square* currBelow = curr->getBelow();
 
 				result =
-				    ( currLeft && !currLeft->isEmpty() ) ||
-				    ( currRight && !currRight->isEmpty() ) ||
-				    ( currAbove && !currAbove->isEmpty() ) ||
-				    ( currBelow && !currBelow->isEmpty() );
+					( currLeft && !currLeft->isEmpty() )
+					|| ( currRight && !currRight->isEmpty() )
+					|| ( currAbove && !currAbove->isEmpty() )
+					|| ( currBelow && !currBelow->isEmpty() );
 
 				if(result) {
+					playStr = tileStr;
 					break;
 				}
 				else {
