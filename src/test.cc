@@ -21,7 +21,7 @@ void testPlay();
 
 int main()
 {
-	testGame();
+	testPlay();
 	return 0;
 }
 
@@ -104,4 +104,55 @@ void testGame()
 
 void testPlay()
 {
+	Player* testPlayer = new Player("Kodus");
+	Play p(testPlayer);
+	Board b;
+	enum_location l1 = RACK;
+	vector<Tile*> t;
+	vector<Tile*> conn;
+
+	t.push_back(new Tile('A', 1, l1));
+	t.push_back(new Tile('B', 2, l1));
+	t.push_back(new Tile('C', 1, l1));
+	t.push_back(new Tile('D', 1, l1));
+	t.push_back(new Tile('E', 1, l1));
+
+	b.placeTile(t[0], 7, 7);
+	b.placeTile(t[1], 8, 7);
+	b.placeTile(t[2], 9, 7);
+	b.placeTile(t[3], 10, 7);
+	b.placeTile(t[4], 11, 7);
+
+	// b.placeTile(t[0], 7, 7);
+	// b.placeTile(t[1], 7, 8);
+	// b.placeTile(t[2], 7, 9);
+	// b.placeTile(t[3], 7, 10);
+	// b.placeTile(t[4], 7, 11);
+
+	b.show();
+
+	try {
+		for(int i = 7; i < 12; i++) {
+			conn = p.getConnectedTiles(b.getSquare(i, 7)->getTile(), 'v');
+			for(Tile* t : conn) {
+				t->show();
+				cout << ", ";
+			}
+			cout << endl;
+		}
+
+		// for(int i = 7; i < 12; i++) {
+		//     conn = p.getConnectedTiles(b.getSquare(7, i)->getTile(), 'h');
+		//     for(Tile* t : conn) {
+		//         t->show();
+		//         cout << ", ";
+		//     }
+		//     cout << endl;
+		// }
+	}
+	catch(string str) {
+		BOLD_RED(str);
+		cout << "\n";
+	}
+
 }

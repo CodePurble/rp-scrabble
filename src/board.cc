@@ -238,6 +238,9 @@ void Board::placeTileStr(Rack* rack, vector<Tile*> tilesInStr, int r, int c, cha
 					it++;
 				}
 			}
+			else {
+				throw(string("Invalid direction\n"));
+			}
 		}
 	}
 	catch(string err) {

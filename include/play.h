@@ -28,6 +28,8 @@ public:
 
 	void setPlayer(Player* p);
 	bool validate(std::string tileStr, Board* b, int r, int c, char dir);
+	// std::vector<std::vector<Tile*>> getWords(std::string tileStr, Board* b, int r, int c, char dir);
+	std::vector<Tile*> getConnectedTiles(Tile* t, char dir);
 };
 
 #endif
