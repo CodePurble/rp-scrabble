@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
+#include <vector>
 
 class Rack;
 class Bag;
@@ -25,7 +26,7 @@ public:
 	Tile* tileFromRack(int index);
 
 	bool placeTile(Tile* t, Board* b, int r, int c);
-	void placeTileStr(std::string str, Board* b, int r, int c, char dir);
+	std::vector<Tile*> placeTileStr(std::string str, Board* b, int r, int c, char dir);
 	void draw(int count, Bag* b);
 	bool rackIsEmpty();
 	void show();

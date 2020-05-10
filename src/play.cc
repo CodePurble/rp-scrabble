@@ -42,11 +42,10 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 				Square* currAbove = curr->getAbove();
 				Square* currBelow = curr->getBelow();
 
-				result =
-				    ( currLeft && !currLeft->isEmpty() ) ||
-				    ( currRight && !currRight->isEmpty() ) ||
-				    ( currAbove && !currAbove->isEmpty() ) ||
-				    ( currBelow && !currBelow->isEmpty() );
+				result = ( currLeft && !currLeft->isEmpty() )
+				||( currRight && !currRight->isEmpty() )
+				||( currAbove && !currAbove->isEmpty() )
+				||( currBelow && !currBelow->isEmpty() );
 
 				if(result) {
 					break;
@@ -70,11 +69,10 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 				Square* currAbove = curr->getAbove();
 				Square* currBelow = curr->getBelow();
 
-				result =
-				    ( currLeft && !currLeft->isEmpty() ) ||
-				    ( currRight && !currRight->isEmpty() ) ||
-				    ( currAbove && !currAbove->isEmpty() ) ||
-				    ( currBelow && !currBelow->isEmpty() );
+				result = ( currLeft && !currLeft->isEmpty() )
+				||( currRight && !currRight->isEmpty() )
+				||( currAbove && !currAbove->isEmpty() )
+				||( currBelow && !currBelow->isEmpty() );
 
 				if(result) {
 					break;
@@ -94,13 +92,6 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 
 	return result;
 }
-
-// vector<vector<Tile*>> getWords(string tileStr, Board* b, int r, int c, char dir)
-// {
-//     vector<vector<Tile*>> words;
-//     vector<Tile*> currWord;
-//
-// }
 
 vector<Tile*> Play::getConnectedTiles(Tile* t, char dir)
 {
@@ -143,4 +134,28 @@ vector<Tile*> Play::getConnectedTiles(Tile* t, char dir)
 	}
 
 	return connectedTiles;
+}
+
+vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
+{
+	vector<vector<Tile*>> words;
+
+	try {
+		if(dir == 'h') {
+			for(Tile* t : tilesInStr) {
+				words.push_back(getConnectedTiles(t, 'v'));
+			}
+		}
+		else if(dir == 'v') {
+			for(Tile* t : tilesInStr) {
+				words.push_back(getConnectedTiles(t, 'h'));
+			}
+		}
+
+	}
+	catch(string err) {
+		BOLD_RED(" Error: " + err);
+	}
+
+	return words;
 }

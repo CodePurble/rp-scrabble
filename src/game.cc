@@ -5,6 +5,7 @@
 #include "player.h"
 #include "utils.h"
 #include "play.h"
+#include "tile.h"
 
 using namespace std;
 
@@ -153,6 +154,9 @@ void Game::run()
 						PALE_GREEN(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
 					}
 					else {
+						vector<vector<Tile*>> connnectedWords;
+						vector<Tile*> tileStrVec;
+
 						parsed = parsePlay(in);
 						tileStr = parsed[0];
 						row = stoi(parsed[1]);
@@ -164,7 +168,18 @@ void Game::run()
 								BOLD_RED(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
 							}
 							else {
-								currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
+
+								// Debug segment
+								for(vector<Tile*> tVec : connnectedWords) {
+									for(Tile* t : tVec) {
+										t->show();
+										t->getSquare()->show();
+									}
+									cout << "\n";
+								}
+
 								currPlayer->draw(tileStr.length(), gameBag);
 								currPlayer->toggleTurn();
 								endTurn = !endTurn; // Turn ends
@@ -172,7 +187,18 @@ void Game::run()
 						}
 						else {
 							if(currPlay->validate(tileStr, gameBoard, row, col, dir)) {
-								currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
+
+								// Debug segment
+								for(vector<Tile*> tVec : connnectedWords) {
+									for(Tile* t : tVec) {
+										t->show();
+										t->getSquare()->show();
+									}
+									cout << "\n";
+								}
+
 								currPlayer->draw(tileStr.length(), gameBag);
 								currPlayer->toggleTurn();
 								endTurn = !endTurn; // Turn ends

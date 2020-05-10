@@ -69,13 +69,17 @@ Tile* Player::tileFromRack(int index)
 	return(rack->getTile(index));
 }
 
-void Player::placeTileStr(string str, Board* b, int r, int c, char dir)
+vector<Tile*> Player::placeTileStr(string str, Board* b, int r, int c, char dir)
 {
 	for(char& c : str) {
 		c = toupper(c);
 	}
 
-	b->placeTileStr(rack, rack->getTileStrVec(str), r, c, dir);
+	vector<Tile*> tileStrVec = rack->getTileStrVec(str);
+
+	b->placeTileStr(rack, tileStrVec, r, c, dir);
+
+	return tileStrVec;
 }
 
 bool Player::rackIsEmpty()

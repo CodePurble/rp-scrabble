@@ -21,7 +21,7 @@ void testPlay();
 
 int main()
 {
-	testPlay();
+	testGame();
 	return 0;
 }
 
@@ -109,7 +109,7 @@ void testPlay()
 	Board b;
 	enum_location l1 = RACK;
 	vector<Tile*> t;
-	vector<Tile*> conn;
+	vector<Tile*> tilesInStr;
 
 	t.push_back(new Tile('A', 1, l1));
 	t.push_back(new Tile('B', 2, l1));
@@ -117,26 +117,36 @@ void testPlay()
 	t.push_back(new Tile('D', 1, l1));
 	t.push_back(new Tile('E', 1, l1));
 
-	b.placeTile(t[0], 7, 7);
 	b.placeTile(t[1], 8, 7);
 	b.placeTile(t[2], 9, 7);
 	b.placeTile(t[3], 10, 7);
 	b.placeTile(t[4], 11, 7);
 
-	// b.placeTile(t[0], 7, 7);
-	// b.placeTile(t[1], 7, 8);
-	// b.placeTile(t[2], 7, 9);
-	// b.placeTile(t[3], 7, 10);
-	// b.placeTile(t[4], 7, 11);
+	b.placeTile(t[4], 11, 8);
+
+	b.placeTile(t[0], 7, 7);
+	b.placeTile(t[1], 7, 8);
+	b.placeTile(t[2], 7, 9);
+	b.placeTile(t[3], 7, 10);
+	b.placeTile(t[4], 7, 11);
+
+	b.placeTile(t[0], 8, 9);
+	tilesInStr.push_back(t[0]);
+	b.placeTile(t[1], 9, 9);
+	tilesInStr.push_back(t[1]);
+	b.placeTile(t[2], 10, 9);
+	tilesInStr.push_back(t[2]);
+	b.placeTile(t[3], 11, 9);
+	tilesInStr.push_back(t[3]);
 
 	b.show();
 
 	try {
-		for(int i = 7; i < 12; i++) {
-			conn = p.getConnectedTiles(b.getSquare(i, 7)->getTile(), 'v');
-			for(Tile* t : conn) {
-				t->show();
-				cout << ", ";
+		for(vector<Tile*> t : p.getWords(tilesInStr, &b, 8, 9, 'v')) {
+			for(Tile* ti : t) {
+				ti->show();
+				ti->getSquare()->show();
+				cout << "\n";
 			}
 			cout << endl;
 		}
@@ -154,5 +164,4 @@ void testPlay()
 		BOLD_RED(str);
 		cout << "\n";
 	}
-
 }
