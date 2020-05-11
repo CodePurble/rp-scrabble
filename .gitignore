@@ -32,6 +32,9 @@
 *.app
 bin/
 
+# Log files
+logs/
+
 # Configs
 .ycm_extra_conf.py
 .clangd/
