@@ -21,6 +21,7 @@ class Play {
 private:
 	int pointsMade;
 	Player* playMaker;
+	std::string playStr;
 
 public:
 	Play(Player* p);

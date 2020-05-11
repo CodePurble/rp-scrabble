@@ -14,6 +14,8 @@ private:
 	Bag* gameBag;
 	std::vector<Player*> players;
 	std::vector<Play*> plays;
+	std::string gameID;
+	std::string logFilePath;
 	void init();
 	bool firstTurnCheck(std::string str, int r, int c, char dir);
 	void addPlayer(Player* p);

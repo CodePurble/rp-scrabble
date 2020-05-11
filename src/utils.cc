@@ -1,6 +1,9 @@
 #include <vector>
+#include <fstream>
+#include <sstream>
 #include "tile.h"
 #include "square.h"
+#include "play.h"
 #include "utils.h"
 
 using namespace std;
@@ -41,3 +44,23 @@ std::vector<std::string> parsePlay(std::string in)
 	return parse;
 }
 
+void log(string logFilePath, string str)
+{
+	ofstream logFile(logFilePath, ios::app);
+
+	if(logFile.is_open()) {
+		logFile << str + "\n";
+	}
+	else {
+		throw(string("Failed to open log file\n"));
+	}
+
+	logFile.close();
+}
+
+string RawTimeToString(const time_t& t)
+{
+	ostringstream oss;
+	oss << t;
+	return oss.str();
+}
