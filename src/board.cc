@@ -73,7 +73,7 @@ Board::Board()
 	}
 
 	// Center
-	board[7][7] = new Square(quarterBoard[1][1], 7, 7);
+	board[7][7] = new Square(DWS, 7, 7);
 
 	// Set neighbours
 	Square* currSquare = nullptr;

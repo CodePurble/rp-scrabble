@@ -197,7 +197,6 @@ void Play::calculatePoints(vector<vector<Tile*>> words)
  */
 	for(vector<Tile*> word : words) {
 		for(Tile* t : word) {
-			DEBUG("pointsMade", pointsMade);
 			DEBUG("sqType", t->getSquare()->getType());
 			DEBUG("getPoints", t->getPoints());
 			switch(t->getSquare()->getType()) {
@@ -211,17 +210,20 @@ void Play::calculatePoints(vector<vector<Tile*>> words)
 					pointsMade += 2*(t->getPoints());
 					break;
 				case TWS:
+					pointsMade += t->getPoints();
 					multiplier *= 3;
 					break;
 				case DWS:
+					pointsMade += t->getPoints();
 					multiplier *= 2;
 					break;
 			}
 		}
+		DEBUG("pointsMade", pointsMade);
 	}
 
 	pointsMade *= multiplier;
-	DEBUG("Updated pointsMade", pointsMade);
+	DEBUG("Final pointsMade", pointsMade);
 }
 
 int Play::getPointsMade()

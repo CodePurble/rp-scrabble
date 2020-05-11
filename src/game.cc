@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <string>
 #include "game.h"
 #include "bag.h"
 #include "board.h"
@@ -79,8 +80,8 @@ void Game::init()
 				for(j = 0; j < i; j++) {
 					cout << " Name of Player " + to_string(j + i + 1) + ": ";
 					cin >> tempName;
-					log(logFilePath, "Player " + to_string(j + i + 1) + ": " + tempName);
 					addPlayer(new Player(tempName));
+					log(logFilePath, "Player " + to_string(j + i + 1) + ": " + tempName);
 				}
 				complete = true;
 			}
@@ -167,13 +168,11 @@ void Game::run()
 						// PALE_GREEN(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
 					}
 					else {
-<<<<<<< HEAD
 						vector<vector<Tile*>> connnectedWords;
 						vector<Tile*> tileStrVec;
 
-=======
-						log(logFilePath, in);// + "\n");
->>>>>>> master
+						log(logFilePath, in);
+
 						parsed = parsePlay(in);
 						tileStr = parsed[0];
 						row = stoi(parsed[1]);
