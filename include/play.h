@@ -28,8 +28,9 @@ public:
 
 	void setPlayer(Player* p);
 	bool validate(std::string tileStr, Board* b, int r, int c, char dir);
-	std::vector<Tile*> getConnectedTiles(Tile* t, char dir);
+	// std::vector<Tile*> getConnectedTiles(Tile* t, char dir);
 	std::vector<std::vector<Tile*>> getWords(std::vector<Tile*> tilesInStr, Board* b, int r, int c, char dir);
+	std::vector<Tile*> getConnectedWord(Tile* t, char dir);
 };
 
 #endif

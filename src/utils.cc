@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool findSquare(std::vector<Square*> s, Square* target)
+bool squarePresent(std::vector<Square*> s, Square* target)
 {
 	auto it = s.end();
 	if(target) {
@@ -14,7 +14,7 @@ bool findSquare(std::vector<Square*> s, Square* target)
 	return(it == s.end() ? false : true);
 }
 
-bool findTile(std::vector<Tile*> t, Tile* target)
+bool tilePresent(std::vector<Tile*> t, Tile* target)
 {
 	auto it = t.end();
 	if(target) {

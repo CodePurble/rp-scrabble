@@ -15,7 +15,14 @@ Square::Square(enum_sqType st, int r, int c)
 
 void Square::show()
 {
-	cout << sqType << " @ (" << row << "," << col << ")\n";
+	if(!isEmpty()) {
+		getTile()->show();
+		cout << "in ";
+		cout << sqType << " @ (" << row << "," << col << "), ";
+	}
+	else {
+		cout << sqType << " @ (" << row << "," << col << "), ";
+	}
 }
 
 Square* Square::getLeft()

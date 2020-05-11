@@ -77,22 +77,22 @@ void testSquare()
 
 void testBoard()
 {
-	Bag bag;
 	Board b;
-	vector<Tile*> t;
-	Rack r;
 
-	for(int i = 0; i < 3; i++) {
-		t.push_back(new Tile('A', 1, RACK));
+	b.show();
+
+	cout << "Row 7\n";
+	for(int i = 0; i < NUM_COLS; i++) {
+		b.getSquare(7, i)->show();
+		cout << ", ";
 	}
-	b.placeTile(t.back(), 7, 7);
-	b.show();
-	r.show();
-	Tile* temp = b.retrieve(7, 7);
-	r.addTile(temp);
-	b.show();
-	temp->show();
-	r.show();
+	cout << "\n\n";
+
+	cout << "Col 7\n";
+	for(int i = 0; i < NUM_COLS; i++) {
+		b.getSquare(i, 7)->show();
+		cout << ", ";
+	}
 
 }
 
@@ -142,23 +142,7 @@ void testPlay()
 	b.show();
 
 	try {
-		for(vector<Tile*> t : p.getWords(tilesInStr, &b, 8, 9, 'v')) {
-			for(Tile* ti : t) {
-				ti->show();
-				ti->getSquare()->show();
-				cout << "\n";
-			}
-			cout << endl;
-		}
 
-		// for(int i = 7; i < 12; i++) {
-		//     conn = p.getConnectedTiles(b.getSquare(7, i)->getTile(), 'h');
-		//     for(Tile* t : conn) {
-		//         t->show();
-		//         cout << ", ";
-		//     }
-		//     cout << endl;
-		// }
 	}
 	catch(string str) {
 		BOLD_RED(str);

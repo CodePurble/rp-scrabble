@@ -110,6 +110,7 @@ void Game::run()
 	int row, col;
 	bool endTurn;
 	bool allEmpty = false;
+	bool playValid;
 	string tileStr, in;
 	char dir;
 	vector<string> parsed;
@@ -162,50 +163,34 @@ void Game::run()
 						row = stoi(parsed[1]);
 						col = stoi(parsed[2]);
 						dir = parsed[3][0];
+						playValid = currPlay->validate(tileStr, gameBoard, row, col, dir);
 
 						if(plays.size() == 1) {
 							if(!firstTurnCheck(tileStr, row, col, dir)) {
 								BOLD_RED(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
 							}
 							else {
-								tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
-								connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
-
-								// Debug segment
-								for(vector<Tile*> tVec : connnectedWords) {
-									for(Tile* t : tVec) {
-										t->show();
-										t->getSquare()->show();
-									}
-									cout << "\n";
-								}
-
-								currPlayer->draw(tileStr.length(), gameBag);
-								currPlayer->toggleTurn();
-								endTurn = !endTurn; // Turn ends
+								playValid = true;
 							}
 						}
-						else {
-							if(currPlay->validate(tileStr, gameBoard, row, col, dir)) {
-								tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
-								connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
 
-								// Debug segment
-								for(vector<Tile*> tVec : connnectedWords) {
-									for(Tile* t : tVec) {
-										t->show();
-										t->getSquare()->show();
-									}
-									cout << "\n";
+						if(playValid) {
+							tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+							connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
+
+							for(vector<Tile*> vec : connnectedWords) {
+								for(Tile* t : vec) {
+									t->getSquare()->show();
 								}
+								cout << "\n";
+							}
 
-								currPlayer->draw(tileStr.length(), gameBag);
-								currPlayer->toggleTurn();
-								endTurn = !endTurn; // Turn ends
-							}
-							else {
-								BOLD_RED(" You can't place a word there!\n");
-							}
+							currPlayer->draw(tileStr.length(), gameBag);
+							currPlayer->toggleTurn();
+							endTurn = !endTurn; // Turn ends
+						}
+						else {
+							BOLD_RED(" You can't place a word there!\n");
 						}
 					}
 				}

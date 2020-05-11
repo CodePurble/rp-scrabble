@@ -52,7 +52,7 @@ int Tile::getLoc()
 
 void Tile::show()
 {
-	cout << letter << "-" << points << "\n";
+	cout << letter << "-" << points << " ";
 }
 
 void Tile::setBag(Bag* b)

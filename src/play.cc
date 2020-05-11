@@ -93,39 +93,135 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 	return result;
 }
 
-vector<Tile*> Play::getConnectedTiles(Tile* t, char dir)
+/*
+ * vector<Tile*> Play::getConnectedTiles(Tile* t, char dir)
+ * {
+ *     Square* currSquare;
+ *     // Tile* currTile;
+ *     vector<Tile*> connectedTiles;
+ *
+ *     if(dir == 'h') {
+ *         // Search left hand side
+ *         currSquare = t->getSquare()->getLeft();
+ *         while(!currSquare->isEmpty()) {
+ *             connectedTiles.push_back(currSquare->getTile());
+ *             currSquare = currSquare->getLeft();
+ *         }
+ *
+ *         // Search right hand side
+ *         currSquare = t->getSquare()->getRight();
+ *         while(!currSquare->isEmpty()) {
+ *             connectedTiles.push_back(currSquare->getTile());
+ *             currSquare = currSquare->getRight();
+ *         }
+ *     }
+ *     else if(dir == 'v') {
+ *         // Search above
+ *         currSquare = t->getSquare()->getAbove();
+ *         while(!currSquare->isEmpty()) {
+ *             connectedTiles.push_back(currSquare->getTile());
+ *             currSquare = currSquare->getAbove();
+ *         }
+ *
+ *         // Search below
+ *         currSquare = t->getSquare()->getBelow();
+ *         while(!currSquare->isEmpty()) {
+ *             connectedTiles.push_back(currSquare->getTile());
+ *             currSquare = currSquare->getBelow();
+ *         }
+ *     }
+ *     else {
+ *         throw(string("Invalid direction\n"));
+ *     }
+ *
+ *     return connectedTiles;
+ * }
+ */
+
+vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
+{
+	vector<vector<Tile*>> words;
+	vector<Tile*> placedTiles;
+	int currRow = r;
+	int currCol = c;
+	Square* currSquare;
+
+	try {
+		if(dir == 'h') {
+			currSquare = b->getSquare(currRow, currCol);
+			while(!currSquare->getLeft()->isEmpty()) {
+				currSquare = currSquare->getLeft();
+			}
+
+			while(!currSquare->isEmpty()) {
+				placedTiles.push_back(currSquare->getTile());
+				currSquare = currSquare->getRight();
+			}
+			words.push_back(placedTiles);
+
+			for(Tile* t : tilesInStr) {
+				currSquare = t->getSquare();
+				if(!currSquare->getAbove()->isEmpty() || !currSquare->getBelow()->isEmpty()) {
+					// BOLD(" Vertical neighbours present\n");
+					words.push_back(getConnectedWord(t, 'v'));
+				}
+			}
+		}
+		else if(dir == 'v') {
+			currSquare = b->getSquare(currRow, currCol);
+			while(!currSquare->getAbove()->isEmpty()) {
+				currSquare = currSquare->getAbove();
+			}
+
+			while(!currSquare->isEmpty()) {
+				placedTiles.push_back(currSquare->getTile());
+				currSquare = currSquare->getBelow();
+			}
+			words.push_back(placedTiles);
+
+			for(Tile* t : tilesInStr) {
+				currSquare = t->getSquare();
+				if(!currSquare->getLeft()->isEmpty() || !currSquare->getRight()->isEmpty()) {
+					// BOLD(" Horizontal neighbours present\n");
+					words.push_back(getConnectedWord(t, 'h'));
+				}
+			}
+		}
+
+	}
+	catch(string err) {
+		throw;
+	}
+
+	return words;
+}
+
+vector<Tile*> Play::getConnectedWord(Tile* t, char dir)
 {
 	Square* currSquare;
-	// Tile* currTile;
-	vector<Tile*> connectedTiles;
+	vector<Tile*> connectedWord;
 
 	if(dir == 'h') {
-		// Search left hand side
-		currSquare = t->getSquare()->getLeft();
-		while(!currSquare->isEmpty()) {
-			connectedTiles.push_back(currSquare->getTile());
+		currSquare = t->getSquare();
+		while(!currSquare->getLeft()->isEmpty()) {
 			currSquare = currSquare->getLeft();
 		}
 
-		// Search right hand side
-		currSquare = t->getSquare()->getRight();
 		while(!currSquare->isEmpty()) {
-			connectedTiles.push_back(currSquare->getTile());
+			connectedWord.push_back(currSquare->getTile());
 			currSquare = currSquare->getRight();
 		}
 	}
 	else if(dir == 'v') {
-		// Search above
-		currSquare = t->getSquare()->getAbove();
-		while(!currSquare->isEmpty()) {
-			connectedTiles.push_back(currSquare->getTile());
+		currSquare = t->getSquare();
+		while(!currSquare->getAbove()->isEmpty()) {
 			currSquare = currSquare->getAbove();
 		}
 
-		// Search below
-		currSquare = t->getSquare()->getBelow();
 		while(!currSquare->isEmpty()) {
-			connectedTiles.push_back(currSquare->getTile());
+			// BOLD_RED(" Adding to connectedWord... ");
+			// currSquare->show();
+			connectedWord.push_back(currSquare->getTile());
 			currSquare = currSquare->getBelow();
 		}
 	}
@@ -133,29 +229,5 @@ vector<Tile*> Play::getConnectedTiles(Tile* t, char dir)
 		throw(string("Invalid direction\n"));
 	}
 
-	return connectedTiles;
-}
-
-vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
-{
-	vector<vector<Tile*>> words;
-
-	try {
-		if(dir == 'h') {
-			for(Tile* t : tilesInStr) {
-				words.push_back(getConnectedTiles(t, 'v'));
-			}
-		}
-		else if(dir == 'v') {
-			for(Tile* t : tilesInStr) {
-				words.push_back(getConnectedTiles(t, 'h'));
-			}
-		}
-
-	}
-	catch(string err) {
-		BOLD_RED(" Error: " + err);
-	}
-
-	return words;
+	return connectedWord;
 }

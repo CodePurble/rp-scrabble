@@ -62,8 +62,8 @@ inline void PALE_GREEN(std::string x)
 	std::cout << "\033[38;2;50;193;110m" + x + "\033[0m";
 }
 
-bool findSquare(std::vector<Square*> s, Square* target);
-bool findTile(std::vector<Tile*> t, Tile* target);
+bool squarePresent(std::vector<Square*> s, Square* target);
+bool tilePresent(std::vector<Tile*> t, Tile* target);
 
 std::vector<std::string> parsePlay(std::string in);
 

@@ -54,22 +54,22 @@ Board::Board()
 		}
 	}
 
-	// Vertical strips
+	// Horizontal strips
 	for(int j = 0; j < NUM_COLS/2; j++) {
-		board[NUM_ROWS/2][j] = new Square(strip[j], j, NUM_ROWS/2);
+		board[NUM_ROWS/2][j] = new Square(strip[j], NUM_ROWS/2, j);
 	}
 
 	for(int j = NUM_COLS - 1; j > NUM_COLS/2; j--) {
-		board[NUM_ROWS/2][j] = new Square(strip[NUM_COLS - 1 - j], j, NUM_ROWS/2);
+		board[NUM_ROWS/2][j] = new Square(strip[NUM_COLS - 1 - j], NUM_ROWS/2, j);
 	}
 
-	// Horizontal strips
+	// Vertical strips
 	for(int j = 0; j < NUM_ROWS/2; j++) {
-		board[j][NUM_COLS/2] = new Square(strip[j], NUM_COLS/2, j);
+		board[j][NUM_COLS/2] = new Square(strip[j], j, NUM_COLS/2);
 	}
 
 	for(int j = NUM_ROWS - 1; j > NUM_ROWS/2; j--) {
-		board[j][NUM_COLS/2] = new Square(strip[NUM_ROWS - 1 - j], NUM_COLS/2, j);
+		board[j][NUM_COLS/2] = new Square(strip[NUM_ROWS - 1 - j], j, NUM_COLS/2);
 	}
 
 	// Center
