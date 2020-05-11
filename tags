@@ -79,12 +79,12 @@ BOARD	include/tile.h	/^enum enum_location {BAG, RACK, BOARD};$/;"	e	language:C++
 BOARD_H	include/board.h	/^#define BOARD_H$/;"	d	language:C++
 BOLD	include/utils.h	/^inline void BOLD(std::string x)$/;"	f	language:C++	typeref:typename:void
 BOLD_BLUE	include/utils.h	/^inline void BOLD_BLUE(std::string x)$/;"	f	language:C++	typeref:typename:void
-BOLD_BRIGHT_GREEN	include/utils.h	/^inline void BOLD_BRIGHT_GREEN(std::string x)$/;"	f	language:C++	typeref:typename:void
+BOLD_BRIGHT_GREEN_FG	include/utils.h	/^inline void BOLD_BRIGHT_GREEN_FG(std::string x)$/;"	f	language:C++	typeref:typename:void
 BOLD_BROWN	include/utils.h	/^inline void BOLD_BROWN(std::string x)$/;"	f	language:C++	typeref:typename:void
 BOLD_CYAN	include/utils.h	/^inline void BOLD_CYAN(std::string x)$/;"	f	language:C++	typeref:typename:void
 BOLD_ORANGE	include/utils.h	/^inline void BOLD_ORANGE(std::string x)$/;"	f	language:C++	typeref:typename:void
 BOLD_PINK	include/utils.h	/^inline void BOLD_PINK(std::string x)$/;"	f	language:C++	typeref:typename:void
-BOLD_RED	include/utils.h	/^inline void BOLD_RED(std::string x)$/;"	f	language:C++	typeref:typename:void
+BOLD_RED_FG	include/utils.h	/^inline void BOLD_RED_FG(std::string x)$/;"	f	language:C++	typeref:typename:void
 BOLD_WHITE	include/utils.h	/^inline void BOLD_WHITE(std::string x)$/;"	f	language:C++	typeref:typename:void
 Bag	include/bag.h	/^class Bag {$/;"	c	language:C++
 Bag	src/bag.cc	/^Bag::Bag()$/;"	f	language:C++	class:Bag
@@ -105,7 +105,7 @@ LINK_EXE	makefile	/^LINK_EXE=$(CXX) $(CFLAGS) -o $@ $^$/;"	m	language:Make
 N	include/square.h	/^enum enum_sqType {N, DWS, TWS, DLS, TLS};$/;"	e	language:C++	enum:enum_sqType
 NUM_COLS	include/utils.h	/^#define NUM_COLS /;"	d	language:C++
 NUM_ROWS	include/utils.h	/^#define NUM_ROWS /;"	d	language:C++
-PALE_GREEN	include/utils.h	/^inline void PALE_GREEN(std::string x)$/;"	f	language:C++	typeref:typename:void
+PALE_GREEN_FG	include/utils.h	/^inline void PALE_GREEN_FG(std::string x)$/;"	f	language:C++	typeref:typename:void
 PLAYER_H	include/player.h	/^#define PLAYER_H$/;"	d	language:C++
 PLAY_H	include/play.h	/^#define PLAY_H$/;"	d	language:C++
 Play	include/play.h	/^class Play {$/;"	c	language:C++

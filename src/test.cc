@@ -53,19 +53,6 @@ void testRack()
 	Rack r;
 	r.fill(t);
 	r.show();
-	try {
-		cout << boolalpha;
-		cout << r.isEmpty();
-		// t.clear();
-		// t = r.getTileStrVec("ABA");
-		// r.show();
-		// for(Tile* x : t)
-		//     cout << x->getLetterStr();
-	}
-	catch(string e) {
-		BOLD_RED(e);
-		cout << endl;
-	}
 }
 
 void testSquare()
@@ -78,22 +65,7 @@ void testSquare()
 void testBoard()
 {
 	Board b;
-
 	b.show();
-
-	cout << "Row 7\n";
-	for(int i = 0; i < NUM_COLS; i++) {
-		b.getSquare(7, i)->show();
-		cout << ", ";
-	}
-	cout << "\n\n";
-
-	cout << "Col 7\n";
-	for(int i = 0; i < NUM_COLS; i++) {
-		b.getSquare(i, 7)->show();
-		cout << ", ";
-	}
-
 }
 
 void testGame()
@@ -145,7 +117,7 @@ void testPlay()
 
 	}
 	catch(string str) {
-		BOLD_RED(str);
+		BOLD_RED_FG(str);
 		cout << "\n";
 	}
 }

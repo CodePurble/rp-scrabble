@@ -20,7 +20,7 @@ Board::Board()
 
 	enum_sqType strip[7] = {TWS, N, N, DLS, N, N, N};
 
-	sqStrings = {"   ", "DWS", "TWS", "DLS", "TLS"};
+	// sqStrings = {"   ", "DWS", "TWS", "DLS", "TLS"};
 
 	// Top Left quarter
 	for(int i = 0; i < NUM_ROWS/2; i++) {
@@ -113,72 +113,76 @@ void Board::show()
 
 	cout << "                                   "; // 35 spaces
 	for(int k = 0; k < NUM_COLS; k++) {
-		BOLD_BROWN("+-----");
+		BOARD_COLOURS("+-----");
 	}
 
-	BOLD_BROWN("+");
+	BOARD_COLOURS("+");
 	cout << "\n";
 
 	for(int i = 0; i < NUM_ROWS; i++) {
 		if(i < 10) {
-			BOLD_WHITE("                                 " + to_string(i) + " ");
+			BOLD_WHITE_FG("                                 " + to_string(i) + " ");
 		}
 		else {
-			BOLD_WHITE("                                " + to_string(i) + " ");
+			BOLD_WHITE_FG("                                " + to_string(i) + " ");
 		}
 
-		BOLD_BROWN("| ");
+		BOARD_COLOURS("| ");
 		for(int j = 0; j < NUM_COLS; j++) {
 			toPrint = "   ";
 			currSquare = board[i][j];
 			if(currSquare->isEmpty()) {
 				if(i == 7 && j == 7) {
-					BOLD_PINK("");
+					PINK_BG("   ");
 				}
 				else {
-					toPrint = sqStrings[currSquare->getType()];
+					// toPrint = sqStrings[currSquare->getType()];
+					toPrint = "   ";
 					switch(currSquare->getType()) {
 					case 0:
-						cout << toPrint;
+						BOARD_COLOURS(toPrint);
 						break;
 					case 1:
-						BOLD_PINK(toPrint);
+						PINK_BG(toPrint);
 						break;
 					case 2:
-						BOLD_ORANGE(toPrint);
+						RED_BG(toPrint);
 						break;
 					case 3:
-						BOLD_CYAN(toPrint);
+						LIGHT_BLUE_BG(toPrint);
 						break;
 					case 4:
-						BOLD_BLUE(toPrint);
+						DARK_BLUE_BG(toPrint);
 						break;
 					}
 				}
 			}
 			else {
 				toPrint = " " + currSquare->getTile()->getLetterStr() + " ";
-				BOLD_WHITE(toPrint);
+				TILE_COLOURS(toPrint);
 			}
-			BOLD_BROWN(" | ");
+			if(j < NUM_COLS - 1) {
+				BOARD_COLOURS(" | ");
+			}
 		}
+		BOARD_COLOURS(" |");
 		cout << "\n";
 		cout << "                                   ";
 		for(int k = 0; k < NUM_COLS; k++) {
-			BOLD_BROWN("+-----");
+			BOARD_COLOURS("+-----");
 		}
 
-		BOLD_BROWN("+");
+		BOARD_COLOURS("+");
 		cout << "\n";
 	}
 
-	BOLD_WHITE("                                      0   ");
+	BOLD_WHITE_FG("                                      0   ");
 	for(int k = 1; k < NUM_COLS; k++)
 		if(k < 10) {
-			BOLD_WHITE("  " + to_string(k) + "   ");
+			BOLD_WHITE_FG("  " + to_string(k) + "   ");
 		}
 		else {
-			BOLD_WHITE(" " + to_string(k) + "   ");
+			BOLD_WHITE_FG(" " + to_string(k) + "   ");
 		}
 	cout << "\n\n";
 }
@@ -279,6 +283,6 @@ Square* Board::getSquare(int r, int c)
 		return board[r][c];
 	}
 	else {
-		return nullptr;
+		throw(string("Square out of bounds\n"));
 	}
 }

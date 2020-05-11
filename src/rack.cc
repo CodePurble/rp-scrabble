@@ -40,38 +40,36 @@ void Rack::show()
 {
 	int rackSize = rack.size();
 
-	// for(int i = 0; i < rackSize; i++){
-	//     if(i == 0)
-	//         BOLD_WHITE("   " + to_string(i) + "  ");
-	//     else
-	//         BOLD_WHITE(" " + to_string(i) + "  ");
-	// }
-	// cout << "\n";
-
 	cout << " ";
 	for(int i = 0; i < rackSize; i++) {
-		BOLD_BROWN("+---");
+		BOARD_COLOURS("+-----");
 	}
 
-	BOLD_BROWN("+");
+	BOARD_COLOURS("+");
 	cout << "\n";
-	BOLD_BROWN(" | ");
+	cout << " ";
+	BOARD_COLOURS("| ");
 
-	for(Tile* t : rack) {
-		if(t) {
-			BOLD_WHITE(t->getLetterStr());
-			BOLD_BROWN(" | ");
+	for(int i = 0; i < rack.size(); i++) {
+		if(rack[i]) {
+			TILE_COLOURS(" " + rack[i]->getLetterStr() + " ");
 		}
 		else {
-			BOLD_BROWN("  | ");
+			BOARD_COLOURS("   ");
+		}
+		if(i == 6) {
+			BOARD_COLOURS(" |");
+		}
+		else {
+			BOARD_COLOURS(" | ");
 		}
 	}
 	cout << "\n" << " ";
 	for(int i = 0; i < rackSize; i++) {
-		BOLD_BROWN("+---");
+		BOARD_COLOURS("+-----");
 	}
 
-	BOLD_BROWN("+");
+	BOARD_COLOURS("+");
 	cout << "\n";
 }
 

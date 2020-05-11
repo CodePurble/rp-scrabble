@@ -36,8 +36,8 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 	if(dir == 'h') {
 		int currCol = c;
 		for(int i = 0; i < max; i++) {
-			curr = b->getSquare(r, currCol);
-			if(curr) {
+			try {
+				curr = b->getSquare(r, currCol);
 				Square* currLeft = curr->getLeft();
 				Square* currRight = curr->getRight();
 				Square* currAbove = curr->getAbove();
@@ -57,16 +57,16 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 					currCol++;
 				}
 			}
-			else {
-				throw(string("Invalid square co-ordinates\n"));
+			catch(string err) {
+				throw;
 			}
 		}
 	}
 	else if(dir == 'v') {
 		int currRow = r;
-		for(int i = 0; i < max; i++) {
-			curr = b->getSquare(currRow, c);
-			if(curr) {
+		try {
+			for(int i = 0; i < max; i++) {
+				curr = b->getSquare(currRow, c);
 				Square* currLeft = curr->getLeft();
 				Square* currRight = curr->getRight();
 				Square* currAbove = curr->getAbove();
@@ -86,9 +86,9 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 					currRow++;
 				}
 			}
-			else {
-				throw(string("Invalid square co-ordinates"));
-			}
+		}
+		catch(string err) {
+			throw;
 		}
 	}
 	else {
@@ -108,41 +108,55 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
 
 	try {
 		if(dir == 'h') {
-			currSquare = b->getSquare(currRow, currCol);
-			while(!currSquare->getLeft()->isEmpty()) {
-				currSquare = currSquare->getLeft();
-			}
-
-			while(!currSquare->isEmpty()) {
-				placedTiles.push_back(currSquare->getTile());
-				currSquare = currSquare->getRight();
-			}
-			words.push_back(placedTiles);
-
-			for(Tile* t : tilesInStr) {
-				currSquare = t->getSquare();
-				if(!currSquare->getAbove()->isEmpty() || !currSquare->getBelow()->isEmpty()) {
-					words.push_back(getConnectedWord(t, 'v'));
+			try {
+				currSquare = b->getSquare(currRow, currCol);
+				while(currSquare && currSquare->getLeft() && !currSquare->getLeft()->isEmpty()) {
+					currSquare = currSquare->getLeft();
 				}
+
+				while(currSquare && !currSquare->isEmpty()) {
+					placedTiles.push_back(currSquare->getTile());
+					currSquare = currSquare->getRight();
+				}
+				words.push_back(placedTiles);
+
+				for(Tile* t : tilesInStr) {
+					currSquare = t->getSquare();
+					if(( currSquare && currSquare->getAbove() && !currSquare->getAbove()->isEmpty() )
+						|| ( currSquare && currSquare->getBelow() && !currSquare->getBelow()->isEmpty() )) {
+						words.push_back(getConnectedWord(t, 'v'));
+					}
+				}
+			}
+			catch(string err) {
+				throw;
 			}
 		}
 		else if(dir == 'v') {
-			currSquare = b->getSquare(currRow, currCol);
-			while(!currSquare->getAbove()->isEmpty()) {
-				currSquare = currSquare->getAbove();
-			}
-
-			while(!currSquare->isEmpty()) {
-				placedTiles.push_back(currSquare->getTile());
-				currSquare = currSquare->getBelow();
-			}
-			words.push_back(placedTiles);
-
-			for(Tile* t : tilesInStr) {
-				currSquare = t->getSquare();
-				if(!currSquare->getLeft()->isEmpty() || !currSquare->getRight()->isEmpty()) {
-					words.push_back(getConnectedWord(t, 'h'));
+			try {
+				currSquare = b->getSquare(currRow, currCol);
+				while(currSquare && currSquare->getAbove() && !currSquare->getAbove()->isEmpty()) {
+					if(currSquare) {
+						currSquare = currSquare->getAbove();
+					}
 				}
+
+				while(currSquare && !currSquare->isEmpty()) {
+					placedTiles.push_back(currSquare->getTile());
+					currSquare = currSquare->getBelow();
+				}
+				words.push_back(placedTiles);
+
+				for(Tile* t : tilesInStr) {
+					currSquare = t->getSquare();
+					if(( currSquare && currSquare->getLeft() && !currSquare->getLeft()->isEmpty() )
+						|| ( currSquare && currSquare->getRight() && !currSquare->getRight()->isEmpty() )) {
+						words.push_back(getConnectedWord(t, 'h'));
+					}
+				}
+			}
+			catch(string err) {
+				throw;
 			}
 		}
 
@@ -161,22 +175,22 @@ vector<Tile*> Play::getConnectedWord(Tile* t, char dir)
 
 	if(dir == 'h') {
 		currSquare = t->getSquare();
-		while(!currSquare->getLeft()->isEmpty()) {
+		while(currSquare && currSquare->getLeft() && !currSquare->getLeft()->isEmpty()) {
 			currSquare = currSquare->getLeft();
 		}
 
-		while(!currSquare->isEmpty()) {
+		while(currSquare && !currSquare->isEmpty()) {
 			connectedWord.push_back(currSquare->getTile());
 			currSquare = currSquare->getRight();
 		}
 	}
 	else if(dir == 'v') {
 		currSquare = t->getSquare();
-		while(!currSquare->getAbove()->isEmpty()) {
+		while(currSquare && currSquare->getAbove() && !currSquare->getAbove()->isEmpty()) {
 			currSquare = currSquare->getAbove();
 		}
 
-		while(!currSquare->isEmpty()) {
+		while(currSquare && !currSquare->isEmpty()) {
 			connectedWord.push_back(currSquare->getTile());
 			currSquare = currSquare->getBelow();
 		}

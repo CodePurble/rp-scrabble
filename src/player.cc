@@ -24,7 +24,7 @@ Player::~Player()
 void Player::show()
 {
 	if(turn) {
-		BOLD_BRIGHT_GREEN(" " + playerName + ": " + to_string(score) + " points\n");
+		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points\n");
 	}
 	else {
 		BOLD(" " + playerName + ": " + to_string(score) + " points\n");

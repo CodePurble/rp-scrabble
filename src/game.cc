@@ -160,12 +160,12 @@ void Game::run()
 					cin >> in;
 
 					if(in == "?") {
-						PALE_GREEN("\n A square is denoted by the pair (row, column)\n\n");
-						PALE_GREEN(" Plays are denoted as follows-\n");
-						PALE_GREEN(" <tiles>-<row>-<column>-<direction>\n");
-						PALE_GREEN(" e.g. hat-4-6-v means that the tiles 'h', 'a' and 't' should be placed vertically and the first tile ('h') should be placed at (4, 6)\n\n");
-						// PALE_GREEN(" If you have a blank tile (#) and you want to use it, you must give what letter it should be used as in the play\n");
-						// PALE_GREEN(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
+						PALE_GREEN_FG("\n A square is denoted by the pair (row, column)\n\n");
+						PALE_GREEN_FG(" Plays are denoted as follows-\n");
+						PALE_GREEN_FG(" <tiles>-<row>-<column>-<direction>\n");
+						PALE_GREEN_FG(" e.g. hat-4-6-v means that the tiles 'h', 'a' and 't' should be placed vertically and the first tile ('h') should be placed at (4, 6)\n\n");
+						// PALE_GREEN_FG(" If you have a blank tile (#) and you want to use it, you must give what letter it should be used as in the play\n");
+						// PALE_GREEN_FG(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
 					}
 					else {
 						vector<vector<Tile*>> connnectedWords;
@@ -182,7 +182,7 @@ void Game::run()
 
 						if(plays.size() == 1) {
 							if(!firstTurnCheck(tileStr, row, col, dir)) {
-								BOLD_RED(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
+								BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
 							}
 							else {
 								playValid = true;
@@ -208,12 +208,12 @@ void Game::run()
 							endTurn = !endTurn; // Turn ends
 						}
 						else {
-							BOLD_RED(" You can't place a word there!\n");
+							BOLD_RED_FG(" You can't place a word there!\n");
 						}
 					}
 				}
 				catch(string ex) {
-					BOLD_RED(" Error: " + ex);
+					BOLD_RED_FG(" Error: " + ex);
 				}
 			}
 			// Check whether all racks are empty
