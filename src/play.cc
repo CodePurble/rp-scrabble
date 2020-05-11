@@ -12,7 +12,7 @@ using namespace std;
  */
 Play::Play(Player* p)
 {
-	pointsEarned = 0;
+	pointsMade = 0;
 	playMaker = p;
 }
 
@@ -93,51 +93,6 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 	return result;
 }
 
-/*
- * vector<Tile*> Play::getConnectedTiles(Tile* t, char dir)
- * {
- *     Square* currSquare;
- *     // Tile* currTile;
- *     vector<Tile*> connectedTiles;
- *
- *     if(dir == 'h') {
- *         // Search left hand side
- *         currSquare = t->getSquare()->getLeft();
- *         while(!currSquare->isEmpty()) {
- *             connectedTiles.push_back(currSquare->getTile());
- *             currSquare = currSquare->getLeft();
- *         }
- *
- *         // Search right hand side
- *         currSquare = t->getSquare()->getRight();
- *         while(!currSquare->isEmpty()) {
- *             connectedTiles.push_back(currSquare->getTile());
- *             currSquare = currSquare->getRight();
- *         }
- *     }
- *     else if(dir == 'v') {
- *         // Search above
- *         currSquare = t->getSquare()->getAbove();
- *         while(!currSquare->isEmpty()) {
- *             connectedTiles.push_back(currSquare->getTile());
- *             currSquare = currSquare->getAbove();
- *         }
- *
- *         // Search below
- *         currSquare = t->getSquare()->getBelow();
- *         while(!currSquare->isEmpty()) {
- *             connectedTiles.push_back(currSquare->getTile());
- *             currSquare = currSquare->getBelow();
- *         }
- *     }
- *     else {
- *         throw(string("Invalid direction\n"));
- *     }
- *
- *     return connectedTiles;
- * }
- */
-
 vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
 {
 	vector<vector<Tile*>> words;
@@ -162,7 +117,6 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
 			for(Tile* t : tilesInStr) {
 				currSquare = t->getSquare();
 				if(!currSquare->getAbove()->isEmpty() || !currSquare->getBelow()->isEmpty()) {
-					// BOLD(" Vertical neighbours present\n");
 					words.push_back(getConnectedWord(t, 'v'));
 				}
 			}
@@ -182,7 +136,6 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
 			for(Tile* t : tilesInStr) {
 				currSquare = t->getSquare();
 				if(!currSquare->getLeft()->isEmpty() || !currSquare->getRight()->isEmpty()) {
-					// BOLD(" Horizontal neighbours present\n");
 					words.push_back(getConnectedWord(t, 'h'));
 				}
 			}
@@ -219,8 +172,6 @@ vector<Tile*> Play::getConnectedWord(Tile* t, char dir)
 		}
 
 		while(!currSquare->isEmpty()) {
-			// BOLD_RED(" Adding to connectedWord... ");
-			// currSquare->show();
 			connectedWord.push_back(currSquare->getTile());
 			currSquare = currSquare->getBelow();
 		}
@@ -230,4 +181,45 @@ vector<Tile*> Play::getConnectedWord(Tile* t, char dir)
 	}
 
 	return connectedWord;
+}
+
+void Play::calculatePoints(vector<vector<Tile*>> words)
+{
+	int multiplier = 1;
+
+/*
+ * enum enum_sqType {N, DWS, TWS, DLS, TLS};
+ */
+	for(vector<Tile*> word : words) {
+		for(Tile* t : word) {
+			DEBUG("pointsMade", pointsMade);
+			DEBUG("sqType", t->getSquare()->getType());
+			DEBUG("getPoints", t->getPoints());
+			switch(t->getSquare()->getType()) {
+				case N:
+					pointsMade += t->getPoints();
+					break;
+				case DLS:
+					pointsMade += 2*(t->getPoints());
+					break;
+				case TLS:
+					pointsMade += 2*(t->getPoints());
+					break;
+				case TWS:
+					multiplier *= 3;
+					break;
+				case DWS:
+					multiplier *= 2;
+					break;
+			}
+		}
+	}
+
+	pointsMade *= multiplier;
+	DEBUG("Updated pointsMade", pointsMade);
+}
+
+int Play::getPointsMade()
+{
+	return pointsMade;
 }

@@ -177,6 +177,7 @@ void Game::run()
 						if(playValid) {
 							tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
 							connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
+							currPlay->calculatePoints(connnectedWords);
 
 							for(vector<Tile*> vec : connnectedWords) {
 								for(Tile* t : vec) {
@@ -184,6 +185,8 @@ void Game::run()
 								}
 								cout << "\n";
 							}
+
+							currPlayer->updateScore(currPlay->getPointsMade());
 
 							currPlayer->draw(tileStr.length(), gameBag);
 							currPlayer->toggleTurn();
