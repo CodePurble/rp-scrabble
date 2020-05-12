@@ -3,9 +3,10 @@ BIN_DIR=./bin
 SRC_DIR=./src
 INCLUDE_DIR=./include
 INSTALL_DIR=$(HOME)/.local/bin
+LOG_DIR=$(HOME)/.local/share/rp-scrabble/logs
 EXEC=rp-scrabble
 
-CFLAGS += -Wall -g -I$(INCLUDE_DIR)/
+CFLAGS += -Wall -g -I$(INCLUDE_DIR)/ -DLOG_PATH=\"$(HOME)/.local/share/rp-scrabble/logs/\"
 
 COMPILE=$(CXX) $(CFLAGS) -c $^ -o $@
 LINK_EXE=$(CXX) $(CFLAGS) -o $@ $^
@@ -33,11 +34,13 @@ $(BIN_DIR)/%.o: $(SRC_DIR)/%.cc
 
 install:
 	mkdir -p $(INSTALL_DIR)
+	mkdir -p $(LOG_DIR)
 	cp -f $(BIN_DIR)/$(EXEC) $(INSTALL_DIR)
 	chmod 755 $(INSTALL_DIR)/$(EXEC)
 
 uninstall:
 	rm -f $(INSTALL_DIR)/$(EXEC)
+	rm -rdf $(LOG_DIR)
 
 clean:
 	rm -rf $(BIN_DIR)/*

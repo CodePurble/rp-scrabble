@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <cstdlib>
 #include "game.h"
 #include "bag.h"
 #include "board.h"
@@ -18,9 +19,10 @@ Game::Game()
 	time(&rawTime);
 	strftime(filenameBuffer, 60, "-%F-scrabble.log", localtime(&rawTime));
 	gameID = RawTimeToString(rawTime);
-	logFilePath = "logs/" + gameID + string(filenameBuffer);
+	logFilePath = LOG_PATH + gameID + string(filenameBuffer);
 
 	DEBUG(" logFilePath", logFilePath);
+	cout << endl;
 
 	gameBoard = new Board;
 	gameBag = new Bag;
@@ -66,7 +68,15 @@ void Game::init()
 	for(Player* p : players) {
 		cout << " Name of Player " + p->getName() + ": ";
 		cin >> tempName;
-		log(logFilePath, "Player 1: "+ tempName);
+		try {
+			log(logFilePath, "Player 1: "+ tempName);
+		}
+		catch(string err) {
+			BOLD_RED_FG(" Unable to open log file\n");
+			BOLD_RED_FG(" You can set the path in the Makefile\n");
+			BOLD_RED_FG(" Aborting\n");
+			exit(1);
+		}
 		p->setName(tempName);
 	}
 
@@ -81,7 +91,15 @@ void Game::init()
 					cout << " Name of Player " + to_string(j + i + 1) + ": ";
 					cin >> tempName;
 					addPlayer(new Player(tempName));
-					log(logFilePath, "Player " + to_string(j + i + 1) + ": " + tempName);
+					try {
+						log(logFilePath, "Player " + to_string(j + i + 1) + ": " + tempName);
+					}
+					catch(string err) {
+						BOLD_RED_FG(" Unable to open log file\n");
+						BOLD_RED_FG(" You can set the path in the Makefile\n");
+						BOLD_RED_FG(" Aborting\n");
+						exit(1);
+					}
 				}
 				complete = true;
 			}
@@ -222,7 +240,16 @@ void Game::run()
 	for(Player* p : players) {
 		p->draw(7, gameBag);
 	}
-	log(logFilePath, "Game start\n");
+
+	try {
+		log(logFilePath, "Game start\n");
+	}
+	catch(string err) {
+		BOLD_RED_FG(" Unable to open log file\n");
+		BOLD_RED_FG(" You can set the path in the Makefile\n");
+		BOLD_RED_FG(" Aborting\n");
+		exit(1);
+	}
 
 	// Main game loop
 	while(!allEmpty) {
@@ -264,7 +291,15 @@ void Game::run()
 						vector<vector<Tile*>> connnectedWords;
 						vector<Tile*> tileStrVec;
 
-						log(logFilePath, in);
+						try {
+							log(logFilePath, in);
+						}
+						catch(string err) {
+							BOLD_RED_FG(" Unable to open log file\n");
+							BOLD_RED_FG(" You can set the path in the Makefile\n");
+							BOLD_RED_FG(" Aborting\n");
+							exit(1);
+						}
 
 						parsed = parsePlay(in);
 
