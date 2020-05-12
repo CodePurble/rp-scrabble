@@ -30,7 +30,7 @@ programming.
 	```
 
 ## Other notes
-* Keep the repo up to date by running `git pull` every once in a while in the project directory
+* Keep the repo up to date by running `git pull` every once in a while in the project directory. Remember to rebuild again after pulling to bring any changes into effect.
 * Log files are stored in
 	```sh
 	$HOME/.local/share/rp-scrabble/logs
