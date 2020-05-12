@@ -26,9 +26,11 @@ programming.
 * If it doesn't launch, check the output of `$ echo $PATH`. If it does not contain `your-home-dir/.local/bin`, add it to your `PATH` like this-
 	```sh
 	$ echo "export PATH=$PATH:$HOME/.local/bin" >> $HOME/.bashrc
+	$ source $HOME/.bashrc
 	```
 
 ## Other notes
+* Keep the repo up to date by running `git pull` every once in a while in the project directory
 * Log files are stored in
 	```sh
 	$HOME/.local/share/rp-scrabble/logs
