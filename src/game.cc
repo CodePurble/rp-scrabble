@@ -101,14 +101,14 @@ void Game::init()
 bool Game::firstTurnCheck(string tileStr, int row, int col, char dir)
 {
 	if(dir == 'h') {
-		for(int j = col; j < col + tileStr.length(); j++) {
+		for(unsigned long j = col; j < col + tileStr.length(); j++) {
 			if(j == 7 && row == 7) {
 				return true;
 			}
 		}
 	}
 	else if(dir == 'v') {
-		for(int i = row; i < row + tileStr.length(); i++) {
+		for(unsigned long i = row; i < row + tileStr.length(); i++) {
 			if(i == 7 && col == 7) {
 				return true;
 			}
@@ -118,13 +118,102 @@ bool Game::firstTurnCheck(string tileStr, int row, int col, char dir)
 	return false;
 }
 
+string Game::getInput()
+{
+	string tempIn = "";
+	string input = "";
+
+	BOLD(" Enter the tiles you want to place ");
+	cout << "(? for help, . to show board) ";
+	cin >> tempIn;
+	if(tempIn == "?") {
+		return "?";
+	}
+	else if(tempIn == ".") {
+		return ".";
+	}
+	else {
+		input.append(tempIn + "-");
+	}
+
+	BOLD(" Enter the row where the first tile will go ");
+	cout << "(? for help, . to show board) ";
+	cin >> tempIn;
+	if(tempIn == "?") {
+		return "?";
+	}
+	else if(tempIn == ".") {
+		return ".";
+	}
+	else {
+		input.append(tempIn + "-");
+	}
+
+	BOLD(" Enter the column where the first tile will go ");
+	cout << "(? for help, . to show board) ";
+	cin >> tempIn;
+	if(tempIn == "?") {
+		return "?";
+	}
+	else if(tempIn == ".") {
+		return ".";
+	}
+	else {
+		input.append(tempIn + "-");
+	}
+
+	BOLD(" Enter the direction of placement ");
+	cout << "(? for help, . to show board) ";
+	cin >> tempIn;
+	if(tempIn == "?") {
+		return "?";
+	}
+	else if(tempIn == ".") {
+		return ".";
+	}
+	else {
+		input.append(tempIn);
+	}
+
+	return input;
+}
+
+void Game::printHelp()
+{
+	PALE_GREEN_FG("\n The tiles you want to place are entered in order of placement using the respective letter\n\n");
+	PALE_GREEN_FG(" The row and column of the square to place can be seen outside the edge of the board\n\n");
+	PALE_GREEN_FG(" The placement direction can either be 'v' (place tiles vertically downward one after the other) or\n");
+	PALE_GREEN_FG(" 'h' (place tiles horizontally from left to right one after the other) or\n\n");
+
+	BOLD(" Board legend\n");
+	BOLD(" ------------\n");
+
+	cout << " ";
+	RED_BG("   ");
+	cout << " Triple Word Score\t";
+
+	cout << " ";
+	PINK_BG("   ");
+	cout << " Double Word Score\t";
+
+	cout << " ";
+	DARK_BLUE_BG("   ");
+	cout << " Triple Letter Score\t";
+
+	cout << " ";
+	LIGHT_BLUE_BG("   ");
+	cout << " Double Letter Score\n\n";
+}
+
 void Game::run()
 {
 	int row, col;
 	bool endTurn;
 	bool allEmpty = false;
 	bool playValid;
-	string tileStr, in;
+	string tileStr;
+	string in = "";
+	string tempIn = "";
 	char dir;
 	vector<string> parsed;
 
@@ -156,16 +245,20 @@ void Game::run()
 			while(!endTurn) {
 				try {
 					BOLD(" " + currPlayer->getName());
-					cout << " Enter your play (? for help) ";
-					cin >> in;
+
+					in = getInput();
 
 					if(in == "?") {
-						PALE_GREEN_FG("\n A square is denoted by the pair (row, column)\n\n");
-						PALE_GREEN_FG(" Plays are denoted as follows-\n");
-						PALE_GREEN_FG(" <tiles>-<row>-<column>-<direction>\n");
-						PALE_GREEN_FG(" e.g. hat-4-6-v means that the tiles 'h', 'a' and 't' should be placed vertically and the first tile ('h') should be placed at (4, 6)\n\n");
-						// PALE_GREEN_FG(" If you have a blank tile (#) and you want to use it, you must give what letter it should be used as in the play\n");
-						// PALE_GREEN_FG(" e.g. a#nt-5-6-h implies that the '#' must be considered as the letter 'n'. The rest of the play is standard\n\n");
+						printHelp();
+					}
+					else if(in == ".") {
+						gameBoard->show();
+						BOLD(" Bag: ");
+						gameBag->show();
+						cout << "\n";
+						for(Player* p : players) {
+							p->show();
+						}
 					}
 					else {
 						vector<vector<Tile*>> connnectedWords;
@@ -174,6 +267,7 @@ void Game::run()
 						log(logFilePath, in);
 
 						parsed = parsePlay(in);
+
 						tileStr = parsed[0];
 						row = stoi(parsed[1]);
 						col = stoi(parsed[2]);

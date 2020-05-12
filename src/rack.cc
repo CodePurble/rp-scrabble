@@ -12,7 +12,7 @@ Rack::Rack()
 
 void Rack::fill(vector<Tile*> t)
 {
-	int i = 0;
+	unsigned long i = 0;
 	while(!t.empty() && i < rack.size()) {
 		if(!rack[i]) {
 			rack[i] = t.back();
@@ -26,7 +26,7 @@ void Rack::fill(vector<Tile*> t)
 
 void Rack::addTile(Tile* t)
 {
-	for(int i = 0; i < rack.size(); i++) {
+	for(unsigned long i = 0; i < rack.size(); i++) {
 		if(!rack[i]) {
 			rack[i] = t;
 			rack[i]->setLoc(1);
@@ -50,7 +50,7 @@ void Rack::show()
 	cout << " ";
 	BOARD_COLOURS("| ");
 
-	for(int i = 0; i < rack.size(); i++) {
+	for(unsigned long i = 0; i < rack.size(); i++) {
 		if(rack[i]) {
 			TILE_COLOURS(" " + rack[i]->getLetterStr() + " ");
 		}
@@ -110,7 +110,7 @@ vector<Tile*> Rack::getTileStrVec(string tileStr)
 
 bool Rack::isEmpty()
 {
-	for(int i = 0; i < rack.size(); i++) {
+	for(unsigned long i = 0; i < rack.size(); i++) {
 		if(rack[i]) {
 			return false;
 		}

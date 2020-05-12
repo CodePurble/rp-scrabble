@@ -24,10 +24,10 @@ Player::~Player()
 void Player::show()
 {
 	if(turn) {
-		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points\n");
+		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points\n\n");
 	}
 	else {
-		BOLD(" " + playerName + ": " + to_string(score) + " points\n");
+		BOLD(" " + playerName + ": " + to_string(score) + " points\n\n");
 	}
 
 	rack->show();

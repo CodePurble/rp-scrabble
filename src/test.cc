@@ -21,7 +21,7 @@ void testPlay();
 
 int main()
 {
-	testGame();
+	testBoard();
 	return 0;
 }
 

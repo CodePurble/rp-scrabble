@@ -251,16 +251,16 @@ void Board::placeTileStr(Rack* rack, vector<Tile*> tilesInStr, int r, int c, cha
 		int currRow = r;
 		int currCol = c;
 		if(dir == 'h') {
-			for(int i = 0; i < placed.size(); i++) {
+			for(unsigned long i = 0; i < placed.size(); i++) {
 				rack->addTile(retrieve(currRow, currCol++));
 			}
 		}
 		else if(dir == 'v') {
-			for(int i = 0; i < placed.size(); i++) {
+			for(unsigned long i = 0; i < placed.size(); i++) {
 				rack->addTile(retrieve(currRow++, currCol));
 			}
 		}
-		for(int i = placed.size(); i < tilesInStr.size(); i ++) {
+		for(unsigned long i = placed.size(); i < tilesInStr.size(); i ++) {
 			rack->addTile(tilesInStr[i]);
 		}
 		throw(err + " Because some of the tiles won't fit on the board\n");

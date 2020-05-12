@@ -19,6 +19,8 @@ private:
 	void init();
 	bool firstTurnCheck(std::string str, int r, int c, char dir);
 	void addPlayer(Player* p);
+	std::string getInput();
+	void printHelp();
 
 public:
 	Game();

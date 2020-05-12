@@ -2,7 +2,8 @@
 BIN_DIR=./bin
 SRC_DIR=./src
 INCLUDE_DIR=./include
-EXEC=test
+INSTALL_DIR=$(HOME)/.local/bin
+EXEC=rp-scrabble
 
 CFLAGS += -Wall -g -I$(INCLUDE_DIR)/
 
@@ -20,7 +21,6 @@ $(shell if [ ! -d "${BIN_DIR}" ]; then mkdir -p ${BIN_DIR}; fi;)
 # rather it is just a name for a recipe to be executed when you make an explicit request
 # All targets that generate files should have target name = name of file
 # so that make can correctly track if we need to rebuild the target
-.phony: all clean
 
 all: $(BIN_DIR)/$(EXEC)
 
@@ -31,6 +31,15 @@ $(BIN_DIR)/$(EXEC): $(SRC_OBJS)
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.cc
 	$(COMPILE)
 
+install:
+	mkdir -p $(INSTALL_DIR)
+	cp -f $(BIN_DIR)/$(EXEC) $(INSTALL_DIR)
+	chmod 755 $(INSTALL_DIR)/$(EXEC)
+
+uninstall:
+	rm -f $(INSTALL_DIR)/$(EXEC)
+
 clean:
 	rm -rf $(BIN_DIR)/*
 
+.phony: all clean install uninstall

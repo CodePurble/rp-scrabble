@@ -195,7 +195,7 @@ void Bag::shuffle()
 	Tile* temp = nullptr;
 	srand(time(NULL));
 
-	for(int i = 0; i < bag.size(); i++) {
+	for(unsigned long i = 0; i < bag.size(); i++) {
 		j = rand() % bag.size();
 		temp = bag[i];
 		bag[i] = bag[j];
@@ -207,11 +207,11 @@ void Bag::shuffle()
 vector<Tile*> Bag::draw(int count)
 {
 	vector<Tile*> drawn;
-	int prev_size = bag.size();
+	unsigned long prev_size = bag.size();
 
 	shuffle();
 
-	for(int i = 0; i < count && i < prev_size; i++) {
+	for(unsigned long i = 0; i < (unsigned long) count && i < prev_size; i++) {
 		drawn.push_back(bag.back());
 		bag.pop_back();
 	}
