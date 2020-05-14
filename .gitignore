@@ -32,9 +32,13 @@
 *.app
 bin/
 
+# Build directory
+build/
+
 # Log files
 logs/
 
 # Configs
 .ycm_extra_conf.py
 .clangd/
+set_compile_commands.sh

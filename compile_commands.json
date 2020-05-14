@@ -6,6 +6,7 @@
    "-Wall",
    "-g",
    "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
    "-c",
    "src/bag.cc",
    "-o",
@@ -20,62 +21,7 @@
    "-Wall",
    "-g",
    "-I./include/",
-   "-c",
-   "src/rack.cc",
-   "-o",
-   "bin/rack.o"
-  ],
-  "file": "src/rack.cc"
- },
- {
-  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
-  "arguments": [
-   "g++",
-   "-Wall",
-   "-g",
-   "-I./include/",
-   "-c",
-   "src/test.cc",
-   "-o",
-   "bin/test.o"
-  ],
-  "file": "src/test.cc"
- },
- {
-  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
-  "arguments": [
-   "g++",
-   "-Wall",
-   "-g",
-   "-I./include/",
-   "-c",
-   "src/tile.cc",
-   "-o",
-   "bin/tile.o"
-  ],
-  "file": "src/tile.cc"
- },
- {
-  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
-  "arguments": [
-   "g++",
-   "-Wall",
-   "-g",
-   "-I./include/",
-   "-c",
-   "src/square.cc",
-   "-o",
-   "bin/square.o"
-  ],
-  "file": "src/square.cc"
- },
- {
-  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
-  "arguments": [
-   "g++",
-   "-Wall",
-   "-g",
-   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
    "-c",
    "src/board.cc",
    "-o",
@@ -90,20 +36,7 @@
    "-Wall",
    "-g",
    "-I./include/",
-   "-c",
-   "src/player.cc",
-   "-o",
-   "bin/player.o"
-  ],
-  "file": "src/player.cc"
- },
- {
-  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
-  "arguments": [
-   "g++",
-   "-Wall",
-   "-g",
-   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
    "-c",
    "src/game.cc",
    "-o",
@@ -118,6 +51,22 @@
    "-Wall",
    "-g",
    "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
+   "-c",
+   "src/main.cc",
+   "-o",
+   "bin/main.o"
+  ],
+  "file": "src/main.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
    "-c",
    "src/play.cc",
    "-o",
@@ -132,6 +81,67 @@
    "-Wall",
    "-g",
    "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
+   "-c",
+   "src/player.cc",
+   "-o",
+   "bin/player.o"
+  ],
+  "file": "src/player.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
+   "-c",
+   "src/rack.cc",
+   "-o",
+   "bin/rack.o"
+  ],
+  "file": "src/rack.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
+   "-c",
+   "src/square.cc",
+   "-o",
+   "bin/square.o"
+  ],
+  "file": "src/square.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
+   "-c",
+   "src/tile.cc",
+   "-o",
+   "bin/tile.o"
+  ],
+  "file": "src/tile.cc"
+ },
+ {
+  "directory": "/home/ramprakash/RPDATA/Repos/scrabble",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-I./include/",
+   "-DLOG_PATH=\"/home/ramprakash/.local/share/rp-scrabble/logs/\"",
    "-c",
    "src/utils.cc",
    "-o",

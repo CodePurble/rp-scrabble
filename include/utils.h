@@ -89,7 +89,7 @@ inline void BROWN_BG(std::string x)
 
 inline void RED_BG(std::string x)
 {
-	std::cout << "\033[48;2;255;51;51m" + x + "\033[0m";
+	std::cout << "\033[48;2;255;26;26m" + x + "\033[0m";
 }
 
 inline void PINK_BG(std::string x)
