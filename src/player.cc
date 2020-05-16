@@ -23,15 +23,21 @@ Player::~Player()
 
 void Player::show()
 {
-	if(turn) {
-		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points\n");
-	}
-	else {
-		BOLD(" " + playerName + ": " + to_string(score) + " points\n");
-	}
+	showScore();
+	cout << "\n";
 
 	rack->show();
 	cout << "\n";
+}
+
+void Player::showScore()
+{
+	if(turn) {
+		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points");
+	}
+	else {
+		BOLD_WHITE_FG(" " + playerName + ": " + to_string(score) + " points");
+	}
 }
 
 string Player::getName()

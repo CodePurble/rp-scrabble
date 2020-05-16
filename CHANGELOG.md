@@ -20,7 +20,7 @@
 * Players prompted only if their racks are not empty, avoiding unplayable game state
 * Infinite game loop fixed
 
-#### Feature Updates
+#### Feature updates
 * Perform input validation
 * Show details of currently made play
 * Play confirmation
@@ -29,4 +29,13 @@
 #### Minor changes
 * Remove lingering debug messages
 * Correct board layout
+
+## Version 1.1.1
+
+#### Feature updates
+* Added commands to show scores and skip turn
+* Updated help text
+
+#### Minor changes
+* Cleaned up player prompt
 

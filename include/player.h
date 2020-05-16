@@ -31,6 +31,7 @@ public:
 	void draw(int count, Bag* b);
 	bool rackIsEmpty();
 	void returnToRack(Tile* t, Board* b);
+	void showScore();
 	void show();
 };
 

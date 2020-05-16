@@ -150,7 +150,7 @@ string Game::getInput()
 	string input = "";
 
 	BOLD(" Enter the tiles you want to place ");
-	cout << "(? for help, . to show board, - to quit) ";
+	cout << "(? for help, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -163,6 +163,9 @@ string Game::getInput()
 	}
 	else if(tempIn == "!") {
 		return "!";
+	}
+	else if(tempIn == "#") {
+		return "#";
 	}
 	else {
 		for(char ch : tempIn) {
@@ -174,7 +177,7 @@ string Game::getInput()
 	}
 
 	BOLD(" Enter the row where the first tile will go ");
-	cout << "(? for help, . to show board, - to quit) ";
+	cout << "(? for help, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -187,6 +190,9 @@ string Game::getInput()
 	}
 	else if(tempIn == "!") {
 		return "!";
+	}
+	else if(tempIn == "#") {
+		return "#";
 	}
 	else {
 		try {
@@ -199,7 +205,7 @@ string Game::getInput()
 	}
 
 	BOLD(" Enter the column where the first tile will go ");
-	cout << "(? for help, . to show board, - to quit) ";
+	cout << "(? for help, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -212,6 +218,9 @@ string Game::getInput()
 	}
 	else if(tempIn == "!") {
 		return "!";
+	}
+	else if(tempIn == "#") {
+		return "#";
 	}
 	else {
 		try {
@@ -224,7 +233,7 @@ string Game::getInput()
 	}
 
 	BOLD(" Enter the direction of placement ");
-	cout << "(? for help, . to show board, - to quit) ";
+	cout << "(? for help, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -237,6 +246,9 @@ string Game::getInput()
 	}
 	else if(tempIn == "!") {
 		return "!";
+	}
+	else if(tempIn == "#") {
+		return "#";
 	}
 	else {
 		if(tempIn.length() != 1 && (tempIn != "h" || tempIn != "v")) {
@@ -254,6 +266,20 @@ void Game::printHelp()
 	PALE_GREEN_FG(" The row and column of the square to place can be seen outside the edge of the board\n\n");
 	PALE_GREEN_FG(" The placement direction can either be 'v' (place tiles vertically downward one after the other) or\n");
 	PALE_GREEN_FG(" 'h' (place tiles horizontally from left to right one after the other) or\n\n");
+
+	BOLD(" Commands\n");
+	BOLD(" --------\n");
+
+	BOLD_BRIGHT_GREEN_FG(" ? ");
+	cout << "Show this help text\t";
+	BOLD_BRIGHT_GREEN_FG(" . ");
+	cout << "Show the board\t";
+	BOLD_BRIGHT_GREEN_FG(" ! ");
+	cout << "Skip turn\n";
+	BOLD_BRIGHT_GREEN_FG(" # ");
+	cout << "Show scores\t\t";
+	BOLD_BRIGHT_GREEN_FG(" - ");
+	cout << "Quit the game\n\n";
 
 	BOLD(" Board legend\n");
 	BOLD(" ------------\n");
@@ -368,6 +394,13 @@ void Game::run()
 							else {
 								throw(string("Invalid input\n"));
 							}
+						}
+						else if(in == "#") {
+							for(Player* p : players) {
+								p->showScore();
+								cout << "\t";
+							}
+							cout << "\n";
 						}
 						else {
 							vector<vector<Tile*>> connnectedWords;
