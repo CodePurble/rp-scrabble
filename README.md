@@ -1,4 +1,4 @@
-# scrabble
+# rp-scrabble
 This is a command-line Scrabble game written in C++ to explore object oriented
 programming.
 
