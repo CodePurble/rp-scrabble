@@ -22,6 +22,23 @@ Play::~Play()
 	delete playMaker;
 }
 
+void Play::show()
+{
+	string wordStr = "";
+	for(vector<Tile*> word : wordsInPlay) {
+		for(Tile* t : word) {
+			wordStr.append(t->getLetterStr());
+		}
+		wordStr.append(" + ");
+	}
+	if(!wordStr.empty()) {
+		wordStr.replace(wordStr.end()-3, wordStr.end(), "");
+	}
+
+	BOLD_WHITE_FG(" Words in play: " + wordStr + "\n");
+	BOLD_WHITE_FG(" " + to_string(pointsMade) + " points\n");
+}
+
 void Play::setPlayer(Player* p)
 {
 	playMaker = p;
@@ -100,7 +117,6 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
 
 vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
 {
-	vector<vector<Tile*>> words;
 	vector<Tile*> placedTiles;
 	int currRow = r;
 	int currCol = c;
@@ -118,13 +134,13 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
 					placedTiles.push_back(currSquare->getTile());
 					currSquare = currSquare->getRight();
 				}
-				words.push_back(placedTiles);
+				wordsInPlay.push_back(placedTiles);
 
 				for(Tile* t : tilesInStr) {
 					currSquare = t->getSquare();
 					if(( currSquare && currSquare->getAbove() && !currSquare->getAbove()->isEmpty() )
 						|| ( currSquare && currSquare->getBelow() && !currSquare->getBelow()->isEmpty() )) {
-						words.push_back(getConnectedWord(t, 'v'));
+						wordsInPlay.push_back(getConnectedWord(t, 'v'));
 					}
 				}
 			}
@@ -145,13 +161,13 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
 					placedTiles.push_back(currSquare->getTile());
 					currSquare = currSquare->getBelow();
 				}
-				words.push_back(placedTiles);
+				wordsInPlay.push_back(placedTiles);
 
 				for(Tile* t : tilesInStr) {
 					currSquare = t->getSquare();
 					if(( currSquare && currSquare->getLeft() && !currSquare->getLeft()->isEmpty() )
 						|| ( currSquare && currSquare->getRight() && !currSquare->getRight()->isEmpty() )) {
-						words.push_back(getConnectedWord(t, 'h'));
+						wordsInPlay.push_back(getConnectedWord(t, 'h'));
 					}
 				}
 			}
@@ -165,7 +181,7 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
 		throw;
 	}
 
-	return words;
+	return wordsInPlay;
 }
 
 vector<Tile*> Play::getConnectedWord(Tile* t, char dir)
@@ -202,7 +218,7 @@ vector<Tile*> Play::getConnectedWord(Tile* t, char dir)
 	return connectedWord;
 }
 
-void Play::calculatePoints(vector<vector<Tile*>> words)
+void Play::calculatePoints(vector<vector<Tile*>> words, vector<Tile*> tileStrVec)
 {
 	int multiplier = 1;
 
@@ -211,36 +227,72 @@ void Play::calculatePoints(vector<vector<Tile*>> words)
  */
 	for(vector<Tile*> word : words) {
 		for(Tile* t : word) {
-			DEBUG("sqType", t->getSquare()->getType());
-			DEBUG("getPoints", t->getPoints());
 			switch(t->getSquare()->getType()) {
 				case N:
 					pointsMade += t->getPoints();
 					break;
 				case DLS:
-					pointsMade += 2*(t->getPoints());
+					if(tilePresent(tileStrVec, t)) {
+						pointsMade += 2*(t->getPoints());
+					}
+					else {
+						t->show();
+						pointsMade += t->getPoints();
+					}
 					break;
 				case TLS:
-					pointsMade += 2*(t->getPoints());
+					if(tilePresent(tileStrVec, t)) {
+						pointsMade += 3*(t->getPoints());
+					}
+					else {
+						pointsMade += t->getPoints();
+					}
 					break;
 				case TWS:
 					pointsMade += t->getPoints();
-					multiplier *= 3;
+					if(tilePresent(tileStrVec, t)) {
+						multiplier *= 3;
+					}
 					break;
 				case DWS:
 					pointsMade += t->getPoints();
-					multiplier *= 2;
+					if(tilePresent(tileStrVec, t)) {
+						multiplier *= 2;
+					}
 					break;
 			}
 		}
-		DEBUG("pointsMade", pointsMade);
 	}
-
 	pointsMade *= multiplier;
-	DEBUG("Final pointsMade", pointsMade);
 }
 
 int Play::getPointsMade()
 {
 	return pointsMade;
+}
+
+bool Play::confirmPlay()
+{
+	char ch;
+	PALE_GREEN_FG(" Confirm the play? (y/n) ");
+	cin >> ch;
+
+	switch(ch) {
+		case 'y':
+			return true;
+			break;
+		case 'n':
+			return false;
+			break;
+		default:
+			return false;
+			break;
+	}
+}
+
+void Play::reset()
+{
+	pointsMade = 0;
+	wordsInPlay.clear();
+	playStr = "";
 }

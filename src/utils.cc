@@ -26,6 +26,13 @@ bool tilePresent(std::vector<Tile*> t, Tile* target)
 	return(it == t.end() ? false : true);
 }
 
+bool charPresent(string str, char ch)
+{
+	auto it = str.end();
+	it = std::find(str.begin(), str.end(), ch);
+	return(it == str.end() ? false : true);
+}
+
 std::vector<std::string> parsePlay(std::string in)
 {
 	vector<string> parse;

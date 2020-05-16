@@ -9,7 +9,7 @@ using namespace std;
 Board::Board()
 {
 	enum_sqType quarterBoard[7][7] = {
-		{ TWS, N  , N  , DWS, N  , N  , N   },
+		{ TWS, N  , N  , DLS, N  , N  , N   },
 		{ N  , DWS, N  , N  , N  , TLS, N   },
 		{ N  , N  , DWS, N  , N  , N  , DLS },
 		{ DLS, N  , N  , DWS, N  , N  , N   },

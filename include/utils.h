@@ -8,9 +8,11 @@ class Tile;
 class Square;
 class Play;
 
-#define DEBUG(x, y) std::cout << x << ":" << y << std::endl
+#define DEBUG_PRINT(x, y) std::cout << x << ":" << y << std::endl
 #define NUM_ROWS 15
 #define NUM_COLS 15
+
+const std::string alphabets = "abcdefghijklmnopqrstuvwxyz";
 
 /*
  * ANSI escape codes for colour
@@ -94,7 +96,7 @@ inline void RED_BG(std::string x)
 
 inline void PINK_BG(std::string x)
 {
-	std::cout << "\033[48;2;255;77;109m" + x + "\033[0m";
+	std::cout << "\033[48;2;225;0;109m" + x + "\033[0m";
 }
 
 inline void DARK_BLUE_BG(std::string x)
@@ -117,12 +119,12 @@ inline void OFF_WHITE_BG(std::string x)
  */
 inline void TILE_COLOURS(std::string x)
 {
-	std::cout << "\033[1;38;2;0;0;0;48;2;255;236;230m" + x + "\033[0m";
+	std::cout << "\033[1;38;2;0;0;0;48;2;255;255;255m" + x + "\033[0m";
 }
 
 inline void BOARD_COLOURS(std::string x)
 {
-	std::cout << "\033[1;38;2;232;232;232;48;2;104;0;13m" + x + "\033[0m";
+	std::cout << "\033[1;38;2;232;232;232;48;2;77;0;9m" + x + "\033[0m";
 }
 
 /*
@@ -130,6 +132,7 @@ inline void BOARD_COLOURS(std::string x)
  */
 bool squarePresent(std::vector<Square*> s, Square* target);
 bool tilePresent(std::vector<Tile*> t, Tile* target);
+bool charPresent(std::string str, char target);
 std::vector<std::string> parsePlay(std::string in);
 void log(std::string logFilePath, std::string str);
 std::string RawTimeToString(const time_t& t);

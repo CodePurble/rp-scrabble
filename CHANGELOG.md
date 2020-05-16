@@ -9,3 +9,24 @@
 * Player scores are calculated
 * Tile placement validation
 * Logging of games
+
+## Version 1.1
+
+#### Breaking Changes
+* The build system has been changed to Cmake
+
+#### Bug fixes
+* Premium squares are applied only if tiles from the current play are placed on them
+* Players prompted only if their racks are not empty, avoiding unplayable game state
+* Infinite game loop fixed
+
+#### Feature Updates
+* Perform input validation
+* Show details of currently made play
+* Play confirmation
+* Added option to quit the game
+
+#### Minor changes
+* Remove lingering debug messages
+* Correct board layout
+

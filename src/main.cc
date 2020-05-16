@@ -1,4 +1,4 @@
-#ifdef DBG
+#ifdef DEBUG
 
 #include <iostream>
 #include "game.h"
@@ -10,7 +10,7 @@ void testBoard();
 
 int main()
 {
-	testBoard();
+	testGame();
 	return 0;
 }
 

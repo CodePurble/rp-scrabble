@@ -184,9 +184,7 @@ void Bag::show()
 	for(Tile* i : bag) {
 		cout << i->getLetter();
 	}
-	cout << "\n";
-	BOLD(" " + to_string(bag.size()));
-	cout << " tiles remaining\n";
+	BOLD(" (" + to_string(bag.size()) + " tiles remaining)\n");
 }
 
 void Bag::shuffle()

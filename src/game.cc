@@ -2,6 +2,7 @@
 #include <ctime>
 #include <string>
 #include <cstdlib>
+#include <stdexcept>
 #include "game.h"
 #include "bag.h"
 #include "board.h"
@@ -21,7 +22,7 @@ Game::Game()
 	gameID = RawTimeToString(rawTime);
 	logFilePath = LOG_PATH + gameID + string(filenameBuffer);
 
-	DEBUG(" logFilePath", logFilePath);
+	DEBUG_PRINT(" logFilePath", logFilePath);
 	cout << endl;
 
 	gameBoard = new Board;
@@ -73,7 +74,7 @@ void Game::init()
 		}
 		catch(string err) {
 			BOLD_RED_FG(" Unable to open log file\n");
-			BOLD_RED_FG(" You can set the path in the Makefile\n");
+			BOLD_RED_FG(" You can set the path in the CMakeLists.txt file\n");
 			BOLD_RED_FG(" Aborting\n");
 			exit(1);
 		}
@@ -88,7 +89,7 @@ void Game::init()
 			cin >> i;
 			if(i > 0 && i < 4) {
 				for(j = 0; j < i; j++) {
-					cout << " Name of Player " + to_string(j + i + 1) + ": ";
+					cout << " Name of Player " + to_string(j + 2) + ": ";
 					cin >> tempName;
 					addPlayer(new Player(tempName));
 					try {
@@ -112,6 +113,13 @@ void Game::init()
 				}
 			}
 		}
+	}
+	else if(response == 'n') {
+		// do nothing, carry on
+	}
+	else {
+		BOLD_RED_FG(" Error: Invalid input\n");
+		init();
 	}
 	cout << "\n";
 }
@@ -142,7 +150,7 @@ string Game::getInput()
 	string input = "";
 
 	BOLD(" Enter the tiles you want to place ");
-	cout << "(? for help, . to show board) ";
+	cout << "(? for help, . to show board, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -150,12 +158,23 @@ string Game::getInput()
 	else if(tempIn == ".") {
 		return ".";
 	}
+	else if(tempIn == "-") {
+		return "-";
+	}
+	else if(tempIn == "!") {
+		return "!";
+	}
 	else {
+		for(char ch : tempIn) {
+			if(!charPresent(alphabets, ch)) {
+				throw(string("Invalid character input\n"));
+			}
+		}
 		input.append(tempIn + "-");
 	}
 
 	BOLD(" Enter the row where the first tile will go ");
-	cout << "(? for help, . to show board) ";
+	cout << "(? for help, . to show board, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -163,12 +182,24 @@ string Game::getInput()
 	else if(tempIn == ".") {
 		return ".";
 	}
+	else if(tempIn == "-") {
+		return "-";
+	}
+	else if(tempIn == "!") {
+		return "!";
+	}
 	else {
+		try {
+			stoi(tempIn);
+		}
+		catch(const invalid_argument& ia) {
+			throw(string("Invalid integer input\n"));
+		}
 		input.append(tempIn + "-");
 	}
 
 	BOLD(" Enter the column where the first tile will go ");
-	cout << "(? for help, . to show board) ";
+	cout << "(? for help, . to show board, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -176,12 +207,24 @@ string Game::getInput()
 	else if(tempIn == ".") {
 		return ".";
 	}
+	else if(tempIn == "-") {
+		return "-";
+	}
+	else if(tempIn == "!") {
+		return "!";
+	}
 	else {
+		try {
+			stoi(tempIn);
+		}
+		catch(const invalid_argument& ia) {
+			throw(string("Invalid integer input"));
+		}
 		input.append(tempIn + "-");
 	}
 
 	BOLD(" Enter the direction of placement ");
-	cout << "(? for help, . to show board) ";
+	cout << "(? for help, . to show board, - to quit) ";
 	cin >> tempIn;
 	if(tempIn == "?") {
 		return "?";
@@ -189,7 +232,16 @@ string Game::getInput()
 	else if(tempIn == ".") {
 		return ".";
 	}
+	else if(tempIn == "-") {
+		return "-";
+	}
+	else if(tempIn == "!") {
+		return "!";
+	}
 	else {
+		if(tempIn.length() != 1 && (tempIn != "h" || tempIn != "v")) {
+			throw(string("Invalid direction\n"));
+		}
 		input.append(tempIn);
 	}
 
@@ -229,6 +281,7 @@ void Game::run()
 	bool endTurn;
 	bool allEmpty = false;
 	bool playValid;
+	bool firstTurn = true;
 	string tileStr;
 	string in = "";
 	string tempIn = "";
@@ -254,98 +307,133 @@ void Game::run()
 	// Main game loop
 	while(!allEmpty) {
 		for(Player* currPlayer : players) {
-			plays.push_back(new Play(currPlayer));
-			Play* currPlay = plays.back();
-			row = col = 7;
-			endTurn = false;
-			tileStr = "";
+			if(!currPlayer->rackIsEmpty()) {
+				plays.push_back(new Play(currPlayer));
+				Play* currPlay = plays.back();
+				row = col = 7;
+				endTurn = false;
+				tileStr = "";
 
-			currPlayer->toggleTurn(); // Turn begins
-			gameBoard->show();
-			BOLD(" Bag: ");
-			gameBag->show();
-			cout << "\n";
-			for(Player* p : players) {
-				p->show();
-			}
+				currPlayer->toggleTurn(); // Turn begins
+				gameBoard->show();
+				BOLD(" Bag: ");
+				gameBag->show();
+				cout << "\n";
+				currPlayer->show();
 
-			while(!endTurn) {
-				try {
-					BOLD(" " + currPlayer->getName());
+				while(!endTurn) {
+					try {
+						BOLD(" " + currPlayer->getName());
 
-					in = getInput();
+						in = getInput();
 
-					if(in == "?") {
-						printHelp();
-					}
-					else if(in == ".") {
-						gameBoard->show();
-						BOLD(" Bag: ");
-						gameBag->show();
-						cout << "\n";
-						for(Player* p : players) {
-							p->show();
+						if(in == "?") {
+							printHelp();
 						}
-					}
-					else {
-						vector<vector<Tile*>> connnectedWords;
-						vector<Tile*> tileStrVec;
-
-						try {
-							log(logFilePath, in);
+						else if(in == ".") {
+							gameBoard->show();
+							BOLD(" Bag: ");
+							gameBag->show();
+							cout << "\n";
+							currPlayer->show();
 						}
-						catch(string err) {
-							BOLD_RED_FG(" Unable to open log file\n");
-							BOLD_RED_FG(" You can set the path in the Makefile\n");
-							BOLD_RED_FG(" Aborting\n");
-							exit(1);
-						}
-
-						parsed = parsePlay(in);
-
-						tileStr = parsed[0];
-						row = stoi(parsed[1]);
-						col = stoi(parsed[2]);
-						dir = parsed[3][0];
-						playValid = currPlay->validate(tileStr, gameBoard, row, col, dir);
-
-						if(plays.size() == 1) {
-							if(!firstTurnCheck(tileStr, row, col, dir)) {
-								BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
+						else if(in == "-") {
+							char c;
+							BOLD_RED_FG(" Are you sure you want to quit? (y/n) ");
+							cin >> c;
+							if(c == 'y') {
+								for(Player* p : players) {
+									log(logFilePath, p->getName() + ": " + to_string(p->getScore()));
+								}
+								exit(0);
+							}
+							else if(c == 'n') {
+								// Do nothing
 							}
 							else {
-								playValid = true;
+								throw(string("Invalid input\n"));
 							}
 						}
-
-						if(playValid) {
-							tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
-							connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
-							currPlay->calculatePoints(connnectedWords);
-
-							for(vector<Tile*> vec : connnectedWords) {
-								for(Tile* t : vec) {
-									t->getSquare()->show();
-								}
-								cout << "\n";
+						else if(in == "!") {
+							char c;
+							BOLD_RED_FG(" Skip turn? (y/n) ");
+							cin >> c;
+							if(c == 'y') {
+								currPlayer->toggleTurn();
+								endTurn = !endTurn;
 							}
-
-							currPlayer->updateScore(currPlay->getPointsMade());
-
-							currPlayer->draw(tileStr.length(), gameBag);
-							currPlayer->toggleTurn();
-							endTurn = !endTurn; // Turn ends
+							else if(c == 'n') {
+								// Do nothing
+							}
+							else {
+								throw(string("Invalid input\n"));
+							}
 						}
 						else {
-							BOLD_RED_FG(" You can't place a word there!\n");
+							vector<vector<Tile*>> connnectedWords;
+							vector<Tile*> tileStrVec;
+
+							try {
+								log(logFilePath, in);
+							}
+							catch(string err) {
+								BOLD_RED_FG(" " + err);
+								BOLD_RED_FG(" You can set the path in the CMakeLists.txt file\n");
+								BOLD_RED_FG(" Aborting\n");
+								exit(1);
+							}
+
+							parsed = parsePlay(in);
+
+							tileStr = parsed[0];
+							row = stoi(parsed[1]);
+							col = stoi(parsed[2]);
+							dir = parsed[3][0];
+							playValid = currPlay->validate(tileStr, gameBoard, row, col, dir);
+
+							if(firstTurn) {
+								if(!firstTurnCheck(tileStr, row, col, dir)) {
+									firstTurn = true;
+									BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
+								}
+								else {
+									playValid = true;
+									firstTurn = false;
+								}
+							}
+
+							if(playValid) {
+								tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
+								connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
+								currPlay->calculatePoints(connnectedWords, tileStrVec);
+
+								currPlay->show();
+
+								if(currPlay->confirmPlay()) {
+									currPlayer->updateScore(currPlay->getPointsMade());
+									currPlayer->draw(tileStr.length(), gameBag);
+									currPlayer->toggleTurn();
+									endTurn = !endTurn; // Turn ends
+								}
+								else {
+									for(Tile* t : tileStrVec) {
+										currPlayer->returnToRack(t, gameBoard);
+									}
+									currPlay->reset();
+								}
+							}
+							else {
+								BOLD_RED_FG(" You can't place a word there!\n");
+							}
 						}
 					}
-				}
-				catch(string ex) {
-					BOLD_RED_FG(" Error: " + ex);
+					catch(string ex) {
+						BOLD_RED_FG(" Error: " + ex);
+					}
 				}
 			}
-			// Check whether all racks are empty
+			// Find out whether all racks are empty
+			allEmpty = players.front()->rackIsEmpty();
 			for(Player* p : players) {
 				allEmpty = allEmpty && p->rackIsEmpty();
 			}
@@ -354,6 +442,7 @@ void Game::run()
 
 	BOLD(" You have placed all tiles!!! Final scores are-\n");
 	for(Player* p : players) {
-		p->show();
+		log(logFilePath, p->getName() + ": " + to_string(p->getScore()));
+		BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
 	}
 }

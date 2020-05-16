@@ -2,7 +2,12 @@
 This is a command-line Scrabble game written in C++ to explore object oriented
 programming.
 
+# NOTICE for users of `v1.0`
+* Users of `v1.0` **MUST** re-install the application as the update to `v1.1` contains breaking changes
+* All future updates will conform to these changes
+
 ## Build requirements
+* `cmake`
 * `git`
 * `make`
 * `g++`
@@ -19,8 +24,12 @@ programming.
 	```
 
 * Build
+
+	Run the install script with the appropriate argument-
 	```sh
-	$ make && make install
+	$ ./install.sh arch # for Arch based distributions (Manjaro, Void, etc)
+	$ ./install.sh debian # for Debian based distributions (Ubuntu, Pop_OS, etc)
+	$ ./install.sh custom # for other distributions
 	```
 * Now, simply running `rp-scrabble` should launch the game.
 * If it doesn't launch, check the output of `$ echo $PATH`. If it does not contain `your-home-dir/.local/bin`, add it to your `PATH` like this-
@@ -30,14 +39,14 @@ programming.
 	```
 
 ## Other notes
-* Keep the repo up to date by running `git pull` every once in a while in the project directory. Remember to rebuild again after pulling to bring any changes into effect.
+* Keep the repo up to date by running `git pull` every once in a while in the project directory. Remember to rerun the install script after pulling to bring any changes into effect.
 * Log files are stored in
 	```sh
 	$HOME/.local/share/rp-scrabble/logs
 	```
-* To uninstall, run this command in the project directory
+* To uninstall, run the install script with the `uninstall` argument in the project directory
 	```sh
-	$ make uninstall
+	$ ./install.sh uninstall
 	```
 	**NOTE** This will also remove any log files created
 

@@ -24,10 +24,10 @@ Player::~Player()
 void Player::show()
 {
 	if(turn) {
-		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points\n\n");
+		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points\n");
 	}
 	else {
-		BOLD(" " + playerName + ": " + to_string(score) + " points\n\n");
+		BOLD(" " + playerName + ": " + to_string(score) + " points\n");
 	}
 
 	rack->show();
@@ -37,6 +37,11 @@ void Player::show()
 string Player::getName()
 {
 	return playerName;
+}
+
+int Player::getScore()
+{
+	return score;
 }
 
 void Player::setName(string name)
@@ -85,4 +90,11 @@ vector<Tile*> Player::placeTileStr(string str, Board* b, int r, int c, char dir)
 bool Player::rackIsEmpty()
 {
 	return rack->isEmpty();
+}
+
+void Player::returnToRack(Tile* t, Board* b)
+{
+	if(t) {
+		rack->addTile(b->retrieve(t->getSquare()->getRow(), t->getSquare()->getCol()));
+	}
 }
