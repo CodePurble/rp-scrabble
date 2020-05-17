@@ -15,7 +15,7 @@ programming.
 ## Build instructions
 * Clone this repo
 	```sh
-	$ git clone https://github.com/CodePurble/scrabble.git
+	$ git clone https://github.com/CodePurble/rp-scrabble.git
 	```
 
 * Move into project directory
