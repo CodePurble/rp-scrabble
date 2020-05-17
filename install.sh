@@ -3,7 +3,7 @@
 BUILD_DIR=build/
 EXEC=rp-scrabble
 INSTALL_DIR=$HOME/.local/bin
-LOG_DIR=$HOME/.local/rp-scrabble/logs
+LOG_DIR=$HOME/.local/share/rp-scrabble/logs
 
 CMAKE_CHECK=$(cmake --version | grep version)
 
@@ -57,8 +57,8 @@ esac
 
 
 echo "Making build directories..."
-if [ ! -d "$BUILD_DIR" ]; then mkdir -p $BUILD_DIR; fi
-if [ ! -d "$LOG_DIR" ]; then mkdir -p $LOG_DIR; fi
+if [ ! -d "$BUILD_DIR" ]; then mkdir -vp $BUILD_DIR; fi
+if [ ! -d "$LOG_DIR" ]; then mkdir -vp $LOG_DIR; fi
 
 cd $BUILD_DIR
 
