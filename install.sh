@@ -5,11 +5,10 @@ EXEC=rp-scrabble
 INSTALL_DIR=$HOME/.local/bin
 LOG_DIR=$HOME/.local/share/rp-scrabble/logs
 
-CMAKE_CHECK=$(cmake --version | grep version)
 
 case $1 in
 	"debian")
-		if [ "$CMAKE_CHECK" == "" ]; then
+		if dpkg -s cmake &> /dev/null; then
 			echo "Installing cmake"
 			sudo apt update
 			sudo apt install cmake
@@ -19,7 +18,7 @@ case $1 in
 	;;
 
 	"arch")
-		if [ "$CMAKE_CHECK" == "" ]; then
+		if pacman -Qi cmake > /dev/null; then
 			echo "Installing cmake"
 			sudo pacman -S cmake
 		else
