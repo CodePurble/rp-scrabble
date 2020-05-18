@@ -18,11 +18,11 @@ case $1 in
 	;;
 
 	"arch")
-		if pacman -Qi cmake > /dev/null; then
+		if pacman -Qi cmake &> /dev/null; then
+			echo "cmake is installed"
+		else
 			echo "Installing cmake"
 			sudo pacman -S cmake
-		else
-			echo "cmake is installed"
 		fi
 	;;
 
