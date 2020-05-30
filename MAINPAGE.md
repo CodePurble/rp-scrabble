@@ -1,8 +1,11 @@
-# Welcome to documentation for [rp-scrabble](https://github.com/CodePurble/rp-scrabble)!
+# Welcome to documentation for rp-scrabble!
 Feel free to go through the docs to get to know about how this project works!
 
-This is a command-line Scrabble game written in C++ to explore object oriented
-programming.
+This is a command-line Scrabble game written in C++ to explore object oriented programming.
+
+
+[GitHub](https://github.com/CodePurble/rp-scrabble)
+
 
 # NOTICE for users of v1.0
 * Users of `v1.0` **MUST** re-install the application as the update to `v1.1` contains breaking changes
