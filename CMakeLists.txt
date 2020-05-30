@@ -8,7 +8,7 @@ set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
-	add_definitions(-DLOG_PATH=\"$(HOME)/RPDATA/Repos/scrabble/logs/\")
+	add_definitions(-DLOG_PATH=\"$(HOME)/RPDATA/Repos/rp-scrabble/logs/\")
 	add_definitions(-DDEBUG)
 else()
 	add_definitions(-DLOG_PATH=\"$(HOME)/.local/share/rp-scrabble/logs/\")
