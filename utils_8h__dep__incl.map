@@ -1,0 +1,11 @@
+<map id="include/utils.h" name="include/utils.h">
+<area shape="rect" id="node1" title=" " alt="" coords="171,5,272,32"/>
+<area shape="rect" id="node2" href="$bag_8cc.html" title=" " alt="" coords="5,80,88,107"/>
+<area shape="rect" id="node3" href="$game_8cc.html" title=" " alt="" coords="44,155,137,181"/>
+<area shape="rect" id="node4" href="$player_8cc.html" title=" " alt="" coords="162,155,257,181"/>
+<area shape="rect" id="node5" href="$rack_8cc.html" title=" " alt="" coords="347,80,434,107"/>
+<area shape="rect" id="node6" href="$utils_8cc.html" title=" " alt="" coords="459,80,544,107"/>
+<area shape="rect" id="node7" href="$board_8h.html" title=" " alt="" coords="213,80,323,107"/>
+<area shape="rect" id="node8" href="$board_8cc.html" title=" " alt="" coords="281,155,375,181"/>
+<area shape="rect" id="node9" href="$play_8cc.html" title=" " alt="" coords="399,155,483,181"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Board::placeTile" name="Board::placeTile">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,120,108"/>
+<area shape="rect" id="node2" href="$classSquare.html#a80b69491b3fe461fe3fd3fae340780dc" title=" " alt="" coords="168,5,283,32"/>
+<area shape="rect" id="node3" href="$classTile.html#abd7de2992fa792eacea3675c7142b985" title=" " alt="" coords="181,56,270,83"/>
+<area shape="rect" id="node4" href="$classTile.html#a1205f27694b4e251ec02fceb22430725" title=" " alt="" coords="171,107,279,133"/>
+<area shape="rect" id="node5" href="$classSquare.html#a817b917a29a06f2d0a6d56269eb7c3d5" title=" " alt="" coords="171,157,279,184"/>
+</map>

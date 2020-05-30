@@ -1,0 +1,8 @@
+<map id="Player::placeTile" name="Player::placeTile">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,121,108"/>
+<area shape="rect" id="node2" href="$classBoard.html#a0834c851410e440f45f36134fbf9b9c2" title=" " alt="" coords="169,81,284,108"/>
+<area shape="rect" id="node3" href="$classSquare.html#a80b69491b3fe461fe3fd3fae340780dc" title=" " alt="" coords="332,5,447,32"/>
+<area shape="rect" id="node4" href="$classTile.html#abd7de2992fa792eacea3675c7142b985" title=" " alt="" coords="345,56,434,83"/>
+<area shape="rect" id="node5" href="$classTile.html#a1205f27694b4e251ec02fceb22430725" title=" " alt="" coords="335,107,443,133"/>
+<area shape="rect" id="node6" href="$classSquare.html#a817b917a29a06f2d0a6d56269eb7c3d5" title=" " alt="" coords="335,157,443,184"/>
+</map>

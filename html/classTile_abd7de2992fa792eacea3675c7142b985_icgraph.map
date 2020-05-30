@@ -1,0 +1,8 @@
+<map id="Tile::setLoc" name="Tile::setLoc">
+<area shape="rect" id="node1" title=" " alt="" coords="528,31,617,57"/>
+<area shape="rect" id="node2" href="$classRack.html#a945d320dcbb80008275624ba474771e7" title=" " alt="" coords="373,5,473,32"/>
+<area shape="rect" id="node5" href="$classBoard.html#a0834c851410e440f45f36134fbf9b9c2" title=" " alt="" coords="365,56,480,83"/>
+<area shape="rect" id="node3" href="$classBoard.html#ae0430f8bd5ecb34e0452b3c7c0feb456" title=" " alt="" coords="187,5,317,32"/>
+<area shape="rect" id="node4" href="$classPlayer.html#ac6431e3c0d96d00e32b2f899aa324177" title=" " alt="" coords="5,5,139,32"/>
+<area shape="rect" id="node6" href="$classPlayer.html#a061b7b838588304c7b3178c3d7c8b6e7" title=" " alt="" coords="194,56,310,83"/>
+</map>

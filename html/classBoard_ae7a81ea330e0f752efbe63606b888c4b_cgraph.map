@@ -1,0 +1,14 @@
+<map id="Board::show" name="Board::show">
+<area shape="rect" id="node1" title=" " alt="" coords="5,259,99,285"/>
+<area shape="rect" id="node2" href="$utils_8h.html#a1e2cc37343d6907977836806c06be02f" title=" " alt="" coords="147,5,287,32"/>
+<area shape="rect" id="node3" href="$utils_8h.html#a87913424dd43cb2c6ac298504f59cc94" title=" " alt="" coords="151,56,283,83"/>
+<area shape="rect" id="node4" href="$utils_8h.html#a331c41d503416c04cc65a59cb2b00a67" title=" " alt="" coords="153,107,280,133"/>
+<area shape="rect" id="node5" href="$classTile.html#a8d10a209fcb266f37287ec08796a07d8" title=" " alt="" coords="157,157,276,184"/>
+<area shape="rect" id="node6" href="$classSquare.html#ae39cd0a82ae24de913a2402180d96d72" title=" " alt="" coords="163,208,271,235"/>
+<area shape="rect" id="node7" href="$classSquare.html#a70dec3673e52d7f79f585aa2d0677c2e" title=" " alt="" coords="159,259,274,285"/>
+<area shape="rect" id="node8" href="$classSquare.html#a80b69491b3fe461fe3fd3fae340780dc" title=" " alt="" coords="159,309,274,336"/>
+<area shape="rect" id="node9" href="$utils_8h.html#ae1998362d07bad7f875a51bfbbc2ab40" title=" " alt="" coords="151,360,282,387"/>
+<area shape="rect" id="node10" href="$utils_8h.html#a0d8ad437243b18b39d33062a3ce8219d" title=" " alt="" coords="177,411,257,437"/>
+<area shape="rect" id="node11" href="$utils_8h.html#a2d9ccf7fd0bd6c283fefc3fdb092f593" title=" " alt="" coords="179,461,254,488"/>
+<area shape="rect" id="node12" href="$utils_8h.html#ac72b36159f85144fcd755c3cfb9fd0db" title=" " alt="" coords="155,512,278,539"/>
+</map>

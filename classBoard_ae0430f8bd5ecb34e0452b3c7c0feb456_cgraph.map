@@ -1,0 +1,5 @@
+<map id="Board::placeTileStr" name="Board::placeTileStr">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node2" href="$classRack.html#a945d320dcbb80008275624ba474771e7" title=" " alt="" coords="184,5,284,32"/>
+<area shape="rect" id="node3" href="$classTile.html#abd7de2992fa792eacea3675c7142b985" title=" " alt="" coords="332,5,421,32"/>
+</map>

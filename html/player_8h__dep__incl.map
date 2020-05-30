@@ -1,0 +1,7 @@
+<map id="include/player.h" name="include/player.h">
+<area shape="rect" id="node1" title=" " alt="" coords="170,5,281,32"/>
+<area shape="rect" id="node2" href="$board_8cc.html" title=" " alt="" coords="5,80,99,107"/>
+<area shape="rect" id="node3" href="$game_8cc.html" title=" " alt="" coords="123,80,216,107"/>
+<area shape="rect" id="node4" href="$play_8cc.html" title=" " alt="" coords="241,80,325,107"/>
+<area shape="rect" id="node5" href="$player_8cc.html" title=" " alt="" coords="349,80,443,107"/>
+</map>

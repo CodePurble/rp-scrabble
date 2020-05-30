@@ -1,0 +1,6 @@
+<map id="Square" name="Square">
+<area shape="rect" id="node1" title=" " alt="" coords="5,21,68,48"/>
+<area shape="rect" id="node2" href="$classTile.html" title=" " alt="" coords="125,127,167,153"/>
+<area shape="rect" id="node3" href="$classBag.html" title=" " alt="" coords="175,21,221,48"/>
+<area shape="rect" id="node4" href="$classRack.html" title=" " alt="" coords="245,21,297,48"/>
+</map>

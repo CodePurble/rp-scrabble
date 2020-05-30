@@ -1,0 +1,7 @@
+<map id="Player::returnToRack" name="Player::returnToRack">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,148,108"/>
+<area shape="rect" id="node2" href="$classSquare.html#aaf011d4ff750d0770ba82b4c659c27f8" title=" " alt="" coords="199,5,306,32"/>
+<area shape="rect" id="node3" href="$classSquare.html#ad3391313a44cdbfbe87fd3ddc545feac" title=" " alt="" coords="196,56,309,83"/>
+<area shape="rect" id="node4" href="$classTile.html#a83edc970568fa8fdbf3fa4fe624e8136" title=" " alt="" coords="199,107,307,133"/>
+<area shape="rect" id="node5" href="$classBoard.html#a58097e50a799bff346be924295b750e6" title=" " alt="" coords="200,157,305,184"/>
+</map>
