@@ -39,6 +39,7 @@ programming.
     ```
 
 ## Other notes
+* You can find the documentation for this project [here](https://codepurble.github.io/rp-scrabble/)
 * Keep the repo up to date by running `git pull` every once in a while in the project directory. Remember to rerun the install script after pulling to bring any changes into effect.
 * Log files are stored in
     ```sh
