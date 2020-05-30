@@ -39,3 +39,8 @@
 #### Minor changes
 * Cleaned up player prompt
 
+## Version 1.1.4
+
+#### Changelog
+* Added Doxygen documentation
+
