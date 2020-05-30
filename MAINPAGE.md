@@ -1,4 +1,5 @@
-# rp-scrabble
+# Welcome to documentation for rp-scrabble!
+Feel free to go through the docs to get to know about how this project works! 
 This is a command-line Scrabble game written in C++ to explore object oriented
 programming.
 
