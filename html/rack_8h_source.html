@@ -75,35 +75,36 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#define RACK_H</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span><a class="code" href="classTile.html">Tile</a>;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRack.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRack.html">Rack</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRack.html#ae946a6a2f480ca3c931a62d5907ca322">   18</a></span>&#160;    std::array&lt;Tile*, 7&gt; <a class="code" href="classRack.html#ae946a6a2f480ca3c931a62d5907ca322">rack</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classRack.html#a7de3fc6451d26ecbe13574c976e5fa4f">Rack</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="classRack.html#aa18464e4a5e7048969a95526c70b3afb">~Rack</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classTile.html">Tile</a>* <a class="code" href="classRack.html#a8c7d252b14486cde824b7627385c4b25">getTile</a>(<span class="keywordtype">char</span> ch);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    std::vector&lt;Tile*&gt; <a class="code" href="classRack.html#a503a8d815738a121b381a8dabccd83f3">getTileStrVec</a>(std::string tileStr);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRack.html#a6e006859aadefb85768ee521462f0484">fill</a>(std::vector&lt;Tile*&gt; t);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRack.html#a945d320dcbb80008275624ba474771e7">addTile</a>(<a class="code" href="classTile.html">Tile</a>* t);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRack.html#ad163d531f5640fac13d9d2c5e73cab71">isEmpty</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRack.html#a8afca8f5ff6cb6e93b5941deee5761bc">show</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span><a class="code" href="classTile.html">Tile</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRack.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRack.html">Rack</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRack.html#ae946a6a2f480ca3c931a62d5907ca322">   19</a></span>&#160;    std::array&lt;Tile*, 7&gt; <a class="code" href="classRack.html#ae946a6a2f480ca3c931a62d5907ca322">rack</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="classRack.html#a7de3fc6451d26ecbe13574c976e5fa4f">Rack</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classRack.html#aa18464e4a5e7048969a95526c70b3afb">~Rack</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="classTile.html">Tile</a>* <a class="code" href="classRack.html#a8c7d252b14486cde824b7627385c4b25">getTile</a>(<span class="keywordtype">char</span> ch);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::vector&lt;Tile*&gt; <a class="code" href="classRack.html#a503a8d815738a121b381a8dabccd83f3">getTileStrVec</a>(std::string tileStr);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRack.html#a6e006859aadefb85768ee521462f0484">fill</a>(std::vector&lt;Tile*&gt; t);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRack.html#a945d320dcbb80008275624ba474771e7">addTile</a>(<a class="code" href="classTile.html">Tile</a>* t);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRack.html#ad163d531f5640fac13d9d2c5e73cab71">isEmpty</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRack.html#a8afca8f5ff6cb6e93b5941deee5761bc">show</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassRack_html_aa18464e4a5e7048969a95526c70b3afb"><div class="ttname"><a href="classRack.html#aa18464e4a5e7048969a95526c70b3afb">Rack::~Rack</a></div><div class="ttdeci">~Rack()</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00022">rack.cc:22</a></div></div>
 <div class="ttc" id="aclassRack_html_a6e006859aadefb85768ee521462f0484"><div class="ttname"><a href="classRack.html#a6e006859aadefb85768ee521462f0484">Rack::fill</a></div><div class="ttdeci">void fill(std::vector&lt; Tile * &gt; t)</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00099">rack.cc:99</a></div></div>
 <div class="ttc" id="aclassTile_html"><div class="ttname"><a href="classTile.html">Tile</a></div><div class="ttdef"><b>Definition:</b> <a href="tile_8h_source.html#l00022">tile.h:22</a></div></div>
-<div class="ttc" id="aclassRack_html_ae946a6a2f480ca3c931a62d5907ca322"><div class="ttname"><a href="classRack.html#ae946a6a2f480ca3c931a62d5907ca322">Rack::rack</a></div><div class="ttdeci">std::array&lt; Tile *, 7 &gt; rack</div><div class="ttdef"><b>Definition:</b> <a href="rack_8h_source.html#l00018">rack.h:18</a></div></div>
+<div class="ttc" id="aclassRack_html_ae946a6a2f480ca3c931a62d5907ca322"><div class="ttname"><a href="classRack.html#ae946a6a2f480ca3c931a62d5907ca322">Rack::rack</a></div><div class="ttdeci">std::array&lt; Tile *, 7 &gt; rack</div><div class="ttdef"><b>Definition:</b> <a href="rack_8h_source.html#l00019">rack.h:19</a></div></div>
 <div class="ttc" id="aclassRack_html_a8c7d252b14486cde824b7627385c4b25"><div class="ttname"><a href="classRack.html#a8c7d252b14486cde824b7627385c4b25">Rack::getTile</a></div><div class="ttdeci">Tile * getTile(char ch)</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00080">rack.cc:80</a></div></div>
 <div class="ttc" id="aclassRack_html_a7de3fc6451d26ecbe13574c976e5fa4f"><div class="ttname"><a href="classRack.html#a7de3fc6451d26ecbe13574c976e5fa4f">Rack::Rack</a></div><div class="ttdeci">Rack()</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00014">rack.cc:14</a></div></div>
-<div class="ttc" id="aclassRack_html"><div class="ttname"><a href="classRack.html">Rack</a></div><div class="ttdef"><b>Definition:</b> <a href="rack_8h_source.html#l00016">rack.h:16</a></div></div>
+<div class="ttc" id="aclassRack_html"><div class="ttname"><a href="classRack.html">Rack</a></div><div class="ttdef"><b>Definition:</b> <a href="rack_8h_source.html#l00017">rack.h:17</a></div></div>
 <div class="ttc" id="aclassRack_html_a8afca8f5ff6cb6e93b5941deee5761bc"><div class="ttname"><a href="classRack.html#a8afca8f5ff6cb6e93b5941deee5761bc">Rack::show</a></div><div class="ttdeci">void show()</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00034">rack.cc:34</a></div></div>
 <div class="ttc" id="aclassRack_html_a945d320dcbb80008275624ba474771e7"><div class="ttname"><a href="classRack.html#a945d320dcbb80008275624ba474771e7">Rack::addTile</a></div><div class="ttdeci">void addTile(Tile *t)</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00120">rack.cc:120</a></div></div>
 <div class="ttc" id="aclassRack_html_ad163d531f5640fac13d9d2c5e73cab71"><div class="ttname"><a href="classRack.html#ad163d531f5640fac13d9d2c5e73cab71">Rack::isEmpty</a></div><div class="ttdeci">bool isEmpty()</div><div class="ttdef"><b>Definition:</b> <a href="rack_8cc_source.html#l00172">rack.cc:172</a></div></div>
