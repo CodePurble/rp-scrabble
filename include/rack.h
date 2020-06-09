@@ -5,6 +5,7 @@
 #define RACK_H
 #include <array>
 #include <vector>
+#include <string>
 
 class Tile;
 

@@ -8,17 +8,28 @@ LOG_DIR=$HOME/.local/share/rp-scrabble/logs
 
 case $1 in
     "debian")
-        sudo apt update
-        sudo apt install cmake
+        if ! cmake --version > /dev/null 2>&1; then
+            echo "cmake not installed, it is required for building from source"
+            echo "Installing cmake..."
+            if ! sudo apt update && sudo apt install cmake; then
+                echo "Aborting install"
+                exit 1
+            fi
+        else
+            echo "cmake is installed"
+        fi
         ;;
 
     "arch")
-        if pacman -Qi cmake &> /dev/null; then
-            echo "cmake is installed"
-        else
-            echo "cmake not found"
+        if ! cmake --version > /dev/null 2>&1; then
+            echo "cmake not installed, it is required for building from source"
             echo "Installing cmake..."
-            sudo pacman -S cmake
+            if ! sudo pacman -S cmake; then
+                echo "Aborting install"
+                exit 1
+            fi
+        else
+            echo "cmake is installed"
         fi
         ;;
 
@@ -35,8 +46,9 @@ case $1 in
         ;;
 
     "custom")
-        if [ "$CMAKE_CHECK" == "" ]; then
-            echo "cmake is not installed. Please install it using your distribution's package manager and rerun this script"
+        if ! cmake --version > /dev/null 2>&1; then
+            echo "cmake not installed, it is required for building from source"
+            echo "Please install it using your distribution's package manager and rerun this script"
             exit 1
         else
             echo "cmake is installed"
