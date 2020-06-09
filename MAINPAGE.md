@@ -15,6 +15,16 @@ This is a command-line Scrabble game written in C++ to explore object oriented p
 * `make`
 * `g++`
 
+* To install them, run-
+
+    * For Arch and Arch-based distributions (Manjaro, Void, etc)
+
+        `$ sudo pacman -S cmake git gcc make`
+
+    * For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
+
+        `$ sudo apt update && sudo apt install cmake git make g++`
+
 ## Build instructions
 * Clone this repo
 
