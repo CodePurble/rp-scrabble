@@ -12,13 +12,13 @@ case $1 in
         if ! cmake --version > /dev/null 2>&1; then
             echo "cmake not installed, it is required for building from source"
             echo "Installing cmake..."
-	    if ! sudo apt update; then
+            if ! sudo apt update; then
                 echo "Aborting install"
                 exit 1
             fi
-	    if ! sudo apt install cmake; then
+            if ! sudo apt install cmake; then
                 exit 1
-	    fi
+            fi
         else
             echo "cmake is installed"
         fi
