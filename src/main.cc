@@ -1,7 +1,19 @@
 /**
   * @file
   */
-#ifdef DEBUG
+#ifndef DEBUG
+
+#include "game.h"
+
+int main()
+{
+    Game newGame;
+    newGame.run();
+
+    return 0;
+}
+
+#else
 
 #include <iostream>
 #include "game.h"
@@ -27,18 +39,6 @@ void testBoard()
 {
     Board b;
     b.show();
-}
-
-#else
-
-#include "game.h"
-
-int main()
-{
-    Game newGame;
-    newGame.run();
-
-    return 0;
 }
 
 #endif
