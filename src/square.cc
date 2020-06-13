@@ -1,6 +1,6 @@
 /**
-  * @file
-  */
+ * @file
+ */
 #include <iostream>
 #include "square.h"
 #include "tile.h"
@@ -8,21 +8,21 @@
 using namespace std;
 
 /**
-  * Construct a Square
-  *
-  * @param st Type of Square
-  * @param r Row where the Square is on the Board
-  * @param c Column where the Square is on the Board
-  *
-  * This function shall not throw exceptions
-  */
+ * Construct a Square
+ *
+ * @param st Type of Square
+ * @param r Row where the Square is on the Board
+ * @param c Column where the Square is on the Board
+ *
+ * This function shall not throw exceptions
+ */
 Square::Square(enum_sqType st, int r, int c)
 {
-    sqType = st;
-    tileInSquare = nullptr;
-    left = right = above = below = nullptr;
-    row = r;
-    col = c;
+	sqType = st;
+	tileInSquare = nullptr;
+	left = right = above = below = nullptr;
+	row = r;
+	col = c;
 }
 
 /**
@@ -31,14 +31,14 @@ Square::Square(enum_sqType st, int r, int c)
  */
 void Square::show()
 {
-    if(!isEmpty()) {
-        getTile()->show();
-        cout << "in ";
-        cout << sqType << " @ (" << row << "," << col << "), ";
-    }
-    else {
-        cout << sqType << " @ (" << row << "," << col << "), ";
-    }
+	if(!isEmpty()) {
+		getTile()->show();
+		cout << "in ";
+		cout << sqType << " @ (" << row << "," << col << "), ";
+	}
+	else {
+		cout << sqType << " @ (" << row << "," << col << "), ";
+	}
 }
 
 /**
@@ -50,7 +50,7 @@ void Square::show()
  */
 Square* Square::getLeft()
 {
-    return left;
+	return left;
 }
 
 /**
@@ -62,7 +62,7 @@ Square* Square::getLeft()
  */
 Square* Square::getRight()
 {
-    return right;
+	return right;
 }
 
 /**
@@ -74,7 +74,7 @@ Square* Square::getRight()
  */
 Square* Square::getAbove()
 {
-    return above;
+	return above;
 }
 
 /**
@@ -86,7 +86,7 @@ Square* Square::getAbove()
  */
 Square* Square::getBelow()
 {
-    return below;
+	return below;
 }
 
 /**
@@ -98,7 +98,7 @@ Square* Square::getBelow()
  */
 int Square::getRow()
 {
-    return row;
+	return row;
 }
 
 /**
@@ -110,7 +110,7 @@ int Square::getRow()
  */
 int Square::getCol()
 {
-    return col;
+	return col;
 }
 
 /**
@@ -124,7 +124,7 @@ int Square::getCol()
  */
 int Square::getType()
 {
-    return sqType;
+	return sqType;
 }
 
 /**
@@ -136,12 +136,12 @@ int Square::getType()
  */
 bool Square::isEmpty()
 {
-    if(tileInSquare) {
-        return false;
-    }
-    else {
-        return true;
-    }
+	if(tileInSquare) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
 /**
@@ -154,7 +154,7 @@ bool Square::isEmpty()
  */
 void Square::setTile(Tile* t)
 {
-    tileInSquare = t;
+	tileInSquare = t;
 }
 
 /**
@@ -166,7 +166,7 @@ void Square::setTile(Tile* t)
  */
 Tile* Square::getTile()
 {
-    return tileInSquare;
+	return tileInSquare;
 }
 
 /**
@@ -178,7 +178,7 @@ Tile* Square::getTile()
  */
 void Square::setLeft(Square* l)
 {
-    left = l;
+	left = l;
 }
 
 /**
@@ -190,7 +190,7 @@ void Square::setLeft(Square* l)
  */
 void Square::setRight(Square* r)
 {
-    right = r;
+	right = r;
 }
 
 /**
@@ -202,7 +202,7 @@ void Square::setRight(Square* r)
  */
 void Square::setAbove(Square* u)
 {
-    above = u;
+	above = u;
 }
 
 /**
@@ -214,7 +214,7 @@ void Square::setAbove(Square* u)
  */
 void Square::setBelow(Square* d)
 {
-    below = d;
+	below = d;
 }
 
 /**
@@ -226,12 +226,12 @@ void Square::setBelow(Square* d)
  */
 bool Square::checkNeighboursH()
 {
-    if(left || above || below) {
-        return true;
-    }
-    else {
-        return false;
-    }
+	if(left || above || below) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 /**
@@ -243,10 +243,10 @@ bool Square::checkNeighboursH()
  */
 bool Square::checkNeighboursV()
 {
-    if(left || above || right) {
-        return true;
-    }
-    else {
-        return false;
-    }
+	if(left || above || right) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

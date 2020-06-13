@@ -1,16 +1,16 @@
 /**
-  * @file
-  */
+ * @file
+ */
 #ifndef DEBUG
 
 #include "game.h"
 
 int main()
 {
-    Game newGame;
-    newGame.run();
+	Game newGame;
+	newGame.run();
 
-    return 0;
+	return 0;
 }
 
 #else
@@ -25,20 +25,20 @@ void testBoard();
 
 int main()
 {
-    testGame();
-    return 0;
+	testGame();
+	return 0;
 }
 
 void testGame()
 {
-    Game g;
-    g.run();
+	Game g;
+	g.run();
 }
 
 void testBoard()
 {
-    Board b;
-    b.show();
+	Board b;
+	b.show();
 }
 
 #endif

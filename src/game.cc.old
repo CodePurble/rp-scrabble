@@ -21,8 +21,6 @@ using namespace std;
  */
 Game::Game()
 {
-	sAppName = "rp-scrabble";
-
 	char filenameBuffer[60];
 	time_t rawTime;
 	time(&rawTime);
@@ -74,21 +72,73 @@ void Game::addPlayer(Player* p)
 	}
 }
 
-bool Game::OnUserCreate()
-{
-	return false;
-}
-
-bool Game::OnUserUpdate(float fElapsedTime)
-{
-	return false;
-}
-
 /**
  * Initialise and set up the game
  */
 void Game::init()
 {
+	string tempName;
+	char response;
+	int i, j;
+	bool complete = false;
+
+	BOLD(" Welcome to Scrabble!");
+	cout << "\n";
+
+	cout << " Name of Player 1: ";
+	cin >> tempName;
+	try {
+		log(logFilePath, "Player 1: "+ tempName);
+	}
+	catch(string err) {
+		BOLD_RED_FG(" Unable to open log file\n");
+		BOLD_RED_FG(" You can set the path in the CMakeLists.txt file\n");
+		BOLD_RED_FG(" Aborting\n");
+		exit(1);
+	}
+	players[0]->setName(tempName);
+
+	cout << " Would you like to add more players? (y/n)? ";
+	cin >> response;
+	if(response == 'y') {
+		while(!complete) {
+			cout << " How many more (max 3 more)? ";
+			cin >> i;
+			if(i > 0 && i < 4) {
+				for(j = 0; j < i; j++) {
+					cout << " Name of Player " + to_string(j + 2) + ": ";
+					cin >> tempName;
+					addPlayer(new Player(tempName));
+					try {
+						log(logFilePath, "Player " + to_string(j + i + 1) + ": " + tempName);
+					}
+					catch(string err) {
+						BOLD_RED_FG(" Unable to open log file\n");
+						BOLD_RED_FG(" You can set the path in the Makefile\n");
+						BOLD_RED_FG(" Aborting\n");
+						exit(1);
+					}
+				}
+				complete = true;
+			}
+			else {
+				if(i != 0) {
+					BOLD(" You can only add upto 3 more players!\n");
+				}
+				else {
+					break;
+				}
+			}
+		}
+	}
+	else if(response == 'n') {
+		// do nothing, carry on
+	}
+	else {
+		BOLD_RED_FG(" Error: Invalid input\n");
+		init();
+	}
+	cout << "\n";
 }
 
 /**

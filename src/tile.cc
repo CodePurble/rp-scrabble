@@ -1,6 +1,6 @@
 /**
-  * @file
-  */
+ * @file
+ */
 #include <iostream>
 #include "tile.h"
 #include "bag.h"
@@ -10,36 +10,36 @@
 using namespace std;
 
 /**
-  * Construct a Tile
-  *
-  * @param l Letter on the Tile
-  * @param p Point value of the Tile
-  * @param p_loc Location of the Tile
-  *
-  * This function shall not throw exceptions
-  */
+ * Construct a Tile
+ *
+ * @param l Letter on the Tile
+ * @param p Point value of the Tile
+ * @param p_loc Location of the Tile
+ *
+ * This function shall not throw exceptions
+ */
 Tile::Tile(char l, int p, enum_location p_loc)
 {
-    letter = l;
-    points = p;
-    presentLoc = p_loc;
-    tBag = nullptr;
-    tRack = nullptr;
-    tSquare = nullptr;
+	letter = l;
+	points = p;
+	presentLoc = p_loc;
+	tBag = nullptr;
+	tRack = nullptr;
+	tSquare = nullptr;
 }
 
 /**
-  * Copy constructor for Tile
-  *
-  * @param source Source to copy from
-  *
-  * This function shall not throw exceptions
-  */
+ * Copy constructor for Tile
+ *
+ * @param source Source to copy from
+ *
+ * This function shall not throw exceptions
+ */
 Tile::Tile(Tile& source)
 {
-    letter = source.letter;
-    points = source.points;
-    presentLoc = source.presentLoc;
+	letter = source.letter;
+	points = source.points;
+	presentLoc = source.presentLoc;
 }
 
 /**
@@ -48,7 +48,7 @@ Tile::Tile(Tile& source)
  */
 void Tile::show()
 {
-    cout << letter << "-" << points << " ";
+	cout << letter << "-" << points << " ";
 }
 
 /**
@@ -60,7 +60,7 @@ void Tile::show()
  */
 char Tile::getLetter()
 {
-    return letter;
+	return letter;
 }
 
 /**
@@ -72,7 +72,7 @@ char Tile::getLetter()
  */
 int Tile::getPoints()
 {
-    return points;
+	return points;
 }
 
 /**
@@ -84,19 +84,19 @@ int Tile::getPoints()
  */
 int Tile::getLoc()
 {
-    switch(presentLoc) {
-    case BAG:
-        return 0;
-        break;
-    case RACK:
-        return 1;
-        break;
-    case BOARD:
-        return 2;
-        break;
-    default:
-        return -1;
-    }
+	switch(presentLoc) {
+	case BAG:
+		return 0;
+		break;
+	case RACK:
+		return 1;
+		break;
+	case BOARD:
+		return 2;
+		break;
+	default:
+		return -1;
+	}
 }
 
 /**
@@ -108,7 +108,7 @@ int Tile::getLoc()
  */
 string Tile::getLetterStr()
 {
-    return string(1, letter);
+	return string(1, letter);
 }
 
 /**
@@ -120,7 +120,7 @@ string Tile::getLetterStr()
  */
 Rack* Tile::getRack()
 {
-    return tRack;
+	return tRack;
 }
 
 /**
@@ -132,7 +132,7 @@ Rack* Tile::getRack()
  */
 Bag* Tile::getBag()
 {
-    return tBag;
+	return tBag;
 }
 
 /**
@@ -144,7 +144,7 @@ Bag* Tile::getBag()
  */
 Square* Tile::getSquare()
 {
-    return tSquare;
+	return tSquare;
 }
 
 /**
@@ -156,8 +156,8 @@ Square* Tile::getSquare()
  */
 void Tile::setBag(Bag* b)
 {
-    tBag = b;
-    setLoc(0);
+	tBag = b;
+	setLoc(0);
 }
 
 /**
@@ -169,8 +169,8 @@ void Tile::setBag(Bag* b)
  */
 void Tile::setRack(Rack* r)
 {
-    tRack = r;
-    setLoc(1);
+	tRack = r;
+	setLoc(1);
 }
 
 /**
@@ -182,18 +182,18 @@ void Tile::setRack(Rack* r)
  */
 void Tile::setLoc(int loc)
 {
-    switch(loc) {
-    case 0:
-        presentLoc = BAG;
-        break;
-    case 1:
-        presentLoc = RACK;
-        break;
-    case 2:
-        presentLoc = BOARD;
-    default:
-        throw(string("Invalid value of type enum_location\n"));
-    }
+	switch(loc) {
+	case 0:
+		presentLoc = BAG;
+		break;
+	case 1:
+		presentLoc = RACK;
+		break;
+	case 2:
+		presentLoc = BOARD;
+	default:
+		throw(string("Invalid value of type enum_location\n"));
+	}
 }
 
 /**
@@ -205,5 +205,5 @@ void Tile::setLoc(int loc)
  */
 void Tile::setSquare(Square* s)
 {
-    tSquare = s;
+	tSquare = s;
 }

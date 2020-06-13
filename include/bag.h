@@ -1,6 +1,6 @@
 /**
-  * @file
-  */
+ * @file
+ */
 #ifndef BAG_H
 #define BAG_H
 #include <vector>
@@ -14,16 +14,16 @@ class Tile;
  */
 class Bag {
 private:
-    std::vector<Tile*> bag;
+	std::vector<Tile*> bag;
 
 public:
-    Bag();
-    ~Bag();
+	Bag();
+	~Bag();
 
-    void show();
-    bool isEmpty();
-    void shuffle();
-    std::vector<Tile*> draw(int count);
+	void show();
+	bool isEmpty();
+	void shuffle();
+	std::vector<Tile*> draw(int count);
 
 };
 

@@ -9,16 +9,16 @@ programming.
 ## Build requirements
 * `cmake`
 * `git`
-* `make`
+* `ninja`
 * `g++`
 
 * To install them, run-
     ```sh
     # For Arch and Arch-based distributions (Manjaro, Void, etc)
-    $ sudo pacman -S cmake git gcc make
+    $ sudo pacman -S cmake git gcc ninja
 
     # For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
-    $ sudo apt update && sudo apt install cmake git make g++
+    $ sudo apt update && sudo apt install cmake git ninja g++
     ```
 
 ## Build instructions
