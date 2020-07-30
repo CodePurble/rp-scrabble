@@ -6,7 +6,7 @@ This is a command-line Scrabble game written in C++ to explore object oriented p
 **Find the GitHub repo [here](https://github.com/CodePurble/rp-scrabble)**
 
 # NOTICE for users of v1.0
-* Users of `v1.0` **MUST** re-install the application as the update to `v1.1` contains breaking changes
+* Users of `v1.0` **MUST** re-install the application as the update to `v1.1` or higher contains breaking changes
 * All future updates will conform to these changes
 
 ## Build requirements
