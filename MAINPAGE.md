@@ -17,7 +17,7 @@ This is a command-line Scrabble game written in C++ to explore object oriented p
 
 * To install them, run-
 
-    * For Arch and Arch-based distributions (Manjaro, Void, etc)
+    * For Arch and Arch-based distributions (Manjaro, Artix, etc)
 
         `$ sudo pacman -S cmake git gcc make`
 
@@ -32,13 +32,13 @@ This is a command-line Scrabble game written in C++ to explore object oriented p
 
 * Move into project directory
 
-    `$ cd scrabble`
+    `$ cd rp-scrabble`
 
 * Build
 
     Run the install script with the appropriate argument-
 
-    `$ ./install.sh arch # for Arch based distributions (Manjaro, Void, etc)`
+    `$ ./install.sh arch # for Arch based distributions (Manjaro, Artix, etc)`
 
     `$ ./install.sh debian # for Debian based distributions (Ubuntu, Pop_OS, etc)`
 
