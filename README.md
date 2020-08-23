@@ -14,7 +14,7 @@ programming.
 
 * To install them, run-
     ```sh
-    # For Arch and Arch-based distributions (Manjaro, Void, etc)
+    # For Arch and Arch-based distributions (Manjaro, Artix, etc)
     $ sudo pacman -S cmake git gcc make
 
     # For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
@@ -29,14 +29,14 @@ programming.
 
 * Move into project directory
     ```sh
-    $ cd scrabble
+    $ cd rp-scrabble
     ```
 
 * Build
 
     Run the install script with the appropriate argument-
     ```sh
-    $ ./install.sh arch # for Arch and Arch-based distributions (Manjaro, Void, etc)
+    $ ./install.sh arch # for Arch and Arch-based distributions (Manjaro, Artix, etc)
     $ ./install.sh debian # for Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
     $ ./install.sh custom # for other distributions
     ```
