@@ -13,7 +13,7 @@ using namespace std;
   */
 Rack::Rack()
 {
-    rack.fill(nullptr);
+	rack.fill(nullptr);
 }
 
 /**
@@ -21,11 +21,11 @@ Rack::Rack()
   */
 Rack::~Rack()
 {
-    for(Tile* t : rack) {
-        if(t) {
-            delete t;
-        }
-    }
+	for(Tile* t : rack) {
+		if(t) {
+			delete t;
+		}
+	}
 }
 
 /**
@@ -33,39 +33,39 @@ Rack::~Rack()
  */
 void Rack::show()
 {
-    int rackSize = rack.size();
+	int rackSize = rack.size();
 
-    cout << " ";
-    for(int i = 0; i < rackSize; i++) {
-        BOARD_COLOURS("+-----");
-    }
+	cout << " ";
+	for(int i = 0; i < rackSize; i++) {
+		BOARD_COLOURS("+-----");
+	}
 
-    BOARD_COLOURS("+");
-    cout << "\n";
-    cout << " ";
-    BOARD_COLOURS("| ");
+	BOARD_COLOURS("+");
+	cout << "\n";
+	cout << " ";
+	BOARD_COLOURS("| ");
 
-    for(unsigned long i = 0; i < rack.size(); i++) {
-        if(rack[i]) {
-            TILE_COLOURS(" " + rack[i]->getLetterStr() + " ");
-        }
-        else {
-            BOARD_COLOURS("   ");
-        }
-        if(i == 6) {
-            BOARD_COLOURS(" |");
-        }
-        else {
-            BOARD_COLOURS(" | ");
-        }
-    }
-    cout << "\n" << " ";
-    for(int i = 0; i < rackSize; i++) {
-        BOARD_COLOURS("+-----");
-    }
+	for(unsigned long i = 0; i < rack.size(); i++) {
+		if(rack[i]) {
+			TILE_COLOURS(" " + rack[i]->getLetterStr() + " ");
+		}
+		else {
+			BOARD_COLOURS("   ");
+		}
+		if(i == 6) {
+			BOARD_COLOURS(" |");
+		}
+		else {
+			BOARD_COLOURS(" | ");
+		}
+	}
+	cout << "\n" << " ";
+	for(int i = 0; i < rackSize; i++) {
+		BOARD_COLOURS("+-----");
+	}
 
-    BOARD_COLOURS("+");
-    cout << "\n";
+	BOARD_COLOURS("+");
+	cout << "\n";
 }
 
 /**
@@ -79,14 +79,14 @@ void Rack::show()
  */
 Tile* Rack::getTile(char ch)
 {
-    for(Tile* t : rack) {
-        if(t) {
-            if(t->getLetter() == ch) {
-                return t;
-            }
-        }
-    }
-    return nullptr;
+	for(Tile* t : rack) {
+		if(t) {
+			if(t->getLetter() == ch) {
+				return t;
+			}
+		}
+	}
+	return nullptr;
 }
 
 /**
@@ -98,16 +98,16 @@ Tile* Rack::getTile(char ch)
  */
 void Rack::fill(vector<Tile*> t)
 {
-    unsigned long i = 0;
-    while(!t.empty() && i < rack.size()) {
-        if(!rack[i]) {
-            rack[i] = t.back();
-            rack[i]->setLoc(1);
-            rack[i]->setRack(this);
-            t.pop_back();
-        }
-        i++;
-    }
+	unsigned long i = 0;
+	while(!t.empty() && i < rack.size()) {
+		if(!rack[i]) {
+			rack[i] = t.back();
+			rack[i]->setLoc(1);
+			rack[i]->setRack(this);
+			t.pop_back();
+		}
+		i++;
+	}
 }
 
 /**
@@ -119,14 +119,14 @@ void Rack::fill(vector<Tile*> t)
  */
 void Rack::addTile(Tile* t)
 {
-    for(unsigned long i = 0; i < rack.size(); i++) {
-        if(!rack[i]) {
-            rack[i] = t;
-            rack[i]->setLoc(1);
-            rack[i]->setRack(this);
-            break;
-        }
-    }
+	for(unsigned long i = 0; i < rack.size(); i++) {
+		if(!rack[i]) {
+			rack[i] = t;
+			rack[i]->setLoc(1);
+			rack[i]->setRack(this);
+			break;
+		}
+	}
 }
 
 /**
@@ -140,26 +140,26 @@ void Rack::addTile(Tile* t)
  */
 vector<Tile*> Rack::getTileStrVec(string tileStr)
 {
-    vector<Tile*> tileStrVec;
-    bool found;
+	vector<Tile*> tileStrVec;
+	bool found;
 
-    for(char ch : tileStr) {
-        found = false;
-        for(auto& t: rack) {
-            if(t && ch == t->getLetter()) {
-                found = true;
-                tileStrVec.push_back(t);
-                t = nullptr; // "Remove" from rack
-                break;
-            }
-        }
-        if(!found) {
-            // Abort!! Reset the rack and start again
-            fill(tileStrVec);
-            throw string(string(1, ch) + " not found\n");
-        }
-    }
-    return tileStrVec;
+	for(char ch : tileStr) {
+		found = false;
+		for(auto& t: rack) {
+			if(t && ch == t->getLetter()) {
+				found = true;
+				tileStrVec.push_back(t);
+				t = nullptr; // "Remove" from rack
+				break;
+			}
+		}
+		if(!found) {
+			// Abort!! Reset the rack and start again
+			fill(tileStrVec);
+			throw string(string(1, ch) + " not found\n");
+		}
+	}
+	return tileStrVec;
 }
 
 /**
@@ -171,10 +171,10 @@ vector<Tile*> Rack::getTileStrVec(string tileStr)
  */
 bool Rack::isEmpty()
 {
-    for(unsigned long i = 0; i < rack.size(); i++) {
-        if(rack[i]) {
-            return false;
-        }
-    }
-    return true;
+	for(unsigned long i = 0; i < rack.size(); i++) {
+		if(rack[i]) {
+			return false;
+		}
+	}
+	return true;
 }

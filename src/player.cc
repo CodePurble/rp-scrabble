@@ -20,10 +20,10 @@ using namespace std;
   */
 Player::Player(string n)
 {
-    score = 0;
-    turn = false;
-    playerName = n;
-    rack = new Rack();
+	score = 0;
+	turn = false;
+	playerName = n;
+	rack = new Rack();
 }
 
 /**
@@ -31,7 +31,7 @@ Player::Player(string n)
   */
 Player::~Player()
 {
-    delete rack;
+	delete rack;
 }
 
 /**
@@ -39,11 +39,11 @@ Player::~Player()
  */
 void Player::show()
 {
-    showScore();
-    cout << "\n";
+	showScore();
+	cout << "\n";
 
-    rack->show();
-    cout << "\n";
+	rack->show();
+	cout << "\n";
 }
 
 /**
@@ -51,12 +51,12 @@ void Player::show()
  */
 void Player::showScore()
 {
-    if(turn) {
-        BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points");
-    }
-    else {
-        BOLD_WHITE_FG(" " + playerName + ": " + to_string(score) + " points");
-    }
+	if(turn) {
+		BOLD_BRIGHT_GREEN_FG(" " + playerName + ": " + to_string(score) + " points");
+	}
+	else {
+		BOLD_WHITE_FG(" " + playerName + ": " + to_string(score) + " points");
+	}
 }
 
 /**
@@ -66,7 +66,7 @@ void Player::showScore()
  */
 string Player::getName()
 {
-    return playerName;
+	return playerName;
 }
 
 /**
@@ -76,7 +76,7 @@ string Player::getName()
  */
 int Player::getScore()
 {
-    return score;
+	return score;
 }
 
 /**
@@ -88,7 +88,7 @@ int Player::getScore()
  */
 void Player::setName(std::string name)
 {
-    playerName = name;
+	playerName = name;
 }
 
 /**
@@ -100,7 +100,7 @@ void Player::setName(std::string name)
  */
 void Player::updateScore(int points)
 {
-    score += points;
+	score += points;
 }
 
 /**
@@ -113,7 +113,7 @@ void Player::updateScore(int points)
  */
 void Player::draw(int count, Bag* b)
 {
-    rack->fill(b->draw(count));
+	rack->fill(b->draw(count));
 }
 
 /**
@@ -132,7 +132,7 @@ void Player::draw(int count, Bag* b)
  */
 bool Player::placeTile(Tile* t, Board* b, int r, int c)
 {
-    return(b->placeTile(t, r, c));
+	return(b->placeTile(t, r, c));
 }
 
 /**
@@ -142,7 +142,7 @@ bool Player::placeTile(Tile* t, Board* b, int r, int c)
  */
 void Player::toggleTurn()
 {
-    turn = !turn;
+	turn = !turn;
 }
 
 /**
@@ -158,7 +158,7 @@ void Player::toggleTurn()
  */
 Tile* Player::tileFromRack(int index)
 {
-    return(rack->getTile(index));
+	return(rack->getTile(index));
 }
 
 /**
@@ -174,15 +174,15 @@ Tile* Player::tileFromRack(int index)
  */
 vector<Tile*> Player::placeTileStr(string str, Board* b, int r, int c, char dir)
 {
-    for(char& c : str) {
-        c = toupper(c);
-    }
+	for(char& c : str) {
+		c = toupper(c);
+	}
 
-    vector<Tile*> tileStrVec = rack->getTileStrVec(str);
+	vector<Tile*> tileStrVec = rack->getTileStrVec(str);
 
-    b->placeTileStr(rack, tileStrVec, r, c, dir);
+	b->placeTileStr(rack, tileStrVec, r, c, dir);
 
-    return tileStrVec;
+	return tileStrVec;
 }
 
 /**
@@ -194,7 +194,7 @@ vector<Tile*> Player::placeTileStr(string str, Board* b, int r, int c, char dir)
  */
 bool Player::rackIsEmpty()
 {
-    return rack->isEmpty();
+	return rack->isEmpty();
 }
 
 /**
@@ -207,7 +207,7 @@ bool Player::rackIsEmpty()
  */
 void Player::returnToRack(Tile* t, Board* b)
 {
-    if(t) {
-        rack->addTile(b->retrieve(t->getSquare()->getRow(), t->getSquare()->getCol()));
-    }
+	if(t) {
+		rack->addTile(b->retrieve(t->getSquare()->getRow(), t->getSquare()->getCol()));
+	}
 }

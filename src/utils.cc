@@ -23,11 +23,11 @@ using namespace std;
  */
 bool squarePresent(std::vector<Square*> s, Square* target)
 {
-    auto it = s.end();
-    if(target) {
-        it = std::find(s.begin(), s.end(), target);
-    }
-    return(it == s.end() ? false : true);
+	auto it = s.end();
+	if(target) {
+		it = std::find(s.begin(), s.end(), target);
+	}
+	return(it == s.end() ? false : true);
 }
 
 /**
@@ -42,11 +42,11 @@ bool squarePresent(std::vector<Square*> s, Square* target)
  */
 bool tilePresent(std::vector<Tile*> t, Tile* target)
 {
-    auto it = t.end();
-    if(target) {
-        it = std::find(t.begin(), t.end(), target);
-    }
-    return(it == t.end() ? false : true);
+	auto it = t.end();
+	if(target) {
+		it = std::find(t.begin(), t.end(), target);
+	}
+	return(it == t.end() ? false : true);
 }
 
 /**
@@ -61,9 +61,9 @@ bool tilePresent(std::vector<Tile*> t, Tile* target)
  */
 bool charPresent(string str, char ch)
 {
-    auto it = str.end();
-    it = std::find(str.begin(), str.end(), ch);
-    return(it == str.end() ? false : true);
+	auto it = str.end();
+	it = std::find(str.begin(), str.end(), ch);
+	return(it == str.end() ? false : true);
 }
 
 /**
@@ -77,20 +77,20 @@ bool charPresent(string str, char ch)
  */
 std::vector<std::string> parsePlay(std::string in)
 {
-    vector<string> parse;
+	vector<string> parse;
 
-    parse.push_back("");
+	parse.push_back("");
 
-    for(char ch : in) {
-        if(ch == '-') {
-            parse.push_back("");
-        }
-        else {
-            parse.back().append(1u, ch);
-        }
-    }
+	for(char ch : in) {
+		if(ch == '-') {
+			parse.push_back("");
+		}
+		else {
+			parse.back().append(1u, ch);
+		}
+	}
 
-    return parse;
+	return parse;
 }
 
 /**
@@ -103,16 +103,16 @@ std::vector<std::string> parsePlay(std::string in)
  */
 void log(string logFilePath, string str)
 {
-    ofstream logFile(logFilePath, ios::app);
+	ofstream logFile(logFilePath, ios::app);
 
-    if(logFile.is_open()) {
-        logFile << str + "\n";
-    }
-    else {
-        throw(string("Failed to open file at " + logFilePath + "\n"));
-    }
+	if(logFile.is_open()) {
+		logFile << str + "\n";
+	}
+	else {
+		throw(string("Failed to open file at " + logFilePath + "\n"));
+	}
 
-    logFile.close();
+	logFile.close();
 }
 
 /**
@@ -126,7 +126,7 @@ void log(string logFilePath, string str)
  */
 string RawTimeToString(const time_t& t)
 {
-    ostringstream oss;
-    oss << t;
-    return oss.str();
+	ostringstream oss;
+	oss << t;
+	return oss.str();
 }
