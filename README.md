@@ -7,19 +7,24 @@ programming.
 * All future updates will conform to these changes
 
 ## Build requirements
+It is required that you have some kind of **Linux** environment available. If you
+are not on a Linux machine, either use a VM or, if you are on Windows, [set up
+WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
 * `cmake`
 * `git`
 * `make`
 * `g++`
 
-* To install them, run-
-    ```sh
-    # For Arch and Arch-based distributions (Manjaro, Artix, etc)
-    $ sudo pacman -S cmake git gcc make
+To install them, run-
 
-    # For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
-    $ sudo apt update && sudo apt install cmake git make g++
-    ```
+```sh
+# For Arch and Arch-based distributions (Manjaro, Artix, etc)
+$ sudo pacman -S cmake git gcc make
+
+# For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
+$ sudo apt update && sudo apt install cmake git make g++
+```
 
 ## Build instructions
 * Clone this repo
