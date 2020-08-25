@@ -1,5 +1,3 @@
-# `v1.1.4` is currently unplayable due to some issues. Please downgrade to `v1.1.3` for a playable version
-
 # rp-scrabble
 This is a command-line Scrabble game written in C++ to explore object oriented
 programming.
