@@ -7,57 +7,51 @@ programming.
 * All future updates will conform to these changes
 
 ## Build requirements
-* `cmake`
-* `git`
-* `make`
-* `g++`
+* `cmake, git, make, g++`
 
 * To install them, run-
-    ```sh
-    # For Arch and Arch-based distributions (Manjaro, Artix, etc)
-    $ sudo pacman -S cmake git gcc make
+```sh
+# For Arch and Arch-based distributions (Manjaro, Artix, etc)
+$ sudo pacman -S cmake git gcc make
 
-    # For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
-    $ sudo apt update && sudo apt install cmake git make g++
-    ```
+# For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
+$ sudo apt update && sudo apt install cmake git make g++
+```
 
 ## Build instructions
 * Clone this repo
-    ```sh
-    $ git clone https://github.com/CodePurble/rp-scrabble.git
-    ```
+```sh
+$ git clone https://github.com/CodePurble/rp-scrabble.git
+```
 
 * Move into project directory
-    ```sh
-    $ cd rp-scrabble
-    ```
+```sh
+$ cd rp-scrabble
+```
 
 * Build
 
-    Run the install script with the appropriate argument-
-    ```sh
-    $ ./install.sh arch # for Arch and Arch-based distributions (Manjaro, Artix, etc)
-    $ ./install.sh debian # for Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
-    $ ./install.sh custom # for other distributions
-    ```
+Run the install script with the appropriate argument-
+```sh
+$ ./install.sh arch # for Arch and Arch-based distributions (Manjaro, Artix, etc)
+$ ./install.sh debian # for Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
+$ ./install.sh custom # for other distributions
+```
 * Now, simply running `rp-scrabble` should launch the game.
 * If it doesn't launch, check the output of `$ echo $PATH`. If it does not contain `your-home-dir/.local/bin`, add it to your `PATH` like this-
-    ```sh
-    $ echo "export PATH=$PATH:$HOME/.local/bin" >> $HOME/.bashrc
-    $ source $HOME/.bashrc
-    ```
+```sh
+$ echo 'export PATH=$PATH:$HOME/.local/bin' >> $HOME/.bashrc
+$ source $HOME/.bashrc
+```
 
 ## Other notes
 * You can find the documentation for this project [here](https://codepurble.github.io/rp-scrabble/)
 * Keep the repo up to date by running `git pull` every once in a while in the project directory. Remember to rerun the install script after pulling to bring any changes into effect.
-* Log files are stored in
-    ```sh
-    $HOME/.local/share/rp-scrabble/logs
-    ```
+* Log files are stored in `$HOME/.local/share/rp-scrabble/logs`
 * To uninstall, run the install script with the `uninstall` argument in the project directory
-    ```sh
-    $ ./install.sh uninstall
-    ```
-    **NOTE** This will also remove any log files created
+	```sh
+	$ ./install.sh uninstall
+	```
+**NOTE** This will also remove any log files created
 * If you find any problems, please open up an issue
 
