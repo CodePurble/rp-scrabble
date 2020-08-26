@@ -3,13 +3,23 @@ This is a command-line Scrabble game written in C++ to explore object oriented
 programming.
 
 # NOTICE for users of `v1.0`
-* Users of `v1.0` **MUST** re-install the application as the update to `v1.1` or higher contains breaking changes
+* Users of `v1.0` **MUST** re-install the application, as the update to `v1.1` or higher contains breaking changes
 * All future updates will conform to these changes
 
 ## Build requirements
-* `cmake, git, make, g++`
+It is required that you have some kind of **Linux** environment available. If you
+are not on a Linux machine, either use a VM or, if you are on Windows, [set up
+WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-* To install them, run-
+The build dependencies are:
+
+* `cmake`
+* `git`
+* `make`
+* `g++`
+
+To install them, run-
+
 ```sh
 # For Arch and Arch-based distributions (Manjaro, Artix, etc)
 $ sudo pacman -S cmake git gcc make
@@ -40,6 +50,7 @@ $ ./install.sh custom # for other distributions
 * Now, simply running `rp-scrabble` should launch the game.
 * If it doesn't launch, check the output of `$ echo $PATH`. If it does not contain `your-home-dir/.local/bin`, add it to your `PATH` like this-
 ```sh
+# You can replace $HOME/.bashrc with whatever shellrc you use
 $ echo 'export PATH=$PATH:$HOME/.local/bin' >> $HOME/.bashrc
 $ source $HOME/.bashrc
 ```
@@ -54,4 +65,3 @@ $ source $HOME/.bashrc
 	```
 **NOTE** This will also remove any log files created
 * If you find any problems, please open up an issue
-
