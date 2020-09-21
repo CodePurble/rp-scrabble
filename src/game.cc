@@ -23,16 +23,6 @@ Game::Game()
 {
 	sAppName = "rp-scrabble";
 
-	char filenameBuffer[60];
-	time_t rawTime;
-	time(&rawTime);
-	strftime(filenameBuffer, 60, "-%F-scrabble.log", localtime(&rawTime));
-	gameID = RawTimeToString(rawTime);
-	logFilePath = LOG_PATH + gameID + string(filenameBuffer);
-
-	DEBUG_PRINT(" logFilePath", logFilePath);
-	cout << endl;
-
 	gameBoard = new Board;
 	gameBag = new Bag;
 
@@ -89,6 +79,80 @@ bool Game::OnUserUpdate(float fElapsedTime)
  */
 void Game::init()
 {
+	string tempName;
+	char response;
+	int i, j;
+	bool complete = false;
+
+	try {
+		log(logFilePath, "Log start\n");
+	}
+	catch(string err) {
+		BOLD_RED_FG(" " + err);
+		BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
+		BOLD_RED_FG(" Aborting\n");
+		exit(1);
+	}
+
+	BOLD(" Welcome to Scrabble!");
+	cout << "\n";
+
+	for(Player* p : players) {
+		cout << " Name of Player " + p->getName() + ": ";
+		cin >> tempName;
+		try {
+			log(logFilePath, "Player 1: "+ tempName);
+		}
+		catch(string err) {
+			BOLD_RED_FG(" " + err);
+			BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
+			BOLD_RED_FG(" Aborting\n");
+			exit(1);
+		}
+		p->setName(tempName);
+	}
+
+	cout << " Would you like to add more players? (y/n)? ";
+	cin >> response;
+	if(response == 'y') {
+		while(!complete) {
+			cout << " How many more (max 3 more)? ";
+			cin >> i;
+			if(i > 0 && i < 4) {
+				for(j = 0; j < i; j++) {
+					cout << " Name of Player " + to_string(j + 2) + ": ";
+					cin >> tempName;
+					addPlayer(new Player(tempName));
+					try {
+						log(logFilePath, "Player " + to_string(j + i) + ": " + tempName);
+					}
+					catch(string err) {
+						BOLD_RED_FG(" " + err);
+						BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
+						BOLD_RED_FG(" Aborting\n");
+						exit(1);
+					}
+				}
+				complete = true;
+			}
+			else {
+				if(i != 0) {
+					BOLD(" You can only add upto 3 more players!\n");
+				}
+				else {
+					break;
+				}
+			}
+		}
+	}
+	else if(response == 'n') {
+		// do nothing, carry on
+	}
+	else {
+		BOLD_RED_FG(" Error: Invalid input\n");
+		init();
+	}
+	cout << "\n";
 }
 
 /**
@@ -322,8 +386,8 @@ void Game::run()
 		log(logFilePath, "Game start\n");
 	}
 	catch(string err) {
-		BOLD_RED_FG(" Unable to open log file\n");
-		BOLD_RED_FG(" You can set the path in the Makefile\n");
+		BOLD_RED_FG(" " + err);
+		BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
 		BOLD_RED_FG(" Aborting\n");
 		exit(1);
 	}
@@ -409,7 +473,7 @@ void Game::run()
 							}
 							catch(string err) {
 								BOLD_RED_FG(" " + err);
-								BOLD_RED_FG(" You can set the path in the CMakeLists.txt file\n");
+								BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
 								BOLD_RED_FG(" Aborting\n");
 								exit(1);
 							}
@@ -473,6 +537,7 @@ void Game::run()
 
 	BOLD(" You have placed all tiles!!! Final scores are-\n");
 	for(Player* p : players) {
+		log(logFilePath, "\n");
 		log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
 		BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
 	}

@@ -191,6 +191,7 @@ void Tile::setLoc(int loc)
 		break;
 	case 2:
 		presentLoc = BOARD;
+		break;
 	default:
 		throw(string("Invalid value of type enum_location\n"));
 	}

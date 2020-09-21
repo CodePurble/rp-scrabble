@@ -1,9 +1,6 @@
 # TODO
 
-## Bugs
-(You can add any you have found here too!)
-
-## Features
+- [ ] Better logging of games
 - [ ] Add fetch functionality
 - [ ] Add dictionary for checking words
 

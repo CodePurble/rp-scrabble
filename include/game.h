@@ -32,7 +32,6 @@ private:
 public:
 	Game();
 	~Game();
-
 	bool OnUserCreate() override;
 	bool OnUserUpdate(float fElapsedTime) override;
 

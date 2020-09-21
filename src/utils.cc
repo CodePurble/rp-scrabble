@@ -109,7 +109,7 @@ void log(string logFilePath, string str)
 		logFile << str + "\n";
 	}
 	else {
-		throw(string("Failed to open log file\n"));
+		throw(string("Failed to open file at " + logFilePath + "\n"));
 	}
 
 	logFile.close();
