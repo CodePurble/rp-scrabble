@@ -13,19 +13,19 @@ WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 The build dependencies are:
 
-* `cmake`
+* `meson`
 * `git`
-* `make`
+* `ninja`
 * `g++`
 
 To install them, run-
 
 ```sh
 # For Arch and Arch-based distributions (Manjaro, Artix, etc)
-$ sudo pacman -S cmake git gcc make
+$ sudo pacman -S meson git gcc --needed
 
 # For Debian and Debian-based distributions (Ubuntu, Pop_OS, etc)
-$ sudo apt update && sudo apt install cmake git make g++
+$ sudo apt update && sudo apt install meson git g++
 ```
 
 ## Build instructions
