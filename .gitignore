@@ -43,3 +43,4 @@ logs/
 .clangd/
 compile_commands.json
 set_compile_commands.sh
+.ccls-cache/
