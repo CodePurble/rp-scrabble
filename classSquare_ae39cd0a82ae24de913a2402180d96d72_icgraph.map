@@ -1,8 +1,8 @@
 <map id="Square::getTile" name="Square::getTile">
-<area shape="rect" id="node1" title=" " alt="" coords="600,56,708,83"/>
-<area shape="rect" id="node2" href="$classPlay.html#a6d12fa07be9e3c7971d150238b7d200b" title=" " alt="" coords="389,5,552,32"/>
-<area shape="rect" id="node3" href="$classPlay.html#ac6a95b17390789a5eb7c6310b0e584e8" title=" " alt="" coords="233,31,341,57"/>
-<area shape="rect" id="node6" href="$classBoard.html#ae7a81ea330e0f752efbe63606b888c4b" title=" " alt="" coords="424,107,517,133"/>
-<area shape="rect" id="node4" href="$classGame.html#a1ab78f5ed0d5ea879157357cf2fb2afa" title=" " alt="" coords="104,31,185,57"/>
-<area shape="rect" id="node5" href="$main_8cc.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,56,57"/>
+<area shape="rect" id="node1" title=" " alt="" coords="444,56,552,83"/>
+<area shape="rect" id="node2" href="$classPlay.html#a6d12fa07be9e3c7971d150238b7d200b" title=" " alt="" coords="233,5,396,32"/>
+<area shape="rect" id="node3" href="$classPlay.html#ac6a95b17390789a5eb7c6310b0e584e8" title=" " alt="" coords="261,56,369,83"/>
+<area shape="rect" id="node6" href="$classBoard.html#ae7a81ea330e0f752efbe63606b888c4b" title=" " alt="" coords="268,107,361,133"/>
+<area shape="rect" id="node4" href="$classGame.html#a1ab78f5ed0d5ea879157357cf2fb2afa" title=" " alt="" coords="104,56,185,83"/>
+<area shape="rect" id="node5" href="$main_8cc.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,56,56,83"/>
 </map>
