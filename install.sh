@@ -6,34 +6,33 @@ INSTALL_DIR=$HOME/.local/bin
 LOG_DIR=$HOME/.local/share/rp-scrabble/logs
 LOG_PARENT_DIR=$HOME/.local/share/rp-scrabble
 
-
 case $1 in
     "debian")
-        if ! meson --version > /dev/null 2>&1; then
-            echo "meson not installed, it is required for building from source"
-            echo "Installing meson..."
+        if ! cmake --version > /dev/null 2>&1; then
+            echo "cmake not installed, it is required for building from source"
+            echo "Installing cmake..."
             if ! sudo apt update; then
                 echo "Aborting install"
                 exit 1
             fi
-            if ! sudo apt install meson; then
+            if ! sudo apt install cmake; then
                 exit 1
             fi
         else
-            echo "meson is installed"
+            echo "cmake is installed"
         fi
         ;;
 
     "arch")
-        if ! meson --version > /dev/null 2>&1; then
-            echo "meson not installed, it is required for building from source"
-            echo "Installing meson..."
-            if ! sudo pacman -S meson; then
+        if ! cmake --version > /dev/null 2>&1; then
+            echo "cmake not installed, it is required for building from source"
+            echo "Installing cmake..."
+            if ! sudo pacman -S cmake; then
                 echo "Aborting install"
                 exit 1
             fi
         else
-            echo "meson is installed"
+            echo "cmake is installed"
         fi
         ;;
 
@@ -50,12 +49,12 @@ case $1 in
         ;;
 
     "custom")
-        if ! meson --version > /dev/null 2>&1; then
-            echo "meson not installed, it is required for building from source"
+        if ! cmake --version > /dev/null 2>&1; then
+            echo "cmake not installed, it is required for building from source"
             echo "Please install it using your distribution's package manager and rerun this script"
             exit 1
         else
-            echo "meson is installed"
+            echo "cmake is installed"
         fi
         ;;
 
@@ -66,14 +65,13 @@ case $1 in
         ;;
 esac
 
-
 echo "Making build directories..."
 if [ ! -d "$BUILD_DIR" ]; then mkdir -vp $BUILD_DIR; fi
 if [ ! -d "$INSTALL_DIR" ]; then mkdir -vp $INSTALL_DIR; fi
 if [ ! -d "$LOG_DIR" ]; then mkdir -vp $LOG_DIR; fi
 
 echo "Building from source.."
-meson --buildtype=release $BUILD_DIR && ninja -C $BUILD_DIR
+cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release && make -C $BUILD_DIR -j $(nproc)
 
 echo "Installing..."
 cp --verbose $BUILD_DIR/$EXEC $INSTALL_DIR
