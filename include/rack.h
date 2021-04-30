@@ -16,19 +16,19 @@ class Tile;
  */
 class Rack {
 private:
-	std::array<Tile*, 7> rack;
+    std::array<Tile*, 7> rack;
 
 public:
-	Rack();
-	~Rack();
+    Rack();
+    ~Rack();
 
-	Tile* getTile(char ch);
-	std::vector<Tile*> getTileStrVec(std::string tileStr);
+    Tile* getTile(char ch);
+    std::vector<Tile*> getTileStrVec(std::string tileStr);
 
-	void fill(std::vector<Tile*> t);
-	void addTile(Tile* t);
-	bool isEmpty();
-	void show();
+    void fill(std::vector<Tile*> t);
+    void addTile(Tile* t);
+    bool isEmpty();
+    void show();
 };
 
 #endif
