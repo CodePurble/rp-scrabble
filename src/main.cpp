@@ -4,6 +4,7 @@
 #ifdef DEBUG
 
 #include <iostream>
+#include "imgui.h"
 #include "game.h"
 #include "board.h"
 #include "utils.h"
