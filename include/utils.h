@@ -6,10 +6,19 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include "imgui.h"
 
 class Tile;
 class Square;
 class Play;
+
+typedef struct PlayerInput_t {
+    std::string raw;
+    std::string tiles;
+    int row;
+    int col;
+    char dir;
+} PlayerInput_t;
 
 /** Helper to print variables for debugging */
 #define DEBUG_PRINT(x, y) std::cout << x << ":" << y << std::endl
@@ -17,6 +26,8 @@ class Play;
 #define NUM_ROWS 15
 /** Number of columns in the Board */
 #define NUM_COLS 15
+
+const ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 /**
   * String of alphabets used for input validation
@@ -132,6 +143,43 @@ inline void TILE_COLOURS(std::string x)
 inline void BOARD_COLOURS(std::string x)
 {
     std::cout << "\033[1;38;2;232;232;232;48;2;77;0;9m" + x + "\033[0m";
+}
+
+namespace ImGui {
+inline ImVec4 HSV_LIGHT_BROWN(float alpha)
+{
+    return (ImVec4)ImColor::HSV((360.0/360.0), 0.24, 0.96, alpha);
+}
+
+inline ImVec4 HSV_DARK_BROWN(float alpha)
+{
+    return (ImVec4)ImColor::HSV((353.0/360.0), 1.0, 0.408, alpha);
+}
+
+inline ImVec4 HSV_RED(float alpha)
+{
+    return (ImVec4)ImColor::HSV((0.0/360.0), 0.898, 1.0, alpha);
+}
+
+inline ImVec4 HSV_PINK(float alpha)
+{
+    return (ImVec4)ImColor::HSV((334.0/360.0), 1.0, 0.992, alpha);
+}
+
+inline ImVec4 HSV_DARK_BLUE(float alpha)
+{
+    return (ImVec4)ImColor::HSV((266.0/360.0), 0.95, 8.855, alpha);
+}
+
+inline ImVec4 HSV_LIGHT_BLUE(float alpha)
+{
+    return (ImVec4)ImColor::HSV((248.0/360.0), 0.498, 1.0, alpha);
+}
+
+inline ImVec4 HSV_OFF_WHITE(float alpha)
+{
+    return (ImVec4)ImColor::HSV((15.0/360.0), 0.298, 1.0, alpha);
+}
 }
 // End colour helper functions
 

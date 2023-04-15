@@ -31,41 +31,26 @@ Rack::~Rack()
 /**
  * "Pretty print" the rack
  */
-void Rack::show()
+void Rack::show(std::string name)
 {
-    int rackSize = rack.size();
-
-    cout << " ";
-    for(int i = 0; i < rackSize; i++) {
-        BOARD_COLOURS("+-----");
-    }
-
-    BOARD_COLOURS("+");
-    cout << "\n";
-    cout << " ";
-    BOARD_COLOURS("| ");
-
+    std::string letter_str;
+    ImGui::Begin(name.c_str());
     for(unsigned long i = 0; i < rack.size(); i++) {
+        ImGui::PushID(i);
         if(rack[i]) {
-            TILE_COLOURS(" " + rack[i]->getLetterStr() + " ");
+            letter_str = rack[i]->getLetterStr();
+            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BROWN(0.7));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BROWN(0.8));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BROWN(0.9));
+            ImGui::Button(letter_str.c_str(), ImVec2(50, 50));
         }
-        else {
-            BOARD_COLOURS("   ");
-        }
-        if(i == 6) {
-            BOARD_COLOURS(" |");
-        }
-        else {
-            BOARD_COLOURS(" | ");
+        ImGui::PopID();
+        ImGui::PopStyleColor(3);
+        if(i != rack.size() - 1) {
+            ImGui::SameLine();
         }
     }
-    cout << "\n" << " ";
-    for(int i = 0; i < rackSize; i++) {
-        BOARD_COLOURS("+-----");
-    }
-
-    BOARD_COLOURS("+");
-    cout << "\n";
+    ImGui::End();
 }
 
 /**

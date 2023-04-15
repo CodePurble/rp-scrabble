@@ -39,11 +39,11 @@ Player::~Player()
  */
 void Player::show()
 {
-    showScore();
-    cout << "\n";
+    // showScore();
+    // cout << "\n";
 
-    rack->show();
-    cout << "\n";
+    rack->show(playerName);
+    // cout << "\n";
 }
 
 /**

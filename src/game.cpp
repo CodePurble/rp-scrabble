@@ -1,6 +1,14 @@
 /**
   * @file
   */
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#define GL_SILENCE_DEPRECATION
+#if defined(IMGUI_IMPL_OPENGL_ES2)
+#include <GLES2/gl2.h>
+#endif
+#include <GLFW/glfw3.h> // Will drag system OpenGL headers
 #include <iostream>
 #include <ctime>
 #include <string>
@@ -193,120 +201,42 @@ bool Game::firstTurnCheck(string tileStr, int row, int col, char dir)
  * @throws std::invalid_argument For integer inputs
  * @throws std::string containing the error message for other inputs
  */
-string Game::getInput()
+PlayerInput_t Game::getInput(char *textbox_text)
 {
-    string tempIn = "";
-    string input = "";
-
-    BOLD(" Enter the tiles you want to place ");
-    cout << "(? for help, - to quit) ";
-    cin >> tempIn;
-    if(tempIn == "?") {
-        return "?";
-    }
-    else if(tempIn == ".") {
-        return ".";
-    }
-    else if(tempIn == "-") {
-        return "-";
-    }
-    else if(tempIn == "!") {
-        return "!";
-    }
-    else if(tempIn == "#") {
-        return "#";
-    }
-    else {
-        for(char ch : tempIn) {
-            if(!charPresent(alphabets, ch)) {
-                throw(string("Invalid character input\n"));
+    int comma_count = 0;
+    std::string temp = "";
+    PlayerInput_t player_inputs;
+    player_inputs.raw = textbox_text;
+    for(char ch : player_inputs.raw) {
+        if(ch == ',') {
+            temp = "";
+            comma_count++;
+            continue;
+        }
+        else {
+            temp += ch;
+            switch(comma_count) {
+                case 0:
+                    player_inputs.tiles = temp;
+                break;
+                case 1:
+                    player_inputs.row = stoi(temp);
+                break;
+                case 2:
+                    player_inputs.col = stoi(temp);
+                break;
+                default:
+                break;
             }
         }
-        input.append(tempIn + "-");
     }
+    player_inputs.dir = temp[0];
+    // TODO: Handle this later
+    // if(!charPresent(alphabets, ch)) {
+    //     throw(string("Invalid character input\n"));
+    // }
 
-    BOLD(" Enter the row where the first tile will go ");
-    cout << "(? for help, - to quit) ";
-    cin >> tempIn;
-    if(tempIn == "?") {
-        return "?";
-    }
-    else if(tempIn == ".") {
-        return ".";
-    }
-    else if(tempIn == "-") {
-        return "-";
-    }
-    else if(tempIn == "!") {
-        return "!";
-    }
-    else if(tempIn == "#") {
-        return "#";
-    }
-    else {
-        try {
-            stoi(tempIn);
-        }
-        catch(const invalid_argument& ia) {
-            throw(string("Invalid integer input\n"));
-        }
-        input.append(tempIn + "-");
-    }
-
-    BOLD(" Enter the column where the first tile will go ");
-    cout << "(? for help, - to quit) ";
-    cin >> tempIn;
-    if(tempIn == "?") {
-        return "?";
-    }
-    else if(tempIn == ".") {
-        return ".";
-    }
-    else if(tempIn == "-") {
-        return "-";
-    }
-    else if(tempIn == "!") {
-        return "!";
-    }
-    else if(tempIn == "#") {
-        return "#";
-    }
-    else {
-        try {
-            stoi(tempIn);
-        }
-        catch(const invalid_argument& ia) {
-            throw(string("Invalid integer input"));
-        }
-        input.append(tempIn + "-");
-    }
-
-    BOLD(" Enter the direction of placement ");
-    cout << "(? for help, - to quit) ";
-    cin >> tempIn;
-    if(tempIn == "?") {
-        return "?";
-    }
-    else if(tempIn == ".") {
-        return ".";
-    }
-    else if(tempIn == "-") {
-        return "-";
-    }
-    else if(tempIn == "!") {
-        return "!";
-    }
-    else if(tempIn == "#") {
-        return "#";
-    }
-    else {
-        if(tempIn.length() != 1 && (tempIn != "h" || tempIn != "v")) {
-            throw(string("Invalid direction\n"));
-        }
-        input.append(tempIn);
-    }
-
-    return input;
+    return player_inputs;
 }
 
 /**
@@ -360,7 +290,7 @@ void Game::printHelp()
  *
  * This function shall not throw exceptions.
  */
-void Game::run()
+int Game::run(GLFWwindow *window)
 {
     int row, col;
     bool endTurn;
@@ -368,7 +298,7 @@ void Game::run()
     bool playValid;
     bool firstTurn = true;
     string tileStr;
-    string in = "";
+    PlayerInput_t in;
     string tempIn = "";
     char dir;
     vector<string> parsed;
@@ -390,9 +320,52 @@ void Game::run()
         exit(1);
     }
 
-    // Main game loop
-    while(!allEmpty) {
-        for(Player* currPlayer : players) {
+    static char textbox_text[128] = "";
+    int display_w, display_h;
+    Player *currPlayer = players.front();
+    currPlayer->toggleTurn(); // Turn begins;
+    int player_index = 0;
+
+    // Our state
+    while (!glfwWindowShouldClose(window)) {
+        // Poll and handle events (inputs, window resize, etc.)
+        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
+        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
+        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
+        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
+        glfwPollEvents();
+        // Start the Dear ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        // Draw UI elements
+        ImGui::Begin("RP Scrabble");
+        ImGui::End();
+        ImGui::Begin("Input Box");
+        ImGui::InputTextWithHint(
+            "player input",
+            "Input your play in this format: letters,row,column,direction",
+            textbox_text,
+            IM_ARRAYSIZE(textbox_text)
+        );
+        bool confirm_status = ImGui::Button("Confirm Play");
+        ImGui::End();
+        gameBoard->show();
+        for(Player* pl : players) {
+            pl->show();
+        }
+        // Rendering
+        ImGui::Render();
+        glfwGetFramebufferSize(window, &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+        glClear(GL_COLOR_BUFFER_BIT);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        glfwSwapBuffers(window);
+
+
+        // Main game loop
+        if(!allEmpty) {
             if(!currPlayer->rackIsEmpty()) {
                 plays.push_back(new Play(currPlayer));
                 Play* currPlay = plays.back();
@@ -400,74 +373,66 @@ void Game::run()
                 endTurn = false;
                 tileStr = "";
 
-                currPlayer->toggleTurn(); // Turn begins;
-                gameBoard->show();
-                BOLD(" Bag: ");
-                gameBag->show();
-                cout << "\n";
-                currPlayer->show();
+                // BOLD(" Bag: ");
+                // gameBag->show();
+                // cout << "\n";
 
-                while(!endTurn) {
+                if(!endTurn) {
                     try {
-                        BOLD(" " + currPlayer->getName());
+                        // BOLD(" " + currPlayer->getName());
 
-                        in = getInput();
+                        if(confirm_status) {
+                            DEBUG_PRINT("confirm", "");
+                            in = getInput(textbox_text);
 
-                        if(in == "?") {
-                            printHelp();
-                        }
-                        else if(in == ".") {
-                            gameBoard->show();
-                            BOLD(" Bag: ");
-                            gameBag->show();
-                            cout << "\n";
-                            currPlayer->show();
-                        }
-                        else if(in == "-") {
-                            char c;
-                            BOLD_RED_FG(" Are you sure you want to quit? (y/n) ");
-                            cin >> c;
-                            if(c == 'y') {
-                                for(Player* p : players) {
-                                    log(logFilePath, p->getName() + ": " + to_string(p->getScore()));
-                                }
-                                exit(0);
-                            }
-                            else if(c == 'n') {
-                                // Do nothing
-                            }
-                            else {
-                                throw(string("Invalid input\n"));
-                            }
-                        }
-                        else if(in == "!") {
-                            char c;
-                            BOLD_RED_FG(" Skip turn? (y/n) ");
-                            cin >> c;
-                            if(c == 'y') {
-                                currPlayer->toggleTurn();
-                                endTurn = !endTurn;
-                            }
-                            else if(c == 'n') {
-                                // Do nothing
-                            }
-                            else {
-                                throw(string("Invalid input\n"));
-                            }
-                        }
-                        else if(in == "#") {
-                            for(Player* p : players) {
-                                p->showScore();
-                                cout << "\t";
-                            }
-                            cout << "\n";
-                        }
-                        else {
+                        // if(in == "?") {
+                        //     printHelp();
+                        // }
+                        // else if(in == "-") {
+                        //     char c;
+                        //     BOLD_RED_FG(" Are you sure you want to quit? (y/n) ");
+                        //     cin >> c;
+                        //     if(c == 'y') {
+                        //         for(Player* p : players) {
+                        //             log(logFilePath, p->getName() + ": " + to_string(p->getScore()));
+                        //         }
+                        //         exit(0);
+                        //     }
+                        //     else if(c == 'n') {
+                        //         // Do nothing
+                        //     }
+                        //     else {
+                        //         throw(string("Invalid input\n"));
+                        //     }
+                        // }
+                        // else if(in == "!") {
+                        //     char c;
+                        //     BOLD_RED_FG(" Skip turn? (y/n) ");
+                        //     cin >> c;
+                        //     if(c == 'y') {
+                        //         currPlayer->toggleTurn();
+                        //         endTurn = !endTurn;
+                        //     }
+                        //     else if(c == 'n') {
+                        //         // Do nothing
+                        //     }
+                        //     else {
+                        //         throw(string("Invalid input\n"));
+                        //     }
+                        // }
+                        // else if(in == "#") {
+                        //     for(Player* p : players) {
+                        //         p->showScore();
+                        //         cout << "\t";
+                        //     }
+                        //     cout << "\n";
+                        // }
+                        // else {
                             vector<vector<Tile*>> connnectedWords;
                             vector<Tile*> tileStrVec;
 
                             try {
-                                log(logFilePath, in);
+                                log(logFilePath, in.raw);
                             }
                             catch(string err) {
                                 BOLD_RED_FG(" " + err);
@@ -476,12 +441,12 @@ void Game::run()
                                 exit(1);
                             }
 
-                            parsed = parsePlay(in);
+                            // parsed = parsePlay(in);
 
-                            tileStr = parsed[0];
-                            row = stoi(parsed[1]);
-                            col = stoi(parsed[2]);
-                            dir = parsed[3][0];
+                            tileStr = in.tiles;
+                            row = in.row;
+                            col = in.col;
+                            dir = in.dir;
                             playValid = currPlay->validate(tileStr, gameBoard, row, col, dir);
 
                             if(firstTurn) {
@@ -502,10 +467,14 @@ void Game::run()
 
                                 currPlay->show();
 
-                                if(currPlay->confirmPlay()) {
+                                if(confirm_status) {
                                     currPlayer->updateScore(currPlay->getPointsMade());
                                     currPlayer->draw(tileStr.length(), gameBag);
                                     currPlayer->toggleTurn();
+                                    ++player_index;
+                                    if(player_index > players.size()) {
+                                        player_index = 0;
+                                    }
                                     endTurn = !endTurn; // Turn ends
                                 }
                                 else {
@@ -518,6 +487,7 @@ void Game::run()
                             else {
                                 BOLD_RED_FG(" You can't place a word there!\n");
                             }
+                        // }
                         }
                     }
                     catch(string ex) {
@@ -533,10 +503,12 @@ void Game::run()
         }
     }
 
+
     BOLD(" You have placed all tiles!!! Final scores are-\n");
     for(Player* p : players) {
         log(logFilePath, "\n");
         log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
         BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
     }
+    return 0;
 }

@@ -1,11 +1,21 @@
 /**
   * @file
   */
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#define GL_SILENCE_DEPRECATION
+#if defined(IMGUI_IMPL_OPENGL_ES2)
+#include <GLES2/gl2.h>
+#endif
+#include <GLFW/glfw3.h> // Will drag system OpenGL headers
 #include <iostream>
+#include <cstring>
 #include "player.h"
 #include "board.h"
 #include "tile.h"
 #include "rack.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -123,80 +133,115 @@ void Board::show()
     string toPrint;
     Square* currSquare;
 
-
-    cout << "                                   "; // 35 spaces
-    for(int k = 0; k < NUM_COLS; k++) {
-        BOARD_COLOURS("+-----");
-    }
-
-    BOARD_COLOURS("+");
-    cout << "\n";
-
-    for(int i = 0; i < NUM_ROWS; i++) {
-        if(i < 10) {
-            BOLD_WHITE_FG("                                 " + to_string(i) + " ");
-        }
-        else {
-            BOLD_WHITE_FG("                                " + to_string(i) + " ");
-        }
-
-        BOARD_COLOURS("| ");
-        for(int j = 0; j < NUM_COLS; j++) {
-            toPrint = "   ";
+    ImGui::Begin("Board");
+    int id = 0;
+    std::string letter_str;
+    for(int i = 0; i < NUM_ROWS; ++i) {
+        for(int j = 0; j < NUM_COLS; ++j) {
             currSquare = board[i][j];
+            ImGui::PushID(id);
             if(currSquare->isEmpty()) {
-                if(i == 7 && j == 7) {
-                    PINK_BG("   ");
+                if(i == 7 && j == 7) { // Center square is a double word square
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_PINK(0.7));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_PINK(0.8));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_PINK(0.9));
+                    ImGui::Button("DWS", ImVec2(50, 50));
+                    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                        ImGui::SetTooltip("DWS");
+                    }
                 }
                 else {
-                    toPrint = "   ";
                     switch(currSquare->getType()) {
-                    case 0:
-                        BOARD_COLOURS(toPrint);
+                    case 0: // normal
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_DARK_BROWN(0.7));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_DARK_BROWN(0.8));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_DARK_BROWN(0.9));
+                        ImGui::Button("##", ImVec2(50, 50));
                         break;
-                    case 1:
-                        PINK_BG(toPrint);
+                    case 1: // double word score
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_PINK(0.7));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_PINK(0.8));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_PINK(0.9));
+                        ImGui::Button("DWS", ImVec2(50, 50));
+                        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                            ImGui::SetTooltip("DWS");
+                        }
                         break;
-                    case 2:
-                        RED_BG(toPrint);
+                    case 2: // triple word score
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_RED(0.7));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_RED(0.8));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_RED(0.9));
+                        ImGui::Button("TWS", ImVec2(50, 50));
+                        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                            ImGui::SetTooltip("TWS");
+                        }
                         break;
-                    case 3:
-                        LIGHT_BLUE_BG(toPrint);
+                    case 3: // double letter score
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BLUE(0.7));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BLUE(0.8));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BLUE(0.9));
+                        ImGui::Button("DLS", ImVec2(50, 50));
+                        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                            ImGui::SetTooltip("DLS");
+                        }
                         break;
-                    case 4:
-                        DARK_BLUE_BG(toPrint);
+                    case 4: // triple letter score
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_DARK_BLUE(0.7));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_DARK_BLUE(0.8));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_DARK_BLUE(0.9));
+                        ImGui::Button("TLS", ImVec2(50, 50));
+                        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                            ImGui::SetTooltip("TLS");
+                        }
                         break;
                     }
                 }
             }
             else {
-                toPrint = " " + currSquare->getTile()->getLetterStr() + " ";
-                TILE_COLOURS(toPrint);
+                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BROWN(0.7));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BROWN(0.8));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BROWN(0.9));
+                letter_str = currSquare->getTile()->getLetterStr();
+                if (letter_str.empty()) {
+                    ImGui::Button("##", ImVec2(50, 50));
+                }
+                else {
+                    ImGui::Button(letter_str.c_str(), ImVec2(50, 50));
+                }
+                switch(currSquare->getType()) {
+                case 0: // normal
+                    break;
+                case 1: // double word score
+                    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                        ImGui::SetTooltip("DWS");
+                    }
+                    break;
+                case 2: // triple word score
+                    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                        ImGui::SetTooltip("TWS");
+                    }
+                    break;
+                case 3: // double letter score
+                    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                        ImGui::SetTooltip("DLS");
+                    }
+                    break;
+                case 4: // triple letter score
+                    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+                        ImGui::SetTooltip("TLS");
+                    }
+                    break;
+                }
             }
-            if(j < NUM_COLS - 1) {
-                BOARD_COLOURS(" | ");
+            if(j == 0 || j % (NUM_COLS - 1) != 0) {
+                ImGui::SameLine();
             }
+            ImGui::PopStyleColor(3);
+            ImGui::PopID();
+            ++id;
         }
-        BOARD_COLOURS(" |");
-        cout << "\n";
-        cout << "                                   ";
-        for(int k = 0; k < NUM_COLS; k++) {
-            BOARD_COLOURS("+-----");
-        }
-
-        BOARD_COLOURS("+");
-        cout << "\n";
     }
-
-    BOLD_WHITE_FG("                                      0   ");
-    for(int k = 1; k < NUM_COLS; k++)
-        if(k < 10) {
-            BOLD_WHITE_FG("  " + to_string(k) + "   ");
-        }
-        else {
-            BOLD_WHITE_FG(" " + to_string(k) + "   ");
-        }
-    cout << "\n\n";
+    ImGui::End();
 }
 
 /**
