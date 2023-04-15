@@ -378,11 +378,12 @@ int Game::run(GLFWwindow *window)
                 // cout << "\n";
 
                 if(!endTurn) {
+                    DEBUG_PRINT("turn start for player", player_index);
                     try {
                         // BOLD(" " + currPlayer->getName());
 
+                        currPlayer = players[player_index];
                         if(confirm_status) {
-                            DEBUG_PRINT("confirm", "");
                             in = getInput(textbox_text);
 
                         // if(in == "?") {
@@ -468,11 +469,12 @@ int Game::run(GLFWwindow *window)
                                 currPlay->show();
 
                                 if(confirm_status) {
+                                    DEBUG_PRINT("player_index", player_index);
                                     currPlayer->updateScore(currPlay->getPointsMade());
                                     currPlayer->draw(tileStr.length(), gameBag);
                                     currPlayer->toggleTurn();
                                     ++player_index;
-                                    if(player_index > players.size()) {
+                                    if(player_index >= players.size()) {
                                         player_index = 0;
                                     }
                                     endTurn = !endTurn; // Turn ends
