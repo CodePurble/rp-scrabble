@@ -31,7 +31,7 @@ Rack::~Rack()
 /**
  * "Pretty print" the rack
  */
-void Rack::show(std::string name)
+void Rack::show(std::string name, bool alt)
 {
     std::string letter_str;
     ImGui::Begin(name.c_str());
@@ -39,9 +39,16 @@ void Rack::show(std::string name)
         ImGui::PushID(i);
         if(rack[i]) {
             letter_str = rack[i]->getLetterStr();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BROWN(0.7));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BROWN(0.8));
-            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BROWN(0.9));
+            if(alt) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_GREEN(0.7));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_GREEN(0.8));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_GREEN(0.9));
+            }
+            else {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BROWN(0.7));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BROWN(0.8));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BROWN(0.9));
+            }
             ImGui::Button(letter_str.c_str(), ImVec2(50, 50));
         }
         ImGui::PopID();

@@ -42,7 +42,7 @@ void Player::show()
     // showScore();
     // cout << "\n";
 
-    rack->show(playerName);
+    rack->show(playerName, turn);
     // cout << "\n";
 }
 
@@ -143,6 +143,11 @@ bool Player::placeTile(Tile* t, Board* b, int r, int c)
 void Player::toggleTurn()
 {
     turn = !turn;
+}
+
+void Player::setTurn(bool status)
+{
+    turn = status;
 }
 
 /**

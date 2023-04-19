@@ -190,7 +190,8 @@ int main()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
-    testGame(window);
+    Game g(window);
+    g.run();
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -203,8 +204,6 @@ int main()
 
 void testGame(GLFWwindow *window)
 {
-    Game g;
-    g.run(window);
 }
 
 void testBoard()

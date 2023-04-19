@@ -26,6 +26,7 @@ typedef struct PlayerInput_t {
 #define NUM_ROWS 15
 /** Number of columns in the Board */
 #define NUM_COLS 15
+#define PLAYER_MAX 4
 
 const ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -179,6 +180,11 @@ inline ImVec4 HSV_LIGHT_BLUE(float alpha)
 inline ImVec4 HSV_OFF_WHITE(float alpha)
 {
     return (ImVec4)ImColor::HSV((15.0/360.0), 0.298, 1.0, alpha);
+}
+
+inline ImVec4 HSV_GREEN(float alpha)
+{
+    return (ImVec4)ImColor::HSV((119.0/360.0), 0.98, 0.88, alpha);
 }
 }
 // End colour helper functions

@@ -30,6 +30,7 @@ public:
     std::string getName();
     void setName(std::string);
     void toggleTurn();
+    void setTurn(bool status);
     void updateScore(int points);
     int getScore();
     Tile* tileFromRack(int index);

@@ -12,6 +12,7 @@
 #endif
 #include <GLFW/glfw3.h> // Will drag system OpenGL headers
 #include <vector>
+#include <array>
 #include <string>
 #include "utils.h"
 
@@ -25,10 +26,13 @@ class Play;
  */
 class Game {
 private:
+    bool game_started = false;
     Board* gameBoard;
     Bag* gameBag;
+    GLFWwindow *main_window;
     std::vector<Player*> players;
     std::vector<Play*> plays;
+    std::array<std::string, PLAYER_MAX> player_names = {"", "", "", ""};
     std::string gameID;
     std::string logFilePath;
     void init();
@@ -38,10 +42,10 @@ private:
     void printHelp();
 
 public:
-    Game();
+    Game(GLFWwindow *window);
     ~Game();
 
-    int run(GLFWwindow *window);
+    int run();
 
 };
 
