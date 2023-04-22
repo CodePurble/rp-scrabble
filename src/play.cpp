@@ -31,6 +31,23 @@ Play::~Play()
     delete playMaker;
 }
 
+void Play::log(Logger *logger)
+{
+    string wordStr = "";
+    for(vector<Tile*> word : wordsInPlay) {
+        for(Tile* t : word) {
+            wordStr.append(t->getLetterStr());
+        }
+        wordStr.append(" + ");
+    }
+    if(!wordStr.empty()) {
+        wordStr.replace(wordStr.end()-3, wordStr.end(), "");
+    }
+    logger->addLog("Player %s\n", playMaker->getName().c_str());
+    logger->addLog("Words in play %s\n", wordStr.c_str());
+    logger->addLog("%d points\n\n", pointsMade);
+}
+
 /**
  * "Pretty print" the Play
  */

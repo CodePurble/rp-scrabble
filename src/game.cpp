@@ -21,6 +21,7 @@
 #include "utils.h"
 #include "play.h"
 #include "tile.h"
+#include "logger.h"
 
 using namespace std;
 
@@ -42,9 +43,7 @@ Game::Game(GLFWwindow *window)
     main_window = window;
     gameBoard = new Board;
     gameBag = new Bag;
-
-    // Solitaire game by default
-    // addPlayer(new Player(to_string(1)));
+    logger = new Logger;
 }
 
 /**
@@ -368,10 +367,14 @@ int Game::run()
             }
             ImGui::Begin("Input Box");
             ImGui::InputTextWithHint(
-                "Player input",
-                "Input your play in this format: letters,row,column,direction",
+                "##",
+                "Input your play",
                 textbox_text,
                 IM_ARRAYSIZE(textbox_text)
+            );
+            ImGui::SameLine();
+            ImGui::HelpMarker(
+                "The play is input in the following format:\nletters,row,column,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'row' and 'column' are the respective row index and column index of the square where you want to place the first tile (The indices of the rows and columns are shown along the edges of the board)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')"
             );
             confirm_status = (ImGui::Button("Confirm Play"));
             ImGui::End();
@@ -379,6 +382,7 @@ int Game::run()
             for(Player* pl : players) {
                 pl->show();
             }
+            logger->show("Logger");
         }
         else {
             init();
@@ -439,6 +443,7 @@ int Game::run()
                                 if(firstTurn) {
                                     if(!firstTurnCheck(tileStr, row, col, dir)) {
                                         firstTurn = true;
+                                        logger->addLog("This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                         BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                     }
                                     else {
@@ -453,6 +458,7 @@ int Game::run()
                                     currPlay->calculatePoints(connnectedWords, tileStrVec);
 
                                     currPlay->show();
+                                    currPlay->log(logger);
 
                                     if(confirm_status) {
                                         currPlayer->updateScore(currPlay->getPointsMade());
@@ -472,11 +478,13 @@ int Game::run()
                                     }
                                 }
                                 else {
+                                    logger->addLog("You can't place a word there!\n");
                                     BOLD_RED_FG(" You can't place a word there!\n");
                                 }
                             }
                         }
                         catch(string ex) {
+                            logger->addLog("Error: %s", ex.c_str());
                             BOLD_RED_FG(" Error: " + ex);
                         }
                     }
@@ -487,15 +495,19 @@ int Game::run()
                     allEmpty = allEmpty && p->rackIsEmpty();
                 }
             }
+            else {
+                logger->addLog("\n\n------------------------------\nYou have placed all tiles!!! Final scores are-\n");
+                BOLD(" You have placed all tiles!!! Final scores are-\n");
+                for(Player* p : players) {
+                    log(logFilePath, "\n");
+                    log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
+                    logger->addLog("%s: %d", p->getName().c_str(), p->getScore());
+                    BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
+                }
+            }
         }
     }
 
 
-    BOLD(" You have placed all tiles!!! Final scores are-\n");
-    for(Player* p : players) {
-        log(logFilePath, "\n");
-        log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
-        BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
-    }
     return 0;
 }

@@ -2,6 +2,7 @@
   * @file
   */
 #include <iostream>
+#include <string>
 #include "player.h"
 #include "bag.h"
 #include "tile.h"
@@ -39,11 +40,10 @@ Player::~Player()
  */
 void Player::show()
 {
-    // showScore();
-    // cout << "\n";
-
     rack->show(playerName, turn);
-    // cout << "\n";
+    ImGui::Begin(playerName.c_str());
+    ImGui::Text("%d Points", score);
+    ImGui::End();
 }
 
 /**

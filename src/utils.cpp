@@ -8,6 +8,7 @@
 #include "square.h"
 #include "play.h"
 #include "utils.h"
+#include "imgui.h"
 
 using namespace std;
 
@@ -130,3 +131,4 @@ string RawTimeToString(const time_t& t)
     oss << t;
     return oss.str();
 }
+

@@ -190,6 +190,17 @@ inline ImVec4 HSV_BG(float alpha)
 {
     return (ImVec4)ImColor::HSV((120.0/360.0), 0.07, 0.06, alpha);
 }
+inline void HelpMarker(const char* desc)
+{
+    ImGui::TextDisabled("(Help)");
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayShort) && ImGui::BeginTooltip())
+    {
+        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+        ImGui::TextUnformatted(desc);
+        ImGui::PopTextWrapPos();
+        ImGui::EndTooltip();
+    }
+}
 }
 // End colour helper functions
 

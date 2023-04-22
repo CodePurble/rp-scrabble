@@ -5,6 +5,7 @@
 #define PLAY_H
 #include <string>
 #include <vector>
+#include "logger.h"
 
 /**
  * Implements a "play"
@@ -40,6 +41,7 @@ public:
     bool confirmPlay();
     void reset();
     void show();
+    void log(Logger *logger);
 };
 
 #endif

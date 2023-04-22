@@ -20,6 +20,7 @@ class Board;
 class Bag;
 class Player;
 class Play;
+class Logger;
 
 /**
  * Implements the main game loop, logging and other functionalities
@@ -35,6 +36,7 @@ private:
     std::array<std::string, PLAYER_MAX> player_names = {"", "", "", ""};
     std::string gameID;
     std::string logFilePath;
+    Logger *logger;
     void init();
     bool firstTurnCheck(std::string str, int r, int c, char dir);
     void addPlayer(Player* p);
