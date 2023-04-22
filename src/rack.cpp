@@ -148,7 +148,7 @@ vector<Tile*> Rack::getTileStrVec(string tileStr)
         if(!found) {
             // Abort!! Reset the rack and start again
             fill(tileStrVec);
-            throw string(string(1, ch) + " not found\n");
+            throw string("Tile '" + string(1, ch) + "' not found in the rack\n");
         }
     }
     return tileStrVec;

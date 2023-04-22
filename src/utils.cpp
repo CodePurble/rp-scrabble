@@ -67,6 +67,24 @@ bool charPresent(string str, char ch)
     return(it == str.end() ? false : true);
 }
 
+bool onlyLetters(std::string str)
+{
+    for(char ch: str) {
+        if(!charPresent(alphabets, ch)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void clearPlayerInput(PlayerInput_t *input) {
+    input->raw = "";
+    input->tiles = "";
+    input->row = 0;
+    input->col = 0;
+    input->dir = 0;
+}
+
 /**
  * Parses a Play in the format <tiles>-<row>-<column>-<direction>
  *

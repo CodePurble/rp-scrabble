@@ -20,6 +20,8 @@ typedef struct PlayerInput_t {
     char dir;
 } PlayerInput_t;
 
+void clearPlayerInput(PlayerInput_t *input);
+
 /** Helper to print variables for debugging */
 #define DEBUG_PRINT(x, y) std::cout << x << ":" << y << std::endl
 /** Number of rows in the Board */
@@ -210,6 +212,7 @@ inline void HelpMarker(const char* desc)
 bool squarePresent(std::vector<Square*> s, Square* target);
 bool tilePresent(std::vector<Tile*> t, Tile* target);
 bool charPresent(std::string str, char target);
+bool onlyLetters(std::string str);
 std::vector<std::string> parsePlay(std::string in);
 void log(std::string logFilePath, std::string str);
 std::string RawTimeToString(const time_t& t);

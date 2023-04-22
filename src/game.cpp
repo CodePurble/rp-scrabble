@@ -227,21 +227,27 @@ PlayerInput_t Game::getInput(char *textbox_text)
                 player_inputs.tiles = temp;
                 break;
             case 1:
-                player_inputs.row = stoi(temp);
+                try {
+                    player_inputs.row = stoi(temp);
+                }
+                catch(const std::invalid_argument &ia) {
+                    throw(string("Invalid integer input for row\n"));
+                }
                 break;
             case 2:
-                player_inputs.col = stoi(temp);
+                try {
+                    player_inputs.col = stoi(temp);
+                }
+                catch(const std::invalid_argument &ia) {
+                    throw(string("Invalid integer input for column\n"));
+                }
                 break;
             default:
+                player_inputs.dir = temp[0];
                 break;
             }
         }
     }
-    player_inputs.dir = temp[0];
-    // TODO: Handle this later
-    // if(!charPresent(alphabets, ch)) {
-    //     throw(string("Invalid character input\n"));
-    // }
 
     return player_inputs;
 }
@@ -440,9 +446,11 @@ int Game::run()
                                 dir = in.dir;
                                 playValid = currPlay->validate(tileStr, gameBoard, row, col, dir);
 
+                                // override playValid only for first turn
                                 if(firstTurn) {
                                     if(!firstTurnCheck(tileStr, row, col, dir)) {
                                         firstTurn = true;
+                                        playValid = false;
                                         logger->addLog("This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                         BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                     }
@@ -456,30 +464,22 @@ int Game::run()
                                     tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
                                     connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
                                     currPlay->calculatePoints(connnectedWords, tileStrVec);
-
+                                    currPlayer->updateScore(currPlay->getPointsMade());
+                                    currPlayer->draw(tileStr.length(), gameBag);
+                                    currPlayer->setTurn(false);
+                                    ++player_index;
+                                    if(player_index >= players.size()) {
+                                        player_index = 0;
+                                    }
                                     currPlay->show();
                                     currPlay->log(logger);
-
-                                    if(confirm_status) {
-                                        currPlayer->updateScore(currPlay->getPointsMade());
-                                        currPlayer->draw(tileStr.length(), gameBag);
-                                        currPlayer->setTurn(false);
-                                        ++player_index;
-                                        if(player_index >= players.size()) {
-                                            player_index = 0;
-                                        }
-                                        endTurn = !endTurn; // Turn ends
-                                    }
-                                    else {
-                                        for(Tile* t : tileStrVec) {
-                                            currPlayer->returnToRack(t, gameBoard);
-                                        }
-                                        currPlay->reset();
-                                    }
+                                    endTurn = !endTurn; // Turn ends
                                 }
                                 else {
-                                    logger->addLog("You can't place a word there!\n");
-                                    BOLD_RED_FG(" You can't place a word there!\n");
+                                    currPlay->reset();
+                                    clearPlayerInput(&in);
+                                    logger->addLog("Invalid play\n");
+                                    BOLD_RED_FG(" Invalid play\n");
                                 }
                             }
                         }
