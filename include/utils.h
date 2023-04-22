@@ -186,6 +186,10 @@ inline ImVec4 HSV_GREEN(float alpha)
 {
     return (ImVec4)ImColor::HSV((119.0/360.0), 0.98, 0.88, alpha);
 }
+inline ImVec4 HSV_BG(float alpha)
+{
+    return (ImVec4)ImColor::HSV((120.0/360.0), 0.07, 0.06, alpha);
+}
 }
 // End colour helper functions
 

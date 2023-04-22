@@ -357,7 +357,6 @@ int Game::run()
                 else {
                     for(int i = 0; i < PLAYER_MAX; ++i) {
                         if(player_names[i] != "") {
-                            DEBUG_PRINT("player_names", player_names[i]);
                             addPlayer(new Player(player_names[i]));
                         }
                     }
