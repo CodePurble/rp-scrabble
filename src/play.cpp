@@ -6,6 +6,7 @@
 #include "board.h"
 #include "player.h"
 #include "play.h"
+#include "dict.h"
 
 using namespace std;
 
@@ -36,9 +37,9 @@ void Play::log(Logger *logger)
     string wordStr = "";
     for(vector<Tile*> word : wordsInPlay) {
         for(Tile* t : word) {
-            wordStr.append(t->getLetterStr());
+            wordStr += t->getLetter();
         }
-        wordStr.append(" + ");
+        wordStr += " + ";
     }
     if(!wordStr.empty()) {
         wordStr.replace(wordStr.end()-3, wordStr.end(), "");
@@ -56,9 +57,9 @@ void Play::show()
     string wordStr = "";
     for(vector<Tile*> word : wordsInPlay) {
         for(Tile* t : word) {
-            wordStr.append(t->getLetterStr());
+            wordStr += t->getLetter();
         }
-        wordStr.append(" + ");
+        wordStr += " + ";
     }
     if(!wordStr.empty()) {
         wordStr.replace(wordStr.end()-3, wordStr.end(), "");
@@ -104,7 +105,7 @@ void Play::setPlayer(Player* p)
  *
  * @warning Cannot be used to validate the first play
  */
-bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
+bool Play::checkPlacement(string tileStr, Board* b, int r, int c, char dir)
 {
     int max = tileStr.length();
     bool result = false;
@@ -189,17 +190,16 @@ bool Play::validate(string tileStr, Board* b, int r, int c, char dir)
  *
  * @throws std::string containing the error message
  */
-vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, int c, char dir)
+vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int row, int col, char dir)
 {
     vector<Tile*> placedTiles;
-    int currRow = r;
-    int currCol = c;
     Square* currSquare;
+    string wordString = "";
 
     try {
         if(dir == 'h') {
             try {
-                currSquare = b->getSquare(currRow, currCol);
+                currSquare = b->getSquare(row, col);
                 while(currSquare && currSquare->getLeft() && !currSquare->getLeft()->isEmpty()) {
                     currSquare = currSquare->getLeft();
                 }
@@ -217,6 +217,14 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
                         wordsInPlay.push_back(getConnectedWord(t, 'v'));
                     }
                 }
+
+                for(vector<Tile*> tiles : wordsInPlay) {
+                    wordString = "";
+                    for(Tile *t : tiles) {
+                        wordString += t->getLetter();
+                    }
+                    wordStringsInPlay.push_back(wordString);
+                }
             }
             catch(string err) {
                 throw;
@@ -224,7 +232,7 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
         }
         else if(dir == 'v') {
             try {
-                currSquare = b->getSquare(currRow, currCol);
+                currSquare = b->getSquare(row, col);
                 while(currSquare && currSquare->getAbove() && !currSquare->getAbove()->isEmpty()) {
                     if(currSquare) {
                         currSquare = currSquare->getAbove();
@@ -244,6 +252,13 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
                         wordsInPlay.push_back(getConnectedWord(t, 'h'));
                     }
                 }
+                for(vector<Tile*> tiles : wordsInPlay) {
+                    wordString = "";
+                    for(Tile *t : tiles) {
+                        wordString += t->getLetter();
+                    }
+                    wordStringsInPlay.push_back(wordString);
+                }
             }
             catch(string err) {
                 throw;
@@ -256,6 +271,16 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int r, 
     }
 
     return wordsInPlay;
+}
+
+string Play::checkWords(Dict *dictionary)
+{
+    for(string word : wordStringsInPlay) {
+        if(!dictionary->search(word)) {
+            return word;
+        }
+    }
+    return "";
 }
 
 /**
@@ -405,5 +430,6 @@ void Play::reset()
 {
     pointsMade = 0;
     wordsInPlay.clear();
+    wordStringsInPlay.clear();
     playStr = "";
 }

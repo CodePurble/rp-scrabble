@@ -24,6 +24,7 @@ public:
     bool isEmpty();
     void shuffle();
     std::vector<Tile*> draw(int count);
+    int remainingTiles();
 
 };
 

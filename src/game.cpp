@@ -22,6 +22,7 @@
 #include "play.h"
 #include "tile.h"
 #include "logger.h"
+#include "dict.h"
 
 using namespace std;
 
@@ -43,7 +44,8 @@ Game::Game(GLFWwindow *window)
     main_window = window;
     gameBoard = new Board;
     gameBag = new Bag;
-    logger = new Logger;
+    gameDictionary = new Dict("/home/ramprakash/repos/rp-scrabble/assets/twl06_wordlist.txt");
+    gameLogger = new Logger;
 }
 
 /**
@@ -313,8 +315,9 @@ int Game::run()
     int row, col;
     bool endTurn;
     bool allEmpty = false;
-    bool playValid;
-    bool firstTurn = true;
+    bool placementCheck = false;
+    string firstIllegalWord = "";
+    int turnCount = 0;
     string tileStr;
     PlayerInput_t in;
     string tempIn = "";
@@ -363,7 +366,7 @@ int Game::run()
         ImGui::Begin("RP Scrabble", nullptr, rootWindowFlags);
         ImGui::End();
         if (game_started) {
-            if(firstTurn) {
+            if(turnCount == 0) {
                 if(players_added) {
                     currPlayer = players.front();
                 }
@@ -391,6 +394,9 @@ int Game::run()
                 ImGui::HelpMarker(
                     "The play is input in the following format:\nletters,row,column,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'row' and 'column' are the respective row index and column index of the square where you want to place the first tile (The indices of the rows and columns are shown along the edges of the board)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')"
                 );
+                ImGui::Text("Tiles remaining in the bag: ");
+                ImGui::SameLine();
+                ImGui::Text(to_string(gameBag->remainingTiles()).c_str());
                 confirm_status = (ImGui::Button("Confirm Play"));
                 ImGui::End();
             }
@@ -398,7 +404,7 @@ int Game::run()
             for(Player* pl : players) {
                 pl->show("Player racks", childWindowFlags);
             }
-            logger->show("Logger", nullptr, childWindowFlags);
+            gameLogger->show("Logger", nullptr, childWindowFlags);
         }
         else {
             init();
@@ -454,47 +460,67 @@ int Game::run()
                                 row = in.row;
                                 col = in.col;
                                 dir = in.dir;
-                                playValid = currPlay->validate(tileStr, gameBoard, row, col, dir);
+                                placementCheck = currPlay->checkPlacement(tileStr, gameBoard, row, col, dir);
 
                                 // override playValid only for first turn
-                                if(firstTurn) {
+                                if(turnCount == 0) {
                                     if(!firstTurnCheck(tileStr, row, col, dir)) {
-                                        firstTurn = true;
-                                        playValid = false;
-                                        logger->addLog("This is the first turn of the game, please make sure the centre square is covered by your word\n");
+                                        ++turnCount;
+                                        placementCheck = false;
+                                        gameLogger->addLog("This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                         BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                     }
                                     else {
-                                        playValid = true;
-                                        firstTurn = false;
+                                        placementCheck = true;
                                     }
                                 }
 
-                                if(playValid) {
+                                if(placementCheck) {
                                     tileStrVec = currPlayer->placeTileStr(tileStr, gameBoard, row, col, dir);
                                     connnectedWords = currPlay->getWords(tileStrVec, gameBoard, row, col, dir);
-                                    currPlay->calculatePoints(connnectedWords, tileStrVec);
-                                    currPlayer->updateScore(currPlay->getPointsMade());
-                                    currPlayer->draw(tileStr.length(), gameBag);
-                                    currPlayer->setTurn(false);
-                                    ++player_index;
-                                    if(player_index >= players.size()) {
-                                        player_index = 0;
+                                    firstIllegalWord = currPlay->checkWords(gameDictionary);
+                                    if(firstIllegalWord == "") {
+                                        currPlay->calculatePoints(connnectedWords, tileStrVec);
+                                        currPlayer->updateScore(currPlay->getPointsMade());
+                                        currPlayer->draw(tileStr.length(), gameBag);
+                                        currPlayer->setTurn(false);
+                                        ++player_index;
+                                        ++turnCount;
+                                        if(player_index >= players.size()) {
+                                            player_index = 0;
+                                        }
+                                        currPlay->show();
+                                        currPlay->log(gameLogger);
+                                        endTurn = !endTurn; // Turn ends
                                     }
-                                    currPlay->show();
-                                    currPlay->log(logger);
-                                    endTurn = !endTurn; // Turn ends
+                                    else {
+                                        if(turnCount == 1) {
+                                            turnCount = 0;
+                                        }
+                                        for(Tile* t : tileStrVec) {
+                                            currPlayer->returnToRack(t, gameBoard);
+                                        }
+                                        currPlay->reset();
+                                        clearPlayerInput(&in);
+                                        gameLogger->addLog("Invalid word: %s\n", firstIllegalWord.c_str());
+                                        BOLD_RED_FG(" Invalid word: " + firstIllegalWord + "\n");
+                                        firstIllegalWord.clear();
+                                    }
                                 }
                                 else {
+                                    for(Tile* t : tileStrVec) {
+                                        currPlayer->returnToRack(t, gameBoard);
+                                    }
                                     currPlay->reset();
                                     clearPlayerInput(&in);
-                                    logger->addLog("Invalid play\n");
-                                    BOLD_RED_FG(" Invalid play\n");
+                                    gameLogger->addLog("Invalid tile placement, at least one of your tiles should touch an existing tile\n");
+                                    firstIllegalWord.clear();
+                                    BOLD_RED_FG("Invalid tile placement, at least one of your tiles should touch an existing tile\n");
                                 }
                             }
                         }
                         catch(string ex) {
-                            logger->addLog("Error: %s", ex.c_str());
+                            gameLogger->addLog("Error: %s", ex.c_str());
                             BOLD_RED_FG(" Error: " + ex);
                         }
                     }
@@ -506,12 +532,12 @@ int Game::run()
                 }
             }
             else {
-                logger->addLog("\n\n------------------------------\nYou have placed all tiles!!! Final scores are-\n");
-                BOLD(" You have placed all tiles!!! Final scores are-\n");
+                gameLogger->addLog("\n\n------------------------------\nYou have placed all tiles!!! Final scores are-\n");
+                BOLD(" You have placed all tiles, in " + to_string(turnCount + 1) + " turns! Final scores are-\n");
                 for(Player* p : players) {
                     log(logFilePath, "\n");
                     log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
-                    logger->addLog("%s: %d", p->getName().c_str(), p->getScore());
+                    gameLogger->addLog("%s: %d", p->getName().c_str(), p->getScore());
                     BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
                 }
             }

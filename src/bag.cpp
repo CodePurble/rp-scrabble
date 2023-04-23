@@ -254,3 +254,8 @@ bool Bag::isEmpty()
 {
     return(bag.empty());
 }
+
+int Bag::remainingTiles()
+{
+    return(bag.size());
+}

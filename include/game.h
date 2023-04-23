@@ -21,6 +21,7 @@ class Bag;
 class Player;
 class Play;
 class Logger;
+class Dict;
 
 /**
  * Implements the main game loop, logging and other functionalities
@@ -30,13 +31,14 @@ private:
     bool game_started = false;
     Board* gameBoard;
     Bag* gameBag;
+    Dict *gameDictionary;
     GLFWwindow *main_window;
     std::vector<Player*> players;
     std::vector<Play*> plays;
     std::array<std::string, PLAYER_MAX> player_names = {"", "", "", ""};
     std::string gameID;
     std::string logFilePath;
-    Logger *logger;
+    Logger *gameLogger;
     void init();
     bool firstTurnCheck(std::string str, int r, int c, char dir);
     void addPlayer(Player* p);

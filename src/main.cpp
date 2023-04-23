@@ -15,10 +15,14 @@
 #include "game.h"
 #include "board.h"
 #include "utils.h"
+#include "dict.h"
 
 
 void testGame(GLFWwindow *window);
 void testBoard();
+void testDict()
+{
+}
 int testGUI();
 static void glfw_error_callback(int error, const char* description)
 {
@@ -91,6 +95,9 @@ int main()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
+    // Dict d("/home/ramprakash/repos/rp-scrabble/assets/twl06_wordlist.txt");
+    // d.search("TEN") ? std::cout << "Yes" : std::cout << "NO";
+    // return 0;
     Game g(window);
     g.run();
     // Cleanup
@@ -102,6 +109,10 @@ int main()
     glfwTerminate();
     return 0;
 }
+
+// int main()
+// {
+// }
 
 void testGame(GLFWwindow *window)
 {
