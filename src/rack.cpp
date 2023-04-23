@@ -31,10 +31,10 @@ Rack::~Rack()
 /**
  * "Pretty print" the rack
  */
-void Rack::show(std::string name, bool alt)
+void Rack::show(const char *window_title, bool alt, int flags)
 {
     std::string letter_str;
-    ImGui::Begin(name.c_str());
+    ImGui::Begin(window_title, nullptr, flags);
     for(unsigned long i = 0; i < rack.size(); i++) {
         ImGui::PushID(i);
         if(rack[i]) {

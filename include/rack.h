@@ -28,7 +28,7 @@ public:
     void fill(std::vector<Tile*> t);
     void addTile(Tile* t);
     bool isEmpty();
-    void show(std::string name, bool alt);
+    void show(const char *window_title, bool alt, int flags);
 };
 
 #endif

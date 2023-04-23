@@ -29,9 +29,9 @@ void Logger::addLog(const char* fmt, ...)
             lineOffsets.push_back(old_size + 1);
 }
 
-void Logger::show(const char* title, bool* p_open)
+void Logger::show(const char* title, bool* p_open, int flags)
 {
-    if (!ImGui::Begin(title, p_open))
+    if (!ImGui::Begin(title, p_open, flags))
     {
         ImGui::End();
         return;

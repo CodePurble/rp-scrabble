@@ -18,7 +18,7 @@ public:
     ~Logger();
     void clear();
     void addLog(const char* fmt, ...) IM_FMTARGS(2);
-    void show(const char* title, bool* p_open = NULL);
+    void show(const char* title, bool* p_open, int flags);
 
 };
 

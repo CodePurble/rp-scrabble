@@ -128,38 +128,44 @@ Board::~Board()
 /**
  * "Pretty print" the board to stdout
  */
-void Board::show()
+void Board::show(const char *window_title, int flags)
 {
     string toPrint;
     Square* currSquare;
 
-    ImGui::Begin("Board");
+    ImGui::Begin(window_title, nullptr, flags);
     int id = 0;
     std::string letter_str;
     std::string button_label = "";
     ImGui::PushID(id);
     ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
     ImGui::Button("##", ImVec2(25, 25));
     ImGui::SameLine();
-    ImGui::PopStyleColor(1);
+    ImGui::PopStyleColor(3);
     ImGui::PopID();
     for(int i = 0; i < NUM_COLS; ++i) {
         button_label = to_string(i);
         ImGui::PushID(id);
         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
         ImGui::Button(button_label.c_str(), ImVec2(50, 25));
         if(i != (NUM_COLS - 1)) {
             ImGui::SameLine();
         }
-        ImGui::PopStyleColor(1);
+        ImGui::PopStyleColor(3);
         ImGui::PopID();
     }
     for(int i = 0; i < NUM_ROWS; ++i) {
         ImGui::PushID(id);
         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
         ImGui::Button(to_string(i).c_str(), ImVec2(25, 50));
         ImGui::SameLine();
-        ImGui::PopStyleColor(1);
+        ImGui::PopStyleColor(3);
         ImGui::PopID();
         for(int j = 0; j < NUM_COLS; ++j) {
             currSquare = board[i][j];
@@ -264,25 +270,31 @@ void Board::show()
         }
         ImGui::PushID(id);
         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
         ImGui::Button(to_string(i).c_str(), ImVec2(25, 50));
-        ImGui::PopStyleColor(1);
+        ImGui::PopStyleColor(3);
         ImGui::PopID();
     }
     ImGui::PushID(id);
     ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
     ImGui::Button("##", ImVec2(25, 25));
     ImGui::SameLine();
-    ImGui::PopStyleColor(1);
+    ImGui::PopStyleColor(3);
     ImGui::PopID();
     for(int i = 0; i < NUM_COLS; ++i) {
         button_label = to_string(i);
         ImGui::PushID(id);
         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
         ImGui::Button(button_label.c_str(), ImVec2(50, 25));
         if(i != (NUM_COLS - 1)) {
             ImGui::SameLine();
         }
-        ImGui::PopStyleColor(1);
+        ImGui::PopStyleColor(3);
         ImGui::PopID();
     }
     ImGui::End();

@@ -38,11 +38,12 @@ Player::~Player()
 /**
  * "Pretty print" the Player object
  */
-void Player::show()
+void Player::show(const char *window_title, int flags)
 {
-    rack->show(playerName, turn);
-    ImGui::Begin(playerName.c_str());
-    ImGui::Text("%d Points", score);
+    rack->show(window_title, turn, flags);
+    ImGui::Begin(window_title, nullptr, flags);
+    ImGui::Text("%s: %d Points", playerName.c_str(), score);
+    ImGui::Separator();
     ImGui::End();
 }
 

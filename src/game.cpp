@@ -85,6 +85,9 @@ void Game::addPlayer(Player* p)
  */
 void Game::init()
 {
+    int window_flags = 0;
+    window_flags |= ImGuiWindowFlags_NoResize;
+    window_flags |= ImGuiWindowFlags_NoTitleBar;
     try {
         log(logFilePath, "Log start\n");
     }
@@ -95,14 +98,17 @@ void Game::init()
         exit(1);
     }
 
-    ImGui::Begin("Welcome");
-    ImGui::TextWrapped("Welcome to Scrabble by Ramprakash!");
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    // Always center this window when appearing
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    ImGui::Begin("Welcome", nullptr, window_flags);
+    ImGui::TextWrapped(" Welcome to Scrabble by Ramprakash!");
     static int start_pressed;
     static int player_count = 1;
     static int next_clicked = 0;
-    static char hint[8] = "Player ";
+    static char hint[9] = "Player ";
     static char name[16] = "";
-    if (ImGui::Button("Start")) {
+    if (ImGui::Button("Start", ImVec2(ImGui::GetWindowSize().x - 15, 0))) {
         if(start_pressed == 0) {
             ++start_pressed;
         }
@@ -112,7 +118,6 @@ void Game::init()
         // Draw UI elements
         ImGui::OpenPopup("Player details");
         // Always center this window when appearing
-        ImVec2 center = ImGui::GetMainViewport()->GetCenter();
         ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
         if(ImGui::BeginPopupModal("Player details", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
             if(next_clicked == 0) {
@@ -320,9 +325,12 @@ int Game::run()
     int player_index = 0;
     bool confirm_status = false;
     bool players_added = false;
-    int root_window_flags = 0;
-    root_window_flags |= ImGuiWindowFlags_NoDecoration;
-    root_window_flags |= ImGuiWindowFlags_NoResize;
+    int rootWindowFlags = 0;
+    rootWindowFlags |= ImGuiWindowFlags_NoDecoration;
+    rootWindowFlags |= ImGuiWindowFlags_NoResize;
+
+    int childWindowFlags = ImGuiWindowFlags_None;
+    childWindowFlags |= ImGuiWindowFlags_NoCollapse;
 
     try {
         log(logFilePath, "\nGame start\n");
@@ -352,7 +360,7 @@ int Game::run()
         ImGui::SetNextWindowPos(viewport->WorkPos);
         ImGui::SetNextWindowSize(viewport->WorkSize);
         ImGui::SetNextWindowViewport(viewport->ID);
-        ImGui::Begin("RP Scrabble", nullptr, root_window_flags);
+        ImGui::Begin("RP Scrabble", nullptr, rootWindowFlags);
         ImGui::End();
         if (game_started) {
             if(firstTurn) {
@@ -371,24 +379,26 @@ int Game::run()
                     players_added = true;
                 }
             }
-            ImGui::Begin("Input Box");
-            ImGui::InputTextWithHint(
-                "##",
-                "Input your play",
-                textbox_text,
-                IM_ARRAYSIZE(textbox_text)
-            );
-            ImGui::SameLine();
-            ImGui::HelpMarker(
-                "The play is input in the following format:\nletters,row,column,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'row' and 'column' are the respective row index and column index of the square where you want to place the first tile (The indices of the rows and columns are shown along the edges of the board)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')"
-            );
-            confirm_status = (ImGui::Button("Confirm Play"));
-            ImGui::End();
-            gameBoard->show();
-            for(Player* pl : players) {
-                pl->show();
+            {
+                ImGui::Begin("Input Box", nullptr, childWindowFlags);
+                ImGui::InputTextWithHint(
+                    "##",
+                    "Input your play",
+                    textbox_text,
+                    IM_ARRAYSIZE(textbox_text)
+                );
+                ImGui::SameLine();
+                ImGui::HelpMarker(
+                    "The play is input in the following format:\nletters,row,column,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'row' and 'column' are the respective row index and column index of the square where you want to place the first tile (The indices of the rows and columns are shown along the edges of the board)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')"
+                );
+                confirm_status = (ImGui::Button("Confirm Play"));
+                ImGui::End();
             }
-            logger->show("Logger");
+            gameBoard->show("Board", childWindowFlags);
+            for(Player* pl : players) {
+                pl->show("Player racks", childWindowFlags);
+            }
+            logger->show("Logger", nullptr, childWindowFlags);
         }
         else {
             init();

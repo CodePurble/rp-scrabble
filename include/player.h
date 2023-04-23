@@ -41,7 +41,7 @@ public:
     bool rackIsEmpty();
     void returnToRack(Tile* t, Board* b);
     void showScore();
-    void show();
+    void show(const char *window_title, int flags);
 };
 
 #endif
