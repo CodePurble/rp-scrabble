@@ -126,10 +126,16 @@ void Game::init()
             if(ImGui::BeginPopupModal("Player details", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
                 if(next_clicked == 0) {
                     ImGui::InputInt("Number of players", &player_count);
-                    if(player_count > 4) {
-                        ImGui::Text("Only upto 4 players allowed!");
+                    // if(player_count > 4) {
+                    //     ImGui::Text("Only upto 4 players allowed!");
+                    // }
+                    // else if (ImGui::Button("Next", ImVec2(120, 0))) {
+                    //     ++next_clicked;
+                    // }
+                    if(player_count < 1) {
+                        player_count = 1;
                     }
-                    else if (ImGui::Button("Next", ImVec2(120, 0))) {
+                    if (ImGui::Button("Next", ImVec2(120, 0))) {
                         ++next_clicked;
                     }
                 }
