@@ -132,6 +132,7 @@ void Board::show(const char *window_title, int flags)
 {
     string toPrint;
     Square* currSquare;
+    square_clicked = false;
 
     ImGui::Begin(window_title, nullptr, flags);
     int id = 0;
@@ -145,6 +146,7 @@ void Board::show(const char *window_title, int flags)
     ImGui::SameLine();
     ImGui::PopStyleColor(3);
     ImGui::PopID();
+    // top column numbers
     for(int i = 0; i < NUM_COLS; ++i) {
         button_label = to_string(i);
         ImGui::PushID(id);
@@ -159,6 +161,7 @@ void Board::show(const char *window_title, int flags)
         ImGui::PopID();
     }
     for(int i = 0; i < NUM_ROWS; ++i) {
+        // left side row numbers
         ImGui::PushID(id);
         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
@@ -171,11 +174,16 @@ void Board::show(const char *window_title, int flags)
             currSquare = board[i][j];
             ImGui::PushID(id);
             if(currSquare->isEmpty()) {
+                // TODO: get clicked square data from the board
                 if(i == 7 && j == 7) { // Center square is a double word square
                     ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_PINK(0.7));
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_PINK(0.8));
                     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_PINK(0.9));
-                    ImGui::Button("DWS", ImVec2(50, 50));
+                    if(ImGui::Button("DWS", ImVec2(50, 50))){
+                        square_clicked = true;
+                        clicked_square_x = i;
+                        clicked_square_y = j;
+                    }
                     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
                         ImGui::SetTooltip("DWS");
                     }
@@ -186,13 +194,21 @@ void Board::show(const char *window_title, int flags)
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_DARK_BROWN(0.7));
                         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_DARK_BROWN(0.8));
                         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_DARK_BROWN(0.9));
-                        ImGui::Button("##", ImVec2(50, 50));
+                        if(ImGui::Button("##", ImVec2(50, 50))) {
+                            square_clicked = true;
+                            clicked_square_x = i;
+                            clicked_square_y = j;
+                        }
                         break;
                     case 1: // double word score
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_PINK(0.7));
                         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_PINK(0.8));
                         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_PINK(0.9));
-                        ImGui::Button("DWS", ImVec2(50, 50));
+                        if(ImGui::Button("DWS", ImVec2(50, 50))) {
+                            square_clicked = true;
+                            clicked_square_x = i;
+                            clicked_square_y = j;
+                        }
                         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
                             ImGui::SetTooltip("DWS");
                         }
@@ -201,7 +217,11 @@ void Board::show(const char *window_title, int flags)
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_RED(0.7));
                         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_RED(0.8));
                         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_RED(0.9));
-                        ImGui::Button("TWS", ImVec2(50, 50));
+                        if(ImGui::Button("TWS", ImVec2(50, 50))) {
+                            square_clicked = true;
+                            clicked_square_x = i;
+                            clicked_square_y = j;
+                        }
                         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
                             ImGui::SetTooltip("TWS");
                         }
@@ -210,7 +230,11 @@ void Board::show(const char *window_title, int flags)
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BLUE(0.7));
                         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BLUE(0.8));
                         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BLUE(0.9));
-                        ImGui::Button("DLS", ImVec2(50, 50));
+                        if(ImGui::Button("DLS", ImVec2(50, 50))) {
+                            square_clicked = true;
+                            clicked_square_x = i;
+                            clicked_square_y = j;
+                        }
                         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
                             ImGui::SetTooltip("DLS");
                         }
@@ -219,7 +243,11 @@ void Board::show(const char *window_title, int flags)
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_DARK_BLUE(0.7));
                         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_DARK_BLUE(0.8));
                         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_DARK_BLUE(0.9));
-                        ImGui::Button("TLS", ImVec2(50, 50));
+                        if(ImGui::Button("TLS", ImVec2(50, 50))) {
+                            square_clicked = true;
+                            clicked_square_x = i;
+                            clicked_square_y = j;
+                        }
                         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
                             ImGui::SetTooltip("TLS");
                         }
@@ -268,6 +296,7 @@ void Board::show(const char *window_title, int flags)
             ImGui::PopID();
             ++id;
         }
+        // right side row numbers
         ImGui::PushID(id);
         ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
@@ -284,6 +313,7 @@ void Board::show(const char *window_title, int flags)
     ImGui::SameLine();
     ImGui::PopStyleColor(3);
     ImGui::PopID();
+    // bottom column numbers
     for(int i = 0; i < NUM_COLS; ++i) {
         button_label = to_string(i);
         ImGui::PushID(id);
@@ -427,4 +457,19 @@ Square* Board::getSquare(int r, int c)
     else {
         throw(string("Square out of bounds\n"));
     }
+}
+
+int Board::getClickedSquare_x()
+{
+    return clicked_square_x;
+}
+
+int Board::getClickedSquare_y()
+{
+    return clicked_square_y;
+}
+
+bool Board::getSquareClicked()
+{
+    return square_clicked;
 }
