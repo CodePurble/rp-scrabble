@@ -42,7 +42,9 @@ void Player::show(const char *window_title, int flags, FontCollection_t *fonts)
 {
     rack->show(window_title, turn, flags, fonts->title);
     ImGui::Begin(window_title, nullptr, flags);
+    ImGui::PushFont(fonts->title);
     ImGui::Text("%s: %d Points", playerName.c_str(), score);
+    ImGui::PopFont();
     ImGui::Separator();
     ImGui::Separator();
     ImGui::End();

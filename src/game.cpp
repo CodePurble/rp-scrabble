@@ -306,7 +306,7 @@ int Game::run()
     rootWindowFlags |= ImGuiWindowFlags_NoDecoration;
     rootWindowFlags |= ImGuiWindowFlags_NoResize;
 
-    int childWindowFlags = ImGuiWindowFlags_None;
+    int childWindowFlags = ImGuiWindowFlags_NoResize;
     childWindowFlags |= ImGuiWindowFlags_NoCollapse;
 
     try {

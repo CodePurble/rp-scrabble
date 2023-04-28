@@ -56,9 +56,7 @@ void Rack::show(const char *window_title, bool alt, int flags, ImFont *font)
             ImGui::PopFont();
             ImGui::PopID();
         }
-        if(i != rack.size() - 1) {
-            ImGui::SameLine();
-        }
+        ImGui::SameLine();
     }
     ImGui::End();
 }
