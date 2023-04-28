@@ -44,6 +44,7 @@ void Player::show(const char *window_title, int flags, FontCollection_t *fonts)
     ImGui::Begin(window_title, nullptr, flags);
     ImGui::Text("%s: %d Points", playerName.c_str(), score);
     ImGui::Separator();
+    ImGui::Separator();
     ImGui::End();
 }
 

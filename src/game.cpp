@@ -110,11 +110,13 @@ void Game::init()
         static int next_clicked = 0;
         static char hint[9] = "Player ";
         static char name[16] = "";
+        ImGui::PushFont(gameFonts->bold);
         if (ImGui::Button("Start", ImVec2(ImGui::GetWindowSize().x - 15, 0))) {
             if(start_pressed == 0) {
                 ++start_pressed;
             }
         }
+        ImGui::PopFont();
         if(start_pressed == 1) {
             ImGui::BeginDisabled(game_started);
             // Draw UI elements
@@ -216,33 +218,11 @@ bool Game::firstTurnCheck(string tileStr, int row, int col, char dir)
  * @throws std::invalid_argument For integer inputs
  * @throws std::string containing the error message for other inputs
  */
-PlayerInput_t Game::getInput(char *textbox_text)
+std::string Game::getInput(char *textbox_text)
 {
-    int comma_count = 0;
-    std::string temp = "";
-    PlayerInput_t player_inputs;
-    player_inputs.raw = textbox_text;
-    for(char ch : player_inputs.raw) {
-        if(ch == ',') {
-            temp = "";
-            comma_count++;
-            continue;
-        }
-        else {
-            temp += ch;
-            switch(comma_count) {
-            case 0:
-                player_inputs.tiles = temp;
-                break;
-            case 1:
-                player_inputs.dir = temp[0];
-            default:
-                break;
-            }
-        }
-    }
-
-    return player_inputs;
+    std::string text = "";
+    text = textbox_text;
+    return text;
 }
 
 /**
@@ -305,7 +285,6 @@ int Game::run()
     string firstIllegalWord = "";
     int turnCount = 0;
     string tileStr;
-    PlayerInput_t in;
     string tempIn = "";
     char dir;
     static char textbox_text[128] = "";
@@ -314,6 +293,7 @@ int Game::run()
     int player_index = 0;
     bool players_added = false;
     bool endGame = false;
+    static int directionSelected = 0; // 0 == horizontal; 1 == vertical
     int rootWindowFlags = 0;
     rootWindowFlags |= ImGuiWindowFlags_NoDecoration;
     rootWindowFlags |= ImGuiWindowFlags_NoResize;
@@ -368,8 +348,16 @@ int Game::run()
                     players_added = true;
                 }
             }
+            gameBoard->show("Board", childWindowFlags, gameFonts);
+            for(Player* p : players) {
+                p->show("Player racks", childWindowFlags, gameFonts);
+            }
+            gameLogger->show("Logger", nullptr, childWindowFlags);
             {
                 ImGui::Begin("Input Box", nullptr, childWindowFlags);
+                if(gameBoard->getSquareClicked()) {
+                    ImGui::SetKeyboardFocusHere();
+                }
                 ImGui::InputTextWithHint(
                     "##",
                     "Input your play",
@@ -378,18 +366,16 @@ int Game::run()
                 );
                 ImGui::SameLine();
                 ImGui::HelpMarker(
-                    "The play is input in the following format:\nletters,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')\n\n* Then click on the square on the board where you want to place the first tile"
+                    "To make a play, follow the below steps:\n\n*Type in the letters that you want to place in the text-box (in the order you want to place them)\n* Select the direction you want to place the tiles in\n* Click the square on the board where you want to place the first tile"
                 );
+                ImGui::RadioButton("Horizontal", &directionSelected, 0);
+                ImGui::SameLine();
+                ImGui::RadioButton("Vertical", &directionSelected, 1);
                 ImGui::Text("Tiles remaining in the bag: ");
                 ImGui::SameLine();
                 ImGui::Text(to_string(gameBag->remainingTiles()).c_str());
                 ImGui::End();
             }
-            gameBoard->show("Board", childWindowFlags, gameFonts);
-            for(Player* pl : players) {
-                pl->show("Player racks", childWindowFlags, gameFonts);
-            }
-            gameLogger->show("Logger", nullptr, childWindowFlags);
 
             {
                 ImGui::Begin("##", nullptr, childWindowFlags);
@@ -425,8 +411,15 @@ int Game::run()
                             currPlayer = players[player_index];
                             currPlayer->setTurn(true); // Turn begins
                             if(gameBoard->getSquareClicked()) {
-                                DEBUG_PRINT("here", "");
-                                in = getInput(textbox_text);
+                                tileStr = getInput(textbox_text);
+                                row = gameBoard->getClickedSquare_x();
+                                col = gameBoard->getClickedSquare_y();
+                                if(directionSelected == 0) {
+                                    dir = 'h';
+                                }
+                                else if(directionSelected == 1) {
+                                    dir = 'v';
+                                }
                                 // Clear out the textbox after capturing input
                                 for(int i = 0; i < IM_ARRAYSIZE(textbox_text); ++i) {
                                     textbox_text[i] = '\0';
@@ -435,7 +428,7 @@ int Game::run()
                                 vector<Tile*> tileStrVec;
 
                                 try {
-                                    log(logFilePath, in.raw);
+                                    log(logFilePath, tileStr + "," + to_string(row) + "," + to_string(col) + dir);
                                 }
                                 catch(string err) {
                                     BOLD_RED_FG(" " + err);
@@ -444,20 +437,12 @@ int Game::run()
                                     exit(1);
                                 }
 
-                                tileStr = in.tiles;
-                                row = gameBoard->getClickedSquare_x();
-                                col = gameBoard->getClickedSquare_y();
-                                dir = in.dir;
-                                DEBUG_PRINT("tilestr", tileStr);
-                                DEBUG_PRINT("row", row);
-                                DEBUG_PRINT("col", col);
-                                DEBUG_PRINT("dir", dir);
                                 placementCheck = currPlay->checkPlacement(tileStr, gameBoard, row, col, dir);
 
                                 // override playValid only for first turn
                                 if(turnCount == 0) {
                                     if(!firstTurnCheck(tileStr, row, col, dir)) {
-                                        ++turnCount;
+                                        turnCount = 0;
                                         placementCheck = false;
                                         gameLogger->addLog("This is the first turn of the game, please make sure the centre square is covered by your word\n");
                                         BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n");
@@ -493,7 +478,9 @@ int Game::run()
                                             currPlayer->returnToRack(t, gameBoard);
                                         }
                                         currPlay->reset();
-                                        clearPlayerInput(&in);
+                                        tileStr.clear();
+                                        row = 0;
+                                        col = 0;
                                         gameLogger->addLog("Invalid word: %s\n", firstIllegalWord.c_str());
                                         BOLD_RED_FG(" Invalid word: " + firstIllegalWord + "\n");
                                         firstIllegalWord.clear();
@@ -504,7 +491,9 @@ int Game::run()
                                         currPlayer->returnToRack(t, gameBoard);
                                     }
                                     currPlay->reset();
-                                    clearPlayerInput(&in);
+                                    tileStr.clear();
+                                    row = 0;
+                                    col = 0;
                                     gameLogger->addLog("Invalid tile placement, at least one of your tiles should touch an existing tile\n");
                                     firstIllegalWord.clear();
                                     BOLD_RED_FG("Invalid tile placement, at least one of your tiles should touch an existing tile\n");

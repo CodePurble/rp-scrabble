@@ -47,9 +47,9 @@ void Rack::show(const char *window_title, bool alt, int flags, ImFont *font)
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_GREEN(0.9));
             }
             else {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_YELLOW(0.7));
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_YELLOW(0.8));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_YELLOW(0.9));
+                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_OFF_WHITE(0.7));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_OFF_WHITE(0.8));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_OFF_WHITE(0.9));
             }
             ImGui::Button(letter_str.c_str(), ImVec2(50, 50));
             ImGui::PopStyleColor(4);

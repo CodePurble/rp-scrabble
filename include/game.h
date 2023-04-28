@@ -43,7 +43,7 @@ private:
     void init();
     bool firstTurnCheck(std::string str, int r, int c, char dir);
     void addPlayer(Player* p);
-    PlayerInput_t getInput(char *textbox_text);
+    std::string getInput(char *textbox_text);
     void printHelp();
 
 public:

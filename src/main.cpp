@@ -95,9 +95,9 @@ int main()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-    ImFont *schibstedReg = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskReg_compressed_data, font_SchibstedGroteskReg_compressed_size, 18.0f);
+    ImFont *schibstedReg = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskReg_compressed_data, font_SchibstedGroteskReg_compressed_size, 22.0f);
     ImFont *schibstedRegSmall = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskReg_compressed_data, font_SchibstedGroteskReg_compressed_size, 12.0f);
-    ImFont *schibstedBold = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskBold_compressed_data, font_SchibstedGroteskBold_compressed_size, 18.0f);
+    ImFont *schibstedBold = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskBold_compressed_data, font_SchibstedGroteskBold_compressed_size, 22.0f);
     ImFont *schibstedBoldLarge = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskBold_compressed_data, font_SchibstedGroteskBold_compressed_size, 36.0f);
     ImFont *schibstedSemiBold = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskSemiBold_compressed_data, font_SchibstedGroteskSemiBold_compressed_size, 36.0f);
     IM_ASSERT(schibstedReg != NULL);
