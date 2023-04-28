@@ -36,7 +36,7 @@ void clearPlayerInput(PlayerInput_t *input);
 #define NUM_ROWS 15
 /** Number of columns in the Board */
 #define NUM_COLS 15
-#define PLAYER_MAX 4
+#define PLAYER_MAX 50 // Some large enough number
 
 const ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
