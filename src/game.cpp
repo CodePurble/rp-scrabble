@@ -293,6 +293,7 @@ int Game::run()
     int player_index = 0;
     bool players_added = false;
     bool endGame = false;
+    bool skipTurn = false;
     static int directionSelected = 0; // 0 == horizontal; 1 == vertical
     int rootWindowFlags = 0;
     rootWindowFlags |= ImGuiWindowFlags_NoDecoration;
@@ -380,6 +381,8 @@ int Game::run()
             {
                 ImGui::Begin("##", nullptr, childWindowFlags);
                 endGame = ImGui::Button("End game");
+                ImGui::SameLine();
+                skipTurn = ImGui::Button("Skip turn");
                 ImGui::End();
             }
         }
@@ -410,6 +413,17 @@ int Game::run()
                         try {
                             currPlayer = players[player_index];
                             currPlayer->setTurn(true); // Turn begins
+                            if(skipTurn) {
+                                currPlayer->setTurn(false);
+                                ++player_index;
+                                if(turnCount > 0) {
+                                    ++turnCount;
+                                }
+                                if(player_index >= players.size()) {
+                                    player_index = 0;
+                                }
+                                endTurn = !endTurn; // Turn ends
+                            }
                             if(gameBoard->getSquareClicked()) {
                                 tileStr = getInput(textbox_text);
                                 row = gameBoard->getClickedSquare_x();
