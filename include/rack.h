@@ -6,6 +6,7 @@
 #include <array>
 #include <vector>
 #include <string>
+#include "utils.h"
 
 class Tile;
 
@@ -28,7 +29,7 @@ public:
     void fill(std::vector<Tile*> t);
     void addTile(Tile* t);
     bool isEmpty();
-    void show(const char *window_title, bool alt, int flags);
+    void show(const char *window_title, bool alt, int flags, ImFont *font);
 };
 
 #endif

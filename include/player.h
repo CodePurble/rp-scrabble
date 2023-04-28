@@ -5,6 +5,7 @@
 #define PLAYER_H
 #include <string>
 #include <vector>
+#include "utils.h"
 
 class Rack;
 class Bag;
@@ -41,7 +42,7 @@ public:
     bool rackIsEmpty();
     void returnToRack(Tile* t, Board* b);
     void showScore();
-    void show(const char *window_title, int flags);
+    void show(const char *window_title, int flags, FontCollection_t *fonts);
 };
 
 #endif

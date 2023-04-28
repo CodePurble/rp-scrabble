@@ -12,6 +12,14 @@ class Tile;
 class Square;
 class Play;
 
+typedef struct FontCollection_t {
+    ImFont *reg;
+    ImFont *bold;
+    ImFont *title;
+    ImFont *small;
+    ImFont *semiBold;
+} FontCollection_t;
+
 typedef struct PlayerInput_t {
     std::string raw;
     std::string tiles;
@@ -149,9 +157,9 @@ inline void BOARD_COLOURS(std::string x)
 }
 
 namespace ImGui {
-inline ImVec4 HSV_LIGHT_BROWN(float alpha)
+inline ImVec4 HSV_YELLOW(float alpha)
 {
-    return (ImVec4)ImColor::HSV((360.0/360.0), 0.24, 0.96, alpha);
+    return (ImVec4)ImColor::HSV((69.0/360.0), 0.89, 0.98, alpha);
 }
 
 inline ImVec4 HSV_DARK_BROWN(float alpha)
@@ -171,12 +179,12 @@ inline ImVec4 HSV_PINK(float alpha)
 
 inline ImVec4 HSV_DARK_BLUE(float alpha)
 {
-    return (ImVec4)ImColor::HSV((266.0/360.0), 0.95, 8.855, alpha);
+    return (ImVec4)ImColor::HSV((249.0/360.0), 0.95, 0.88, alpha);
 }
 
 inline ImVec4 HSV_LIGHT_BLUE(float alpha)
 {
-    return (ImVec4)ImColor::HSV((248.0/360.0), 0.498, 1.0, alpha);
+    return (ImVec4)ImColor::HSV((199.0/360.0), 0.68, 0.88, alpha);
 }
 
 inline ImVec4 HSV_OFF_WHITE(float alpha)

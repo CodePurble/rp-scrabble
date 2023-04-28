@@ -31,27 +31,30 @@ Rack::~Rack()
 /**
  * "Pretty print" the rack
  */
-void Rack::show(const char *window_title, bool alt, int flags)
+void Rack::show(const char *window_title, bool alt, int flags, ImFont *font)
 {
     std::string letter_str;
     ImGui::Begin(window_title, nullptr, flags);
     for(unsigned long i = 0; i < rack.size(); i++) {
         if(rack[i]) {
             ImGui::PushID(i);
+            ImGui::PushFont(font);
             letter_str = rack[i]->getLetterStr();
+            ImGui::PushStyleColor(ImGuiCol_Text, ImGui::HSV_BG(1.0));
             if(alt) {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_GREEN(0.7));
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_GREEN(0.8));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_GREEN(0.9));
             }
             else {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_LIGHT_BROWN(0.7));
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_LIGHT_BROWN(0.8));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BROWN(0.9));
+                ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_YELLOW(0.7));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_YELLOW(0.8));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_YELLOW(0.9));
             }
             ImGui::Button(letter_str.c_str(), ImVec2(50, 50));
+            ImGui::PopStyleColor(4);
+            ImGui::PopFont();
             ImGui::PopID();
-            ImGui::PopStyleColor(3);
         }
         if(i != rack.size() - 1) {
             ImGui::SameLine();

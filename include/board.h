@@ -31,7 +31,7 @@ public:
 
     Square* getSquare(int r, int c);
 
-    void show(const char *window_title, int flags);
+    void show(const char *window_title, int flags, FontCollection_t *fonts);
     bool placeTile(Tile* t, int r, int c);
     void placeTileStr(Rack* rack, std::vector<Tile*> tilesInStr, int r, int c, char dir);
     Tile* retrieve(int r, int c);

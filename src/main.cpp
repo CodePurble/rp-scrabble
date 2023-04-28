@@ -16,6 +16,7 @@
 #include "board.h"
 #include "utils.h"
 #include "dict.h"
+#include "fonts.h"
 
 
 void testGame(GLFWwindow *window);
@@ -69,7 +70,7 @@ int main()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable docking
-    io.IniFilename = "assets/layout.ini";
+    // io.IniFilename = "assets/layout.ini";
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -94,17 +95,32 @@ int main()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-    //IM_ASSERT(font != NULL);
-    // Dict d("/home/ramprakash/repos/rp-scrabble/assets/twl06_wordlist.txt");
-    // d.search("TEN") ? std::cout << "Yes" : std::cout << "NO";
-    // return 0;
-    Game g(window);
+    ImFont *schibstedReg = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskReg_compressed_data, font_SchibstedGroteskReg_compressed_size, 18.0f);
+    ImFont *schibstedRegSmall = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskReg_compressed_data, font_SchibstedGroteskReg_compressed_size, 12.0f);
+    ImFont *schibstedBold = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskBold_compressed_data, font_SchibstedGroteskBold_compressed_size, 18.0f);
+    ImFont *schibstedBoldLarge = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskBold_compressed_data, font_SchibstedGroteskBold_compressed_size, 36.0f);
+    ImFont *schibstedSemiBold = io.Fonts->AddFontFromMemoryCompressedTTF(font_SchibstedGroteskSemiBold_compressed_data, font_SchibstedGroteskSemiBold_compressed_size, 36.0f);
+    IM_ASSERT(schibstedReg != NULL);
+    IM_ASSERT(schibstedRegSmall != NULL);
+    IM_ASSERT(schibstedBold != NULL);
+    IM_ASSERT(schibstedBoldLarge != NULL);
+    IM_ASSERT(schibstedSemiBold != NULL);
+
+    FontCollection_t *fonts = new FontCollection_t;
+    fonts->reg = schibstedReg;
+    fonts->bold = schibstedBold;
+    fonts->title = schibstedBoldLarge;
+    fonts->small = schibstedRegSmall;
+    fonts->semiBold = schibstedSemiBold;
+
+    Game g(window, fonts);
     g.run();
+
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
-
+    delete(fonts);
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

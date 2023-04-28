@@ -24,10 +24,11 @@ class Logger;
 class Dict;
 
 /**
- * Implements the main game loop, logging and other functionalities
+ * Implements the main game logic, UI, logging and other functionalities
  */
 class Game {
 private:
+    FontCollection_t *gameFonts;
     bool game_started = false;
     Board* gameBoard;
     Bag* gameBag;
@@ -46,7 +47,7 @@ private:
     void printHelp();
 
 public:
-    Game(GLFWwindow *window);
+    Game(GLFWwindow *window, FontCollection_t *fonts);
     ~Game();
 
     int run();

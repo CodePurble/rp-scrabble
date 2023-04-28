@@ -29,7 +29,7 @@ using namespace std;
 /**
   * Initialise all data required for a Game, including log-files, gameID
   */
-Game::Game(GLFWwindow *window)
+Game::Game(GLFWwindow *window, FontCollection_t *fonts)
 {
     char filenameBuffer[60];
     time_t rawTime;
@@ -37,10 +37,7 @@ Game::Game(GLFWwindow *window)
     strftime(filenameBuffer, 60, "-%F-scrabble.log", localtime(&rawTime));
     gameID = RawTimeToString(rawTime);
     logFilePath = LOG_PATH + gameID + string(filenameBuffer);
-
-    // DEBUG_PRINT(" logFilePath", logFilePath);
-    // cout << endl;
-
+    gameFonts = fonts;
     main_window = window;
     gameBoard = new Board;
     gameBag = new Bag;
@@ -103,76 +100,80 @@ void Game::init()
     ImVec2 center = ImGui::GetMainViewport()->GetCenter();
     // Always center this window when appearing
     ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-    ImGui::Begin("Welcome", nullptr, window_flags);
-    ImGui::TextWrapped(" Welcome to Scrabble by Ramprakash!");
-    static int start_pressed;
-    static int player_count = 1;
-    static int next_clicked = 0;
-    static char hint[9] = "Player ";
-    static char name[16] = "";
-    if (ImGui::Button("Start", ImVec2(ImGui::GetWindowSize().x - 15, 0))) {
-        if(start_pressed == 0) {
-            ++start_pressed;
-        }
-    }
-    if(start_pressed == 1) {
-        ImGui::BeginDisabled(game_started);
-        // Draw UI elements
-        ImGui::OpenPopup("Player details");
-        // Always center this window when appearing
-        ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-        if(ImGui::BeginPopupModal("Player details", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
-            if(next_clicked == 0) {
-                ImGui::InputInt("Number of players", &player_count);
-                if(player_count > 4) {
-                    ImGui::Text("Only upto 4 players allowed!");
-                }
-                else if (ImGui::Button("Next", ImVec2(120, 0))) {
-                    ++next_clicked;
-                }
+    {
+        ImGui::Begin("Welcome", nullptr, window_flags);
+        ImGui::PushFont(gameFonts->title);
+        ImGui::TextWrapped(" Welcome to Scrabble by Ramprakash!");
+        ImGui::PopFont();
+        static int start_pressed;
+        static int player_count = 1;
+        static int next_clicked = 0;
+        static char hint[9] = "Player ";
+        static char name[16] = "";
+        if (ImGui::Button("Start", ImVec2(ImGui::GetWindowSize().x - 15, 0))) {
+            if(start_pressed == 0) {
+                ++start_pressed;
             }
-            else {
-                hint[7] = '0' + next_clicked;
-                ImGui::InputTextWithHint(
-                    "##",
-                    hint,
-                    name,
-                    IM_ARRAYSIZE(name)
-                );
-                if (ImGui::Button("Back", ImVec2(120, 0))) {
-                    if(next_clicked != 0) {
-                        --next_clicked;
+        }
+        if(start_pressed == 1) {
+            ImGui::BeginDisabled(game_started);
+            // Draw UI elements
+            ImGui::OpenPopup("Player details");
+            // Always center this window when appearing
+            ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+            if(ImGui::BeginPopupModal("Player details", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+                if(next_clicked == 0) {
+                    ImGui::InputInt("Number of players", &player_count);
+                    if(player_count > 4) {
+                        ImGui::Text("Only upto 4 players allowed!");
+                    }
+                    else if (ImGui::Button("Next", ImVec2(120, 0))) {
+                        ++next_clicked;
                     }
                 }
-                ImGui::SameLine();
-                if(next_clicked < player_count) {
-                    if (ImGui::Button("Next", ImVec2(120, 0))) {
-                        player_names[next_clicked - 1] = name;
-                        ++next_clicked;
-                        for(int i = 0; i < 16; ++i) {
-                            name[i] = '\0';
+                else {
+                    hint[7] = '0' + next_clicked;
+                    ImGui::InputTextWithHint(
+                        "##",
+                        hint,
+                        name,
+                        IM_ARRAYSIZE(name)
+                    );
+                    if (ImGui::Button("Back", ImVec2(120, 0))) {
+                        if(next_clicked != 0) {
+                            --next_clicked;
+                        }
+                    }
+                    ImGui::SameLine();
+                    if(next_clicked < player_count) {
+                        if (ImGui::Button("Next", ImVec2(120, 0))) {
+                            player_names[next_clicked - 1] = name;
+                            ++next_clicked;
+                            for(int i = 0; i < 16; ++i) {
+                                name[i] = '\0';
+                            }
+                        }
+                    }
+                    else if(next_clicked == player_count) {
+                        if(ImGui::Button("Play", ImVec2(120, 0))) {
+                            player_names[next_clicked - 1] = name;
+                            game_started = true;
                         }
                     }
                 }
-                else if(next_clicked == player_count) {
-                    if(ImGui::Button("Play", ImVec2(120, 0))) {
-                        player_names[next_clicked - 1] = name;
-                        game_started = true;
-                    }
+                ImGui::SetItemDefaultFocus();
+                ImGui::SameLine();
+                if (ImGui::Button("Cancel", ImVec2(120, 0))) {
+                    ImGui::CloseCurrentPopup();
+                    start_pressed = 0;
+                    next_clicked = 0;
                 }
+                ImGui::EndPopup();
             }
-            ImGui::SetItemDefaultFocus();
-            ImGui::SameLine();
-            if (ImGui::Button("Cancel", ImVec2(120, 0))) {
-                ImGui::CloseCurrentPopup();
-                start_pressed = 0;
-                next_clicked = 0;
-            }
-            ImGui::EndPopup();
+            ImGui::EndDisabled();
         }
-        ImGui::EndDisabled();
+        ImGui::End();
     }
-    ImGui::End();
 }
 
 /**
@@ -384,9 +385,9 @@ int Game::run()
                 ImGui::Text(to_string(gameBag->remainingTiles()).c_str());
                 ImGui::End();
             }
-            gameBoard->show("Board", childWindowFlags);
+            gameBoard->show("Board", childWindowFlags, gameFonts);
             for(Player* pl : players) {
-                pl->show("Player racks", childWindowFlags);
+                pl->show("Player racks", childWindowFlags, gameFonts);
             }
             gameLogger->show("Logger", nullptr, childWindowFlags);
 
