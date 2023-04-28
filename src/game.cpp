@@ -299,6 +299,7 @@ int Game::run()
     int player_index = 0;
     bool players_added = false;
     bool endGame = false;
+    static int endCount = 0;
     bool skipTurn = false;
     static int directionSelected = 0; // 0 == horizontal; 1 == vertical
     int rootWindowFlags = 0;
@@ -386,7 +387,9 @@ int Game::run()
 
             {
                 ImGui::Begin("##", nullptr, childWindowFlags);
-                endGame = ImGui::Button("End game");
+                if(ImGui::Button("End game")) {
+                    endGame = true;
+                };
                 ImGui::SameLine();
                 skipTurn = ImGui::Button("Skip turn");
                 ImGui::End();
@@ -407,7 +410,7 @@ int Game::run()
 
         // Main game logic
         if (currPlayer){
-            if(!allEmpty) {
+            if(!(allEmpty || endGame)) {
                 if(!currPlayer->rackIsEmpty()) {
                     plays.push_back(new Play(currPlayer));
                     Play* currPlay = plays.back();
@@ -421,10 +424,10 @@ int Game::run()
                             currPlayer->setTurn(true); // Turn begins
                             if(skipTurn) {
                                 currPlayer->setTurn(false);
-                                ++player_index;
                                 if(turnCount > 0) {
                                     ++turnCount;
                                 }
+                                ++player_index;
                                 if(player_index >= players.size()) {
                                     player_index = 0;
                                 }
@@ -526,6 +529,26 @@ int Game::run()
                         }
                     }
                 }
+                else {
+                    int emptyCount = 0;
+                    for(Player* p : players) {
+                        if(p->rackIsEmpty()) {
+                            ++emptyCount;
+                        }
+                    }
+                    if(emptyCount == (players.size() - 1)) {
+                        endGame = true;
+                        ++endCount;
+                    }
+                    else {
+                        ++player_index;
+                        if(player_index >= players.size()) {
+                            player_index = 0;
+                        }
+                        endTurn = !endTurn; // Turn ends
+                    }
+
+                }
                 // Find out whether all racks are empty
                 allEmpty = players.front()->rackIsEmpty();
                 for(Player* p : players) {
@@ -533,13 +556,16 @@ int Game::run()
                 }
             }
             else {
-                gameLogger->addLog("\n\n------------------------------\nYou have placed all tiles!!! Final scores are-\n");
-                BOLD(" You have placed all tiles, in " + to_string(turnCount + 1) + " turns! Final scores are-\n");
-                for(Player* p : players) {
-                    log(logFilePath, "\n");
-                    log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
-                    gameLogger->addLog("%s: %d", p->getName().c_str(), p->getScore());
-                    BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
+                ++endCount;
+                if(endCount == 1) {
+                    gameLogger->addLog("\n\n------------------------------\nGame over. Final scores are-\n");
+                    BOLD("Game end. Final scores are-\n");
+                    for(Player* p : players) {
+                        log(logFilePath, "\n");
+                        log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
+                        gameLogger->addLog("%s: %d\n", p->getName().c_str(), p->getScore());
+                        BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
+                    }
                 }
             }
         }
