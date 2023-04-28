@@ -362,7 +362,7 @@ int Game::run()
             gameLogger->show("Logger", nullptr, childWindowFlags);
             {
                 ImGui::Begin("Input Box", nullptr, childWindowFlags);
-                if(gameBoard->getSquareClicked()) {
+                if(gameBoard->getSquareClicked() || skipTurn) {
                     ImGui::SetKeyboardFocusHere();
                 }
                 ImGui::InputTextWithHint(
