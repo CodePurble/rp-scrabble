@@ -21,6 +21,9 @@ class Board {
 private:
     Square* board[NUM_ROWS][NUM_COLS];
     std::array<std::string, 5> sqStrings;
+    int clicked_square_x = 0;
+    int clicked_square_y = 0;
+    bool square_clicked = false;
 
 public:
     Board();
@@ -32,6 +35,9 @@ public:
     bool placeTile(Tile* t, int r, int c);
     void placeTileStr(Rack* rack, std::vector<Tile*> tilesInStr, int r, int c, char dir);
     Tile* retrieve(int r, int c);
+    int getClickedSquare_x();
+    int getClickedSquare_y();
+    bool getSquareClicked();
 };
 
 #endif

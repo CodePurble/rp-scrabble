@@ -234,23 +234,8 @@ PlayerInput_t Game::getInput(char *textbox_text)
                 player_inputs.tiles = temp;
                 break;
             case 1:
-                try {
-                    player_inputs.row = stoi(temp);
-                }
-                catch(const std::invalid_argument &ia) {
-                    throw(string("Invalid integer input for row\n"));
-                }
-                break;
-            case 2:
-                try {
-                    player_inputs.col = stoi(temp);
-                }
-                catch(const std::invalid_argument &ia) {
-                    throw(string("Invalid integer input for column\n"));
-                }
-                break;
-            default:
                 player_inputs.dir = temp[0];
+            default:
                 break;
             }
         }
@@ -326,8 +311,8 @@ int Game::run()
     int display_w, display_h;
     Player *currPlayer = nullptr;
     int player_index = 0;
-    bool confirm_status = false;
     bool players_added = false;
+    bool endGame = false;
     int rootWindowFlags = 0;
     rootWindowFlags |= ImGuiWindowFlags_NoDecoration;
     rootWindowFlags |= ImGuiWindowFlags_NoResize;
@@ -392,12 +377,11 @@ int Game::run()
                 );
                 ImGui::SameLine();
                 ImGui::HelpMarker(
-                    "The play is input in the following format:\nletters,row,column,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'row' and 'column' are the respective row index and column index of the square where you want to place the first tile (The indices of the rows and columns are shown along the edges of the board)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')"
+                    "The play is input in the following format:\nletters,direction\n---\n\n* 'letters' are the letters you want to place (in the order you want to place)\n\n* 'direction' is the direction in which you want to place your tiles (valid values are 'h' or 'v')\n\n* Then click on the square on the board where you want to place the first tile"
                 );
                 ImGui::Text("Tiles remaining in the bag: ");
                 ImGui::SameLine();
                 ImGui::Text(to_string(gameBag->remainingTiles()).c_str());
-                confirm_status = (ImGui::Button("Confirm Play"));
                 ImGui::End();
             }
             gameBoard->show("Board", childWindowFlags);
@@ -405,6 +389,12 @@ int Game::run()
                 pl->show("Player racks", childWindowFlags);
             }
             gameLogger->show("Logger", nullptr, childWindowFlags);
+
+            {
+                ImGui::Begin("##", nullptr, childWindowFlags);
+                endGame = ImGui::Button("End game");
+                ImGui::End();
+            }
         }
         else {
             init();
@@ -419,7 +409,7 @@ int Game::run()
         glfwSwapBuffers(main_window);
 
 
-        // Main game loop
+        // Main game logic
         if (currPlayer){
             if(!allEmpty) {
                 if(!currPlayer->rackIsEmpty()) {
@@ -429,15 +419,12 @@ int Game::run()
                     endTurn = false;
                     tileStr = "";
 
-                    // BOLD(" Bag: ");
-                    // gameBag->show();
-                    // cout << "\n";
-
                     if(!endTurn) {
                         try {
                             currPlayer = players[player_index];
                             currPlayer->setTurn(true); // Turn begins
-                            if(confirm_status) {
+                            if(gameBoard->getSquareClicked()) {
+                                DEBUG_PRINT("here", "");
                                 in = getInput(textbox_text);
                                 // Clear out the textbox after capturing input
                                 for(int i = 0; i < IM_ARRAYSIZE(textbox_text); ++i) {
@@ -457,9 +444,13 @@ int Game::run()
                                 }
 
                                 tileStr = in.tiles;
-                                row = in.row;
-                                col = in.col;
+                                row = gameBoard->getClickedSquare_x();
+                                col = gameBoard->getClickedSquare_y();
                                 dir = in.dir;
+                                DEBUG_PRINT("tilestr", tileStr);
+                                DEBUG_PRINT("row", row);
+                                DEBUG_PRINT("col", col);
+                                DEBUG_PRINT("dir", dir);
                                 placementCheck = currPlay->checkPlacement(tileStr, gameBoard, row, col, dir);
 
                                 // override playValid only for first turn

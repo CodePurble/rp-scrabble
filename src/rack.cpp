@@ -36,8 +36,8 @@ void Rack::show(const char *window_title, bool alt, int flags)
     std::string letter_str;
     ImGui::Begin(window_title, nullptr, flags);
     for(unsigned long i = 0; i < rack.size(); i++) {
-        ImGui::PushID(i);
         if(rack[i]) {
+            ImGui::PushID(i);
             letter_str = rack[i]->getLetterStr();
             if(alt) {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_GREEN(0.7));
@@ -50,9 +50,9 @@ void Rack::show(const char *window_title, bool alt, int flags)
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_LIGHT_BROWN(0.9));
             }
             ImGui::Button(letter_str.c_str(), ImVec2(50, 50));
+            ImGui::PopID();
+            ImGui::PopStyleColor(3);
         }
-        ImGui::PopID();
-        ImGui::PopStyleColor(3);
         if(i != rack.size() - 1) {
             ImGui::SameLine();
         }

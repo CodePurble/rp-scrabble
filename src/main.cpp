@@ -118,12 +118,6 @@ void testGame(GLFWwindow *window)
 {
 }
 
-void testBoard()
-{
-    Board b;
-    b.show("Board", 0);
-}
-
 #else
 
 #include "game.h"
