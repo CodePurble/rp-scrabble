@@ -155,6 +155,16 @@ vector<Tile*> Rack::getTileStrVec(string tileStr)
     return tileStrVec;
 }
 
+void Rack::returnToBag(Bag *gameBag, std::vector<Tile*> tiles)
+{
+    string tileStr = "";
+    for(Tile *t : tiles) {
+        tileStr += t->getLetter();
+    }
+    tiles = getTileStrVec(tileStr);
+    gameBag->add(tiles);
+}
+
 /**
  * Check whether rack is empty
  *

@@ -115,9 +115,11 @@ void Player::updateScore(int points)
  *
  * This function shall not throw exceptions.
  */
-void Player::draw(int count, Bag* b)
+vector<Tile*> Player::draw(int count, Bag* b)
 {
-    rack->fill(b->draw(count));
+    vector<Tile*> drawnTiles = b->draw(count);
+    rack->fill(drawnTiles);
+    return drawnTiles;
 }
 
 /**
@@ -219,4 +221,9 @@ void Player::returnToRack(Tile* t, Board* b)
     if(t) {
         rack->addTile(b->retrieve(t->getSquare()->getRow(), t->getSquare()->getCol()));
     }
+}
+
+void Player::returnToBag(Bag *gameBag, std::vector<Tile*> tiles)
+{
+    rack->returnToBag(gameBag, tiles);
 }

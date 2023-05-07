@@ -6,6 +6,7 @@
 #include <array>
 #include <vector>
 #include <string>
+#include "bag.h"
 #include "utils.h"
 
 class Tile;
@@ -25,11 +26,11 @@ public:
 
     Tile* getTile(char ch);
     std::vector<Tile*> getTileStrVec(std::string tileStr);
-
     void fill(std::vector<Tile*> t);
     void addTile(Tile* t);
     bool isEmpty();
     void show(const char *window_title, bool alt, int flags, ImFont *font);
+    void returnToBag(Bag *gameBag, std::vector<Tile*> tiles);
 };
 
 #endif

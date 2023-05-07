@@ -150,3 +150,22 @@ string RawTimeToString(const time_t& t)
     return oss.str();
 }
 
+int getNextPlayerIndex(int total_players, int current_index)
+{
+    ++current_index;
+    if(current_index >= total_players) {
+        current_index = 0;
+    }
+    return current_index;
+}
+
+int getPrevPlayerIndex(int total_players, int current_index)
+{
+    --current_index;
+    if(current_index < 0) {
+        current_index = total_players - 1;
+    }
+    return current_index;
+}
+
+

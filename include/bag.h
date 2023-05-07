@@ -29,6 +29,7 @@ public:
     void shuffle();
     std::vector<Tile*> draw(int count);
     int remainingTiles();
+    void add(std::vector<Tile*> tiles);
 
 };
 

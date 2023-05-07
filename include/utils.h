@@ -11,6 +11,7 @@
 class Tile;
 class Square;
 class Play;
+class Player;
 
 typedef struct FontCollection_t {
     ImFont *reg;
@@ -224,5 +225,7 @@ bool onlyLetters(std::string str);
 std::vector<std::string> parsePlay(std::string in);
 void log(std::string logFilePath, std::string str);
 std::string RawTimeToString(const time_t& t);
+int getNextPlayerIndex(int total_players, int current_index);
+int getPrevPlayerIndex(int total_players, int current_index);
 
 #endif

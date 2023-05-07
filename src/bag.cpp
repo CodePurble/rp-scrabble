@@ -252,3 +252,10 @@ int Bag::remainingTiles()
 {
     return(bag.size());
 }
+
+void Bag::add(std::vector<Tile*> tiles)
+{
+    for(Tile *t : tiles) {
+        bag.push_back(t);
+    }
+}

@@ -38,11 +38,12 @@ public:
 
     bool placeTile(Tile* t, Board* b, int r, int c);
     std::vector<Tile*> placeTileStr(std::string str, Board* b, int r, int c, char dir);
-    void draw(int count, Bag* b);
+    std::vector<Tile*> draw(int count, Bag* b);
     bool rackIsEmpty();
     void returnToRack(Tile* t, Board* b);
     void showScore();
     void show(const char *window_title, int flags, FontCollection_t *fonts);
+    void returnToBag(Bag *gameBag, std::vector<Tile*> tiles);
 };
 
 #endif

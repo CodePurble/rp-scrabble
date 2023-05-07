@@ -35,8 +35,11 @@ private:
     Dict *gameDictionary;
     GLFWwindow *main_window;
     std::vector<Player*> players;
+    Player *currPlayer;
     std::vector<Play*> plays;
-    std::array<std::string, PLAYER_MAX> player_names = {"", "", "", ""};
+    Play *currPlay;
+    int turnCount;
+    std::array<std::string, PLAYER_MAX> player_names;
     std::string gameID;
     std::string logFilePath;
     Logger *gameLogger;
@@ -44,7 +47,8 @@ private:
     bool firstTurnCheck(std::string str, int r, int c, char dir);
     void addPlayer(Player* p);
     std::string getInput(char *textbox_text);
-    void printHelp();
+    void undoPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index);
+    void undoPlay(std::vector<Tile*> tileStrVec);
 
 public:
     Game(GLFWwindow *window, FontCollection_t *fonts);
