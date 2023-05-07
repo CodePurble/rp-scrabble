@@ -250,3 +250,8 @@ bool Square::checkNeighboursV()
         return false;
     }
 }
+
+void Square::setType(enum_sqType sqType)
+{
+    this->sqType = sqType;
+}

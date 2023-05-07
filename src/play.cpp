@@ -368,19 +368,26 @@ void Play::calculatePoints(vector<vector<Tile*>> words, vector<Tile*> tileStrVec
             case TWS:
                 pointsMade += t->getPoints();
                 if(tilePresent(tileStrVec, t)) {
-                    multiplier *= 3;
+                    multiplier = 3;
                 }
                 break;
             case DWS:
                 pointsMade += t->getPoints();
                 if(tilePresent(tileStrVec, t)) {
-                    multiplier *= 2;
+                    multiplier = 2;
                 }
                 break;
             }
         }
     }
     pointsMade *= multiplier;
+
+    // All used squares are normal squares
+    for(vector<Tile*> word : words) {
+        for(Tile* t : word) {
+            t->getSquare()->setType(N);
+        }
+    }
 }
 
 /**

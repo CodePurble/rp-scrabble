@@ -57,6 +57,7 @@ public:
     void setAbove(Square* u);
     void setBelow(Square* d);
     void setTile(Tile* t);
+    void setType(enum_sqType sqType);
 
     bool isEmpty();
     bool checkNeighboursH();
