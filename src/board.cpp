@@ -138,38 +138,7 @@ void Board::show(const char *window_title, int flags, FontCollection_t *fonts)
     int id = 0;
     std::string letter_str;
     std::string button_label = "";
-    ImGui::PushID(id);
-    ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
-    ImGui::Button("##", ImVec2(25, 25));
-    ImGui::SameLine();
-    ImGui::PopStyleColor(3);
-    ImGui::PopID();
-    // top column numbers
-    for(int i = 0; i < NUM_COLS; ++i) {
-        button_label = to_string(i);
-        ImGui::PushID(id);
-        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
-        ImGui::Button(button_label.c_str(), ImVec2(50, 25));
-        if(i != (NUM_COLS - 1)) {
-            ImGui::SameLine();
-        }
-        ImGui::PopStyleColor(3);
-        ImGui::PopID();
-    }
     for(int i = 0; i < NUM_ROWS; ++i) {
-        // left side row numbers
-        ImGui::PushID(id);
-        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
-        ImGui::Button(to_string(i).c_str(), ImVec2(25, 50));
-        ImGui::SameLine();
-        ImGui::PopStyleColor(3);
-        ImGui::PopID();
         for(int j = 0; j < NUM_COLS; ++j) {
             currSquare = board[i][j];
             ImGui::PushID(id);
@@ -301,40 +270,12 @@ void Board::show(const char *window_title, int flags, FontCollection_t *fonts)
                 ImGui::PopFont();
                 ImGui::PopStyleColor(3);
             }
-            ImGui::SameLine();
+            if(j == 0 || j % (NUM_COLS - 1) != 0) {
+                ImGui::SameLine();
+            }
             ImGui::PopID();
             ++id;
         }
-        // right side row numbers
-        ImGui::PushID(id);
-        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
-        ImGui::Button(to_string(i).c_str(), ImVec2(25, 50));
-        ImGui::PopStyleColor(3);
-        ImGui::PopID();
-    }
-    ImGui::PushID(id);
-    ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
-    ImGui::Button("##", ImVec2(25, 25));
-    ImGui::SameLine();
-    ImGui::PopStyleColor(3);
-    ImGui::PopID();
-    // bottom column numbers
-    for(int i = 0; i < NUM_COLS; ++i) {
-        button_label = to_string(i);
-        ImGui::PushID(id);
-        ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_BG(1.0));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImGui::HSV_BG(1.0));
-        ImGui::Button(button_label.c_str(), ImVec2(50, 25));
-        if(i != (NUM_COLS - 1)) {
-            ImGui::SameLine();
-        }
-        ImGui::PopStyleColor(3);
-        ImGui::PopID();
     }
     ImGui::End();
 }
