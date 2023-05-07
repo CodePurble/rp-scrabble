@@ -4,6 +4,8 @@
 #ifndef BAG_H
 #define BAG_H
 #include <vector>
+#include <algorithm>
+#include <random>
 
 class Tile;
 
@@ -15,6 +17,8 @@ class Tile;
 class Bag {
 private:
     std::vector<Tile*> bag;
+    std::random_device rand;
+    std::default_random_engine rng;
 
 public:
     Bag();

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
+#include <random>
 #include "bag.h"
 #include "tile.h"
 #include "utils.h"
@@ -18,6 +20,7 @@ enum_location loc = BAG;
  */
 Bag::Bag()
 {
+    rng = std::default_random_engine{rand()};
     Tile* curTile = nullptr;
     /* Add a's */
     for(int i = 0; i < 9; i++) {
@@ -207,17 +210,7 @@ void Bag::show()
  */
 void Bag::shuffle()
 {
-    int j;
-    Tile* temp = nullptr;
-    srand(time(NULL));
-
-    for(unsigned long i = 0; i < bag.size(); i++) {
-        j = rand() % bag.size(); // Generate random index
-        temp = bag[i];
-        bag[i] = bag[j];
-        bag[j] = temp;
-    }
-
+    std::shuffle(begin(bag), end(bag), rng);
 }
 
 /**
