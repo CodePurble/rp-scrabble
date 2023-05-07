@@ -181,3 +181,13 @@ bool Rack::isEmpty()
     }
     return true;
 }
+
+void Rack::refresh(Bag *gameBag)
+{
+    std::vector<Tile*> tiles;
+    for(Tile *t : rack) {
+        tiles.push_back(t);
+    }
+    returnToBag(gameBag, tiles);
+    fill(gameBag->draw(7));
+}

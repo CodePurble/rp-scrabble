@@ -31,6 +31,7 @@ public:
     bool isEmpty();
     void show(const char *window_title, bool alt, int flags, ImFont *font);
     void returnToBag(Bag *gameBag, std::vector<Tile*> tiles);
+    void refresh(Bag *gameBag);
 };
 
 #endif

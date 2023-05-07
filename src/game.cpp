@@ -380,7 +380,7 @@ int Game::run()
                     endGame = true;
                 };
                 ImGui::SameLine();
-                skipClicked = ImGui::Button("Skip turn");
+                skipClicked = ImGui::Button("Skip turn and refresh rack");
                 ImGui::SameLine();
                 undoClicked = ImGui::Button("Undo previous play");
                 ImGui::Text("1 point: A   E   I   O   U   L   N   S   T   R");
@@ -420,6 +420,7 @@ int Game::run()
                             currPlayer->setTurn(true); // Turn begins
                             if(skipClicked) {
                                 currPlayer->setTurn(false);
+                                currPlayer->refreshRack(gameBag);
                                 if(turnCount > 0) {
                                     ++turnCount;
                                 }

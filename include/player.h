@@ -44,6 +44,7 @@ public:
     void showScore();
     void show(const char *window_title, int flags, FontCollection_t *fonts);
     void returnToBag(Bag *gameBag, std::vector<Tile*> tiles);
+    void refreshRack(Bag *gameBag);
 };
 
 #endif

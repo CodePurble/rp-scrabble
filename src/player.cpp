@@ -227,3 +227,8 @@ void Player::returnToBag(Bag *gameBag, std::vector<Tile*> tiles)
 {
     rack->returnToBag(gameBag, tiles);
 }
+
+void Player::refreshRack(Bag *gameBag)
+{
+    rack->refresh(gameBag);
+}
