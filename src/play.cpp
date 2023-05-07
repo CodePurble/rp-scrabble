@@ -338,55 +338,51 @@ vector<Tile*> Play::getConnectedWord(Tile* t, char searchDir)
 void Play::calculatePoints(vector<vector<Tile*>> words, vector<Tile*> tileStrVec)
 {
     int multiplier = 1;
+    int wordPoints = 0;
 
     /*
      * enum enum_sqType {N, DWS, TWS, DLS, TLS};
      */
     for(vector<Tile*> word : words) {
+        wordPoints = 0;
         for(Tile* t : word) {
             switch(t->getSquare()->getType()) {
             case N:
-                pointsMade += t->getPoints();
+                wordPoints += t->getPoints();
                 break;
             case DLS:
                 if(tilePresent(tileStrVec, t)) {
-                    pointsMade += 2*(t->getPoints());
+                    wordPoints += 2*(t->getPoints());
                 }
                 else {
                     t->show();
-                    pointsMade += t->getPoints();
+                    wordPoints += t->getPoints();
                 }
                 break;
             case TLS:
                 if(tilePresent(tileStrVec, t)) {
-                    pointsMade += 3*(t->getPoints());
+                    wordPoints += 3*(t->getPoints());
                 }
                 else {
-                    pointsMade += t->getPoints();
+                    wordPoints += t->getPoints();
                 }
                 break;
             case TWS:
-                pointsMade += t->getPoints();
+                wordPoints += t->getPoints();
                 if(tilePresent(tileStrVec, t)) {
                     multiplier = 3;
                 }
                 break;
             case DWS:
-                pointsMade += t->getPoints();
+                wordPoints += t->getPoints();
                 if(tilePresent(tileStrVec, t)) {
                     multiplier = 2;
                 }
                 break;
             }
         }
-    }
-    pointsMade *= multiplier;
-
-    // All used squares are normal squares
-    for(vector<Tile*> word : words) {
-        for(Tile* t : word) {
-            t->getSquare()->setType(N);
-        }
+        wordPoints *= multiplier;
+        pointsMade += wordPoints;
     }
 }
 
