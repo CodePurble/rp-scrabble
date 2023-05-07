@@ -231,50 +231,8 @@ std::string Game::getInput(char *textbox_text)
     return text;
 }
 
-/**
- * Print help information
- *
- * This function shall not throw exceptions.
- */
-void Game::printHelp()
 {
-    PALE_GREEN_FG("\n The tiles you want to place are entered in order of placement using the respective letter\n\n");
-    PALE_GREEN_FG(" The row and column of the square to place can be seen outside the edge of the board\n\n");
-    PALE_GREEN_FG(" The placement direction can either be 'v' (place tiles vertically downward one after the other) or\n");
-    PALE_GREEN_FG(" 'h' (place tiles horizontally from left to right one after the other)\n\n");
 
-    BOLD(" Commands\n");
-    BOLD(" --------\n");
-
-    BOLD_BRIGHT_GREEN_FG(" ? ");
-    cout << "Show this help text\t";
-    BOLD_BRIGHT_GREEN_FG(" . ");
-    cout << "Show the board\t";
-    BOLD_BRIGHT_GREEN_FG(" ! ");
-    cout << "Skip turn\n";
-    BOLD_BRIGHT_GREEN_FG(" # ");
-    cout << "Show scores\t\t";
-    BOLD_BRIGHT_GREEN_FG(" - ");
-    cout << "Quit the game\n\n";
-
-    BOLD(" Board legend\n");
-    BOLD(" ------------\n");
-
-    cout << " ";
-    RED_BG("   ");
-    cout << " Triple Word Score\t";
-
-    cout << " ";
-    PINK_BG("   ");
-    cout << " Double Word Score\t";
-
-    cout << " ";
-    DARK_BLUE_BG("   ");
-    cout << " Triple Letter Score\t";
-
-    cout << " ";
-    LIGHT_BLUE_BG("   ");
-    cout << " Double Letter Score\n\n";
 }
 
 /**
