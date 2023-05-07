@@ -47,8 +47,8 @@ private:
     bool firstTurnCheck(std::string str, int r, int c, char dir);
     void addPlayer(Player* p);
     std::string getInput(char *textbox_text);
-    void undoPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index);
-    void undoPlay(std::vector<Tile*> tileStrVec);
+    void rollbackPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index);
+    void restorePlay(std::vector<Tile*> tileStrVec);
 
 public:
     Game(GLFWwindow *window, FontCollection_t *fonts);

@@ -234,7 +234,7 @@ std::string Game::getInput(char *textbox_text)
     return text;
 }
 
-void Game::undoPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index)
+void Game::rollbackPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index)
 {
     currPlay = plays.back();
     currPlayer->setTurn(false);
@@ -248,10 +248,15 @@ void Game::undoPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles
     }
     gameLogger->addLog("Undo previous play by \'%s\'\n\n", currPlayer->getName().c_str());
     currPlay->reset();
-    --turnCount;
+    if(turnCount > 0) {
+        --turnCount;
+    }
+    else {
+        turnCount = 0;
+    }
 }
 
-void Game::undoPlay(std::vector<Tile*> tileStrVec)
+void Game::restorePlay(std::vector<Tile*> tileStrVec)
 {
     for(Tile* t : tileStrVec) {
         currPlayer->returnToRack(t, gameBoard);
@@ -422,7 +427,7 @@ int Game::run()
                                 endTurn = !endTurn; // Turn ends
                             }
                             if(undoClicked) {
-                                undoPlay(tileStrVec, drawnTiles, players.size(), &player_index);
+                                rollbackPlay(tileStrVec, drawnTiles, players.size(), &player_index);
                             }
                             if(gameBoard->getSquareClicked()) {
                                 plays.push_back(new Play(currPlayer));
@@ -482,10 +487,7 @@ int Game::run()
                                         endTurn = !endTurn; // Turn ends
                                     }
                                     else {
-                                        if(turnCount == 1) {
-                                            turnCount = 0;
-                                        }
-                                        undoPlay(tileStrVec);
+                                        restorePlay(tileStrVec);
                                         tileStr.clear();
                                         row = 0;
                                         col = 0;
