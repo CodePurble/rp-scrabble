@@ -371,6 +371,7 @@ void Play::calculatePoints(vector<vector<Tile*>> words, vector<Tile*> tileStrVec
      */
     for(vector<Tile*> word : words) {
         wordPoints = 0;
+        multiplier = 1;
         for(Tile* t : word) {
             switch(t->getSquare()->getType()) {
             case N:
