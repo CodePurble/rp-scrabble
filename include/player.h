@@ -23,19 +23,20 @@ private:
     bool turn;
     std::string playerName;
     Rack* rack;
+    std::string rackBeforePlay;
 
 public:
     Player(std::string n);
     ~Player();
 
     std::string getName();
+    std::string getRackStr(bool beforePlay);
     void setName(std::string);
     void toggleTurn();
     void setTurn(bool status);
     void updateScore(int points);
     int getScore();
     Tile* tileFromRack(int index);
-
     bool placeTile(Tile* t, Board* b, int r, int c);
     std::vector<Tile*> placeTileStr(std::string str, Board* b, int r, int c, char dir);
     std::vector<Tile*> draw(int count, Bag* b);

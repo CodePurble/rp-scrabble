@@ -189,8 +189,8 @@ vector<Tile*> Player::placeTileStr(string str, Board* b, int r, int c, char dir)
         c = toupper(c);
     }
 
+    rackBeforePlay = rack->getRackStr();
     vector<Tile*> tileStrVec = rack->getTileStrVec(str);
-
     b->placeTileStr(rack, tileStrVec, r, c, dir);
 
     return tileStrVec;
@@ -231,4 +231,15 @@ void Player::returnToBag(Bag *gameBag, std::vector<Tile*> tiles)
 void Player::refreshRack(Bag *gameBag)
 {
     rack->refresh(gameBag);
+}
+
+
+std::string Player::getRackStr(bool beforePlay)
+{
+    if(beforePlay) {
+        return(rackBeforePlay);
+    }
+    else {
+        return(rack->getRackStr());
+    }
 }

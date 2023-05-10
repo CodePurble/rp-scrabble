@@ -3,6 +3,7 @@
   */
 #ifndef LOGGER_H
 #define LOGGER_H
+#include <string>
 #include "imgui.h"
 
 /**
@@ -17,9 +18,9 @@ public:
     Logger();
     ~Logger();
     void clear();
-    void addLog(const char* fmt, ...) IM_FMTARGS(2);
+    void log(const char* fmt, ...) IM_FMTARGS(2);
+    void fileLog(std::string logFilePath, const char* text);
     void show(const char* title, bool* p_open, int flags);
-
 };
 
 #endif

@@ -21,7 +21,7 @@ Play::Play(Player* p)
 {
     pointsMade = 0;
     playMaker = p;
-    playStr = "";
+    tilesPlaced = "";
 }
 
 /**
@@ -32,21 +32,43 @@ Play::~Play()
     delete playMaker;
 }
 
-void Play::log(Logger *logger)
+void Play::log(Logger *logger, std::string logFilePath)
 {
     string wordStr = "";
-    for(vector<Tile*> word : wordsInPlay) {
-        for(Tile* t : word) {
-            wordStr += t->getLetter();
-        }
+    char logbuf[64];
+    for(string s : wordStringsInPlay) {
+        wordStr += s;
         wordStr += " + ";
     }
+    // Remove trailing " + "
     if(!wordStr.empty()) {
         wordStr.replace(wordStr.end()-3, wordStr.end(), "");
     }
-    logger->addLog("Player %s\n", playMaker->getName().c_str());
-    logger->addLog("Words in play %s\n", wordStr.c_str());
-    logger->addLog("%d points\n\n", pointsMade);
+    logger->log("Player: %s\n", playMaker->getName().c_str());
+    logger->log("Words in play: %s\n", wordStr.c_str());
+    logger->log("%d points\n\n", pointsMade);
+
+    // player,rack,tiles,x,y,dir,words,points,rack
+    snprintf(logbuf, IM_ARRAYSIZE(logbuf),
+            "%s,%s,%s,%d,%d,%c,%s,%d\n",
+            playMaker->getName().c_str(),
+            playMaker->getRackStr(true).c_str(),
+            tilesPlaced.c_str(),
+            row,
+            col,
+            dir,
+            wordStr.c_str(),
+            pointsMade
+        );
+    try {
+        logger->fileLog(logFilePath, logbuf);
+    }
+    catch(string err) {
+        BOLD_RED_FG(" " + err);
+        BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
+        BOLD_RED_FG(" Aborting\n");
+        exit(1);
+    }
 }
 
 /**
@@ -108,8 +130,14 @@ void Play::setPlayer(Player* p)
 bool Play::checkPlacement(string tileStr, Board* b, int r, int c, char dir)
 {
     int max = tileStr.length();
+    for(char &c : tileStr) {
+        tilesPlaced += toupper(c);
+    }
     bool result = false;
     Square* curr;
+    this->row = r;
+    this->col = c;
+    this->dir = dir;
 
     if(dir == 'h') {
         int currCol = c;
@@ -128,7 +156,6 @@ bool Play::checkPlacement(string tileStr, Board* b, int r, int c, char dir)
                     || ( currBelow && !currBelow->isEmpty() );
 
                 if(result) {
-                    playStr = tileStr;
                     break;
                 }
                 else {
@@ -157,7 +184,6 @@ bool Play::checkPlacement(string tileStr, Board* b, int r, int c, char dir)
                     || ( currBelow && !currBelow->isEmpty() );
 
                 if(result) {
-                    playStr = tileStr;
                     break;
                 }
                 else {
@@ -434,5 +460,8 @@ void Play::reset()
     pointsMade = 0;
     wordsInPlay.clear();
     wordStringsInPlay.clear();
-    playStr = "";
+    tilesPlaced = "";
+    row = 0;
+    col = 0;
+    dir = ' ';
 }

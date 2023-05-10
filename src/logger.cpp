@@ -1,5 +1,10 @@
+#include <fstream>
+#include <sstream>
+#include <string>
 #include "logger.h"
 #include "imgui.h"
+
+using namespace std;
 
 Logger::Logger()
 {
@@ -17,7 +22,7 @@ void Logger::clear()
     lineOffsets.push_back(0);
 }
 
-void Logger::addLog(const char* fmt, ...)
+void Logger::log(const char* fmt, ...)
 {
     int old_size = imguiBuf.size();
     va_list args;
@@ -27,6 +32,20 @@ void Logger::addLog(const char* fmt, ...)
     for (int new_size = imguiBuf.size(); old_size < new_size; old_size++)
         if (imguiBuf[old_size] == '\n')
             lineOffsets.push_back(old_size + 1);
+}
+
+void Logger::fileLog(std::string logFilePath, const char* text)
+{
+    ofstream logFile(logFilePath, ios::app);
+
+    if(logFile.is_open()) {
+        logFile << text;
+    }
+    else {
+        throw(string("Failed to open file at " + logFilePath + "\n"));
+    }
+
+    logFile.close();
 }
 
 void Logger::show(const char* title, bool* p_open, int flags)

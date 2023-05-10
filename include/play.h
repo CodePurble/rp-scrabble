@@ -25,8 +25,11 @@ class Dict;
 class Play {
 private:
     int pointsMade;
+    int row;
+    int col;
+    char dir;
     Player* playMaker;
-    std::string playStr;
+    std::string tilesPlaced;
     std::vector<std::vector<Tile*>> wordsInPlay;
     std::vector<std::string> wordStringsInPlay;
 
@@ -44,7 +47,7 @@ public:
     bool confirmPlay();
     void reset();
     void show();
-    void log(Logger *logger);
+    void log(Logger *logger, std::string logFilePath);
 };
 
 #endif

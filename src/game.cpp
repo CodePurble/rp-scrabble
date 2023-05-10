@@ -90,15 +90,6 @@ void Game::init()
     int window_flags = 0;
     window_flags |= ImGuiWindowFlags_NoResize;
     window_flags |= ImGuiWindowFlags_NoTitleBar;
-    try {
-        log(logFilePath, "Log start\n");
-    }
-    catch(string err) {
-        BOLD_RED_FG(" " + err);
-        BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
-        BOLD_RED_FG(" Aborting\n");
-        exit(1);
-    }
 
     ImVec2 center = ImGui::GetMainViewport()->GetCenter();
     // Always center this window when appearing
@@ -236,6 +227,7 @@ std::string Game::getInput(char *textbox_text)
 
 void Game::rollbackPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index)
 {
+    char logbuf[8];
     currPlay = plays.back();
     currPlayer->setTurn(false);
     *player_index = getPrevPlayerIndex(total_players, *player_index);
@@ -246,7 +238,9 @@ void Game::rollbackPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnT
     for(Tile* t : tileStrVec) {
         currPlayer->returnToRack(t, gameBoard);
     }
-    gameLogger->addLog("Undo previous play by \'%s\'\n\n", currPlayer->getName().c_str());
+    snprintf(logbuf, IM_ARRAYSIZE(logbuf), "_undo\n");
+    gameLogger->fileLog(logFilePath, logbuf);
+    gameLogger->log("Undo previous play by \'%s\'\n\n", currPlayer->getName().c_str());
     currPlay->reset();
     if(turnCount > 0) {
         --turnCount;
@@ -292,6 +286,7 @@ int Game::run()
     vector<Tile*> drawnTiles;
     vector<vector<Tile*>> connnectedWords;
     vector<Tile*> tileStrVec;
+    char logbuf[64];
     rootWindowFlags |= ImGuiWindowFlags_NoDecoration;
     rootWindowFlags |= ImGuiWindowFlags_NoResize;
 
@@ -299,7 +294,7 @@ int Game::run()
     childWindowFlags |= ImGuiWindowFlags_NoCollapse;
 
     try {
-        log(logFilePath, "\nGame start\n");
+        gameLogger->fileLog(logFilePath, "player,rack,tiles placed,x,y,dir,words,points\n");
     }
     catch(string err) {
         BOLD_RED_FG(" " + err);
@@ -424,6 +419,7 @@ int Game::run()
                                 if(turnCount > 0) {
                                     ++turnCount;
                                 }
+                                gameLogger->fileLog(logFilePath, "_skip\n");
                                 player_index = getNextPlayerIndex(players.size(), player_index);
                                 endTurn = !endTurn; // Turn ends
                             }
@@ -447,16 +443,6 @@ int Game::run()
                                 //     textbox_text[i] = '\0';
                                 // }
 
-                                try {
-                                    log(logFilePath, tileStr + "," + to_string(row) + "," + to_string(col) + dir);
-                                }
-                                catch(string err) {
-                                    BOLD_RED_FG(" " + err);
-                                    BOLD_RED_FG(" You can set the path of the log file in CMakeLists.txt\n");
-                                    BOLD_RED_FG(" Aborting\n");
-                                    exit(1);
-                                }
-
                                 placementCheck = currPlay->checkPlacement(tileStr, gameBoard, row, col, dir);
 
                                 // override playValid only for first turn
@@ -464,8 +450,7 @@ int Game::run()
                                     if(!firstTurnCheck(tileStr, row, col, dir)) {
                                         turnCount = 0;
                                         placementCheck = false;
-                                        gameLogger->addLog("This is the first turn of the game, please make sure the centre square is covered by your word\n\n");
-                                        BOLD_RED_FG(" This is the first turn of the game, please make sure the centre square is covered by your word\n\n");
+                                        gameLogger->log("This is the first turn of the game, please make sure the centre square is covered by your word\n\n");
                                     }
                                     else {
                                         placementCheck = true;
@@ -483,8 +468,7 @@ int Game::run()
                                         currPlayer->setTurn(false);
                                         ++turnCount;
                                         player_index = getNextPlayerIndex(players.size(), player_index);
-                                        currPlay->show();
-                                        currPlay->log(gameLogger);
+                                        currPlay->log(gameLogger, logFilePath);
                                         endTurn = !endTurn; // Turn ends
                                     }
                                     else {
@@ -492,8 +476,7 @@ int Game::run()
                                         tileStr.clear();
                                         row = 0;
                                         col = 0;
-                                        gameLogger->addLog("Invalid word: %s\n\n", firstIllegalWord.c_str());
-                                        BOLD_RED_FG(" Invalid word: " + firstIllegalWord + "\n");
+                                        gameLogger->log("Invalid word: %s\n\n", firstIllegalWord.c_str());
                                         firstIllegalWord.clear();
                                     }
                                 }
@@ -502,14 +485,13 @@ int Game::run()
                                     tileStr.clear();
                                     row = 0;
                                     col = 0;
-                                    gameLogger->addLog("Invalid tile placement, at least one of your tiles should touch an existing tile\n\n");
+                                    gameLogger->log("Invalid tile placement, at least one of your tiles should touch an existing tile\n\n");
                                     firstIllegalWord.clear();
-                                    BOLD_RED_FG("Invalid tile placement, at least one of your tiles should touch an existing tile\n");
                                 }
                             }
                         }
                         catch(string ex) {
-                            gameLogger->addLog("Error: %s\n\n", ex.c_str());
+                            gameLogger->log("Error: %s\n\n", ex.c_str());
                             BOLD_RED_FG(" Error: " + ex);
                         }
                     }
@@ -526,13 +508,12 @@ int Game::run()
             else {
                 ++endCount;
                 if(endCount == 1) {
-                    gameLogger->addLog("\n\n------------------------------\nGame over. Final scores are-\n");
-                    BOLD("Game end. Final scores are-\n");
+                    gameLogger->fileLog(logFilePath, "_end\n");
+                    gameLogger->log("\n\n------------------------------\nGame over. Final scores are-\n");
                     for(Player* p : players) {
-                        log(logFilePath, "\n");
-                        log(logFilePath, p->getName() + ": " + to_string(p->getScore()) + "\n");
-                        gameLogger->addLog("%s: %d\n", p->getName().c_str(), p->getScore());
-                        BOLD_WHITE_FG(p->getName() + ": " + to_string(p->getScore()) + "\n");
+                        snprintf(logbuf, IM_ARRAYSIZE(logbuf), "%s,%d\n", p->getName().c_str(), p->getScore());
+                        gameLogger->fileLog(logFilePath, logbuf);
+                        gameLogger->log("%s: %d\n", p->getName().c_str(), p->getScore());
                     }
                 }
             }

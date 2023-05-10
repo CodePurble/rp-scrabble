@@ -191,3 +191,12 @@ void Rack::refresh(Bag *gameBag)
     returnToBag(gameBag, tiles);
     fill(gameBag->draw(7));
 }
+
+std::string Rack::getRackStr()
+{
+    string rackStr = "";
+    for(Tile *t : rack) {
+        rackStr += t->getLetter();
+    }
+    return rackStr;
+}
