@@ -41,8 +41,13 @@ Game::Game(GLFWwindow *window, FontCollection_t *fonts)
     main_window = window;
     gameBoard = new Board;
     gameBag = new Bag;
-    gameDictionary = new Dict("/home/ramprakash/repos/rp-scrabble/assets/twl06_wordlist.txt");
+    gameDictionary = new Dict(WORDLIST);
     gameLogger = new Logger;
+    gameLogger->fileLog(logFilePath, WORDLIST);
+    gameLogger->fileLog(logFilePath, "\n");
+    gameLogger->fileLog(logFilePath, LAYOUT);
+    gameLogger->fileLog(logFilePath, "\n");
+    gameLogger->fileLog(logFilePath, "_begin\n");
     currPlayer = nullptr;
     currPlay = nullptr;
     turnCount = 0;
