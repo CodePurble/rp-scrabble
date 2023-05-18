@@ -150,6 +150,16 @@ string RawTimeToString(const time_t& t)
     return oss.str();
 }
 
+/**
+ * Get next player index for a given state
+ *
+ * @param total_players Total number of players in the game
+ * @param current_index Index of the current player
+ *
+ * @return Next player index as an int
+ *
+ * This function shall not throw exceptions.
+ */
 int getNextPlayerIndex(int total_players, int current_index)
 {
     ++current_index;
@@ -159,6 +169,16 @@ int getNextPlayerIndex(int total_players, int current_index)
     return current_index;
 }
 
+/**
+ * Get previous player index for a given state
+ *
+ * @param total_players Total number of players in the game
+ * @param current_index Index of the current player
+ *
+ * @return Previous player index as an int
+ *
+ * This function shall not throw exceptions.
+ */
 int getPrevPlayerIndex(int total_players, int current_index)
 {
     --current_index;

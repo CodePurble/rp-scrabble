@@ -88,7 +88,7 @@ void Game::addPlayer(Player* p)
 }
 
 /**
- * Initialise and set up the game
+ * Initialise and set up the game, draw the welcome screen, and take player data
  */
 void Game::init()
 {
@@ -230,6 +230,16 @@ std::string Game::getInput(char *textbox_text)
     return text;
 }
 
+/**
+ * Rollback a play that was made earlier
+ *
+ * @param tileStrVec std::vector of Tile* that need to be restored
+ * @param drawnTiles std::vector of Tile* that were drawn after tileStrVec was placed
+ * @param total_players Total number of players in the game as int
+ * @param player_index Player index as int*
+ *
+ * This function shall not throw exceptions.
+ */
 void Game::rollbackPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnTiles, int total_players, int *player_index)
 {
     char logbuf[8];
@@ -255,6 +265,13 @@ void Game::rollbackPlay(std::vector<Tile*> tileStrVec, std::vector<Tile*> drawnT
     }
 }
 
+/**
+ * Restore the current play
+ *
+ * @param tileStrVec std::vector of Tile* that need to be restored
+ *
+ * This function shall not throw exceptions.
+ */
 void Game::restorePlay(std::vector<Tile*> tileStrVec)
 {
     for(Tile* t : tileStrVec) {
@@ -264,7 +281,7 @@ void Game::restorePlay(std::vector<Tile*> tileStrVec)
 }
 
 /**
- * Main game logic. Contains main game loop
+ * Main game logic. Contains main draw loop.
  *
  * This function shall not throw exceptions.
  */

@@ -29,7 +29,14 @@ Rack::~Rack()
 }
 
 /**
- * "Pretty print" the rack
+ * Draw rack related UI elements
+ *
+ * @param window_title Title of the window that is drawn
+ * @param alt If true, show alternate colours, otherwise use primary colours
+ * @param flags ImGuiWindowFlag flags
+ * @param font Pointer to a FontCollection_t containing the fonts to be used
+ *
+ * This function shall not throw exceptions.
  */
 void Rack::show(const char *window_title, bool alt, int flags, ImFont *font)
 {
@@ -155,6 +162,14 @@ vector<Tile*> Rack::getTileStrVec(string tileStr)
     return tileStrVec;
 }
 
+/**
+ * Return a set of tiles from the rack to a Bag object
+ *
+ * @param gameBag Pointer to a valid Bag object
+ * @param tiles std::vector of Tile* objects of the tiles to be returned to gameBag
+ *
+ * This function shall not throw exceptions.
+ */
 void Rack::returnToBag(Bag *gameBag, std::vector<Tile*> tiles)
 {
     string tileStr = "";
@@ -182,6 +197,13 @@ bool Rack::isEmpty()
     return true;
 }
 
+/**
+ * Refresh the rack with new tiles from a Bag
+ *
+ * @param gameBag Pointer to a valid Bag object
+ *
+ * This function shall not throw exceptions.
+ */
 void Rack::refresh(Bag *gameBag)
 {
     std::vector<Tile*> tiles;
@@ -192,6 +214,13 @@ void Rack::refresh(Bag *gameBag)
     fill(gameBag->draw(7));
 }
 
+/**
+ * Get the rack contents as a std::string
+ *
+ * @return std::string of rack contents
+ *
+ * This function shall not throw exceptions.
+ */
 std::string Rack::getRackStr()
 {
     string rackStr = "";

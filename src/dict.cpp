@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/**
+ * Dictionary constructor.
+ * Reads dictionary text file into list of words for searching
+ */
 Dict::Dict(std::string dictFilePath)
 {
     string line;
@@ -26,6 +30,15 @@ Dict::~Dict()
 {
 }
 
+/**
+ * Check whether a word exists in the wordlist
+ *
+ * @param word Word to search in the dictionary
+ *
+ * @return true if found, false if not
+ *
+ * This function shall not throw exceptions.
+ */
 bool Dict::search(string word)
 {
     auto it = wordList.end();

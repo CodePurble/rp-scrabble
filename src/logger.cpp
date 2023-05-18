@@ -6,6 +6,9 @@
 
 using namespace std;
 
+/**
+ * Logger constructor
+ */
 Logger::Logger()
 {
     clear();
@@ -15,6 +18,11 @@ Logger::~Logger()
 {
 }
 
+/**
+ * Clears the log
+ *
+ * This function shall not throw exceptions.
+ */
 void Logger::clear()
 {
     imguiBuf.clear();
@@ -22,6 +30,14 @@ void Logger::clear()
     lineOffsets.push_back(0);
 }
 
+/**
+ * Log a string. `printf` style format-strings are allowed
+ *
+ * @param fmt `printf` style format-string
+ * @param Corresponding variables to populate format-string
+ *
+ * This function shall not throw exceptions.
+ */
 void Logger::log(const char* fmt, ...)
 {
     int old_size = imguiBuf.size();
@@ -34,6 +50,14 @@ void Logger::log(const char* fmt, ...)
             lineOffsets.push_back(old_size + 1);
 }
 
+/**
+ * Log a string to a file
+ *
+ * @param logFilePath Path of the file to log to std::string
+ * @param text Text to be logged
+ *
+ * @throws std::string containing the error message
+ */
 void Logger::fileLog(std::string logFilePath, const char* text)
 {
     ofstream logFile(logFilePath, ios::app);
@@ -48,6 +72,15 @@ void Logger::fileLog(std::string logFilePath, const char* text)
     logFile.close();
 }
 
+/**
+ * Draw the logger window
+ *
+ * @param title Title of the window to be drawn
+ * @param p_open Displays a Close button on the upper-right corner of the window, the pointed value will be set to false when the button is pressed.
+ * @param flags ImGuiWindowFlags to be applied to the window
+ *
+ * This function shall not throw exceptions.
+ */
 void Logger::show(const char* title, bool* p_open, int flags)
 {
     if (!ImGui::Begin(title, p_open, flags))

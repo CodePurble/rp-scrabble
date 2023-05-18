@@ -32,6 +32,14 @@ Play::~Play()
     delete playMaker;
 }
 
+/**
+ * Log a play to a logfile and a Logger object
+ *
+ * @param logger Pointer to a Logger object
+ * @param logFilePath Path to the file to log to as std::string
+ *
+ * @throws std::string containing the error message
+ */
 void Play::log(Logger *logger, std::string logFilePath)
 {
     string wordStr = "";
@@ -299,6 +307,16 @@ vector<vector<Tile*>> Play::getWords(vector<Tile*> tilesInStr, Board* b, int row
     return wordsInPlay;
 }
 
+/**
+ * Check whether the strings in the current play are valid against a dictionary
+ *
+ * @param dictionary Pointer to a Dictionary object
+ *
+ * @return An empty string if all strings are valid, or the first word that is
+ * not present in the dictionary as a std::string
+ *
+ * This function shall not throw exceptions.
+ */
 string Play::checkWords(Dict *dictionary)
 {
     for(string word : wordStringsInPlay) {

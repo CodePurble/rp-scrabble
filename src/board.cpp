@@ -126,7 +126,7 @@ Board::~Board()
 }
 
 /**
- * "Pretty print" the board to stdout
+ * Draw the main board
  */
 void Board::show(const char *window_title, int flags, FontCollection_t *fonts)
 {
@@ -144,7 +144,6 @@ void Board::show(const char *window_title, int flags, FontCollection_t *fonts)
             ImGui::PushID(id);
             if(currSquare->isEmpty()) {
                 ImGui::PushFont(fonts->small);
-                // TODO: get clicked square data from the board
                 if(i == 7 && j == 7) { // Center square is a double word square
                     ImGui::PushStyleColor(ImGuiCol_Button, ImGui::HSV_PINK(0.7));
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::HSV_PINK(0.8));
@@ -409,16 +408,37 @@ Square* Board::getSquare(int r, int c)
     }
 }
 
+/**
+ * Get the x-coordinate of the square that was clicked
+ *
+ * @return clicked_square_x An integer of the
+ *
+ * This function shall not throw exceptions.
+ */
 int Board::getClickedSquare_x()
 {
     return clicked_square_x;
 }
 
+/**
+ * Get the y-coordinate of the square that was clicked
+ *
+ * @return clicked_square_x An integer of the
+ *
+ * This function shall not throw exceptions.
+ */
 int Board::getClickedSquare_y()
 {
     return clicked_square_y;
 }
 
+/**
+ * Get the square object that was rellay scided.
+ *
+ * @return true if any square was clicked
+ *
+ * This function shall not throw exceptions.
+ */
 bool Board::getSquareClicked()
 {
     return square_clicked;

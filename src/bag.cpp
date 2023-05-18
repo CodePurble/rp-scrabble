@@ -248,11 +248,25 @@ bool Bag::isEmpty()
     return(bag.empty());
 }
 
+/**
+ * Get the remaining tiles in the bag
+ *
+ * @return number of tiles remaining in bag
+ *
+ * This function shall not throw exceptions.
+ */
 int Bag::remainingTiles()
 {
     return(bag.size());
 }
 
+/**
+ * Add tiles to the bag
+ *
+ * @param tiles The vector of tile objects to be addded
+ *
+ * This function shall not throw exceptions.
+ */
 void Bag::add(std::vector<Tile*> tiles)
 {
     for(Tile *t : tiles) {

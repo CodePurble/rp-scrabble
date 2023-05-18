@@ -36,7 +36,13 @@ Player::~Player()
 }
 
 /**
- * "Pretty print" the Player object
+ * Draw player related UI elements, including rack and points
+ *
+ * @param window_title Title of the window that is drawn
+ * @param flags ImGuiWindowFlag flags
+ * @param fonts Pointer to a FontCollection_t containing the fonts to be used
+ *
+ * This function shall not throw exceptions.
  */
 void Player::show(const char *window_title, int flags, FontCollection_t *fonts)
 {
@@ -223,17 +229,41 @@ void Player::returnToRack(Tile* t, Board* b)
     }
 }
 
+/**
+ * Return a set of tiles to a bag
+ *
+ * @param gameBag Pointer to a valid Bag object
+ * @param tiles std::vector of Tile* to return to gameBag
+ *
+ * This function shall not throw exceptions.
+ */
 void Player::returnToBag(Bag *gameBag, std::vector<Tile*> tiles)
 {
     rack->returnToBag(gameBag, tiles);
 }
 
+/**
+ * Refresh the player's rack with new tiles from a bag
+ *
+ * @param gameBag Pointer to a valid Bag object
+ *
+ * This function shall not throw exceptions.
+ */
 void Player::refreshRack(Bag *gameBag)
 {
     rack->refresh(gameBag);
 }
 
 
+/**
+ * Get the rack contents as a std::string
+ *
+ * @param beforePlay If true, return the rack of the previous play, else the current one
+ *
+ * @return std::string of rack contents
+ *
+ * This function shall not throw exceptions.
+ */
 std::string Player::getRackStr(bool beforePlay)
 {
     if(beforePlay) {

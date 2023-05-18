@@ -251,6 +251,13 @@ bool Square::checkNeighboursV()
     }
 }
 
+/**
+ * Setter for the sqType data member
+ *
+ * @param sqType enum_sqType to set sqType to
+ *
+ * This function shall not throw exceptions.
+ */
 void Square::setType(enum_sqType sqType)
 {
     this->sqType = sqType;
