@@ -2,7 +2,7 @@
 
 BUILD_DIR=build
 EXEC=rp-scrabble
-INSTALL_DIR=/usr/local/bin
+PREFIX=/usr/local
 SHARE_DIR=$HOME/.local/share/rp-scrabble
 
 case $1 in
@@ -25,7 +25,7 @@ case $1 in
         select yn in "Yes" "No"; do
             case $yn in
                 Yes )
-                    sudo rm -f --verbose $INSTALL_DIR/$EXEC
+                    sudo rm -f --verbose $PREFIX/bin/$EXEC $PREFIX/share/applications/RPScrabble.desktop
                     exit
                     ;;
                 No ) exit
@@ -46,4 +46,5 @@ install -Cv ./assets/layout.ini ./assets/twl06_wordlist.txt -t $SHARE_DIR/assets
 
 cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release && make -C $BUILD_DIR -j $(nproc)
 
-sudo install -Cv $BUILD_DIR/$EXEC -t $INSTALL_DIR
+sudo install -Cv $BUILD_DIR/$EXEC -t $PREFIX/bin
+sudo desktop-file-install --dir=$PREFIX/share/applications --rebuild-mime-info-cache ./assets/RPScrabble.desktop
