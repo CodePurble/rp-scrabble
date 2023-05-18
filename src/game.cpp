@@ -406,13 +406,27 @@ int Game::run()
                 skipClicked = ImGui::Button("Skip turn and refresh rack");
                 ImGui::SameLine();
                 undoClicked = ImGui::Button("Undo previous play");
-                ImGui::Text("1 point: A   E   I   O   U   L   N   S   T   R");
-                ImGui::Text("2 points: D   G");
-                ImGui::Text("3 points: B   C   M   P");
-                ImGui::Text("4 points: F   H   V   W   Y");
-                ImGui::Text("5 points: K");
-                ImGui::Text("8 points: J  X");
-                ImGui::Text("10 points: Q  Z");
+                if (ImGui::BeginTable("Points", 2)) {
+                    ImGui::TableNextRow();
+                    ImGui::TableNextColumn();
+                    ImGui::Text("1 point: A   E   I   O   U   L   N   S   T   R");
+                    ImGui::TableNextColumn();
+                    ImGui::Text("2 points: D   G");
+                    ImGui::TableNextRow();
+                    ImGui::TableNextColumn();
+                    ImGui::Text("3 points: B   C   M   P");
+                    ImGui::TableNextColumn();
+                    ImGui::Text("4 points: F   H   V   W   Y");
+                    ImGui::TableNextRow();
+                    ImGui::TableNextColumn();
+                    ImGui::Text("5 points: K");
+                    ImGui::TableNextColumn();
+                    ImGui::Text("8 points: J  X");
+                    ImGui::TableNextRow();
+                    ImGui::TableNextColumn();
+                    ImGui::Text("10 points: Q  Z");
+                    ImGui::EndTable();
+                }
                 ImGui::End();
             }
         }
