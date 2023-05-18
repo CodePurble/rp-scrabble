@@ -14,8 +14,12 @@ set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DLOG_PATH=\"${CMAKE_CURRENT_SOURCE_DIR}/logs/\")
+    add_definitions(-DWORDLIST=\"${CMAKE_CURRENT_SOURCE_DIR}/assets/twl06_wordlist.txt\")
+    add_definitions(-DLAYOUT=\"${CMAKE_CURRENT_SOURCE_DIR}/assets/layout.ini\")
     add_definitions(-DDEBUG)
 else()
+    add_definitions(-DWORDLIST=\"$(HOME)/.local/share/rp-scrabble/assets/twl06_wordlist.txt\")
+    add_definitions(-DLAYOUT=\"$(HOME)/.local/share/rp-scrabble/assets/layout.ini\")
     add_definitions(-DLOG_PATH=\"$(HOME)/.local/share/rp-scrabble/logs/\")
 endif()
 
