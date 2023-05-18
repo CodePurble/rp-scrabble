@@ -20,6 +20,14 @@ provided. It takes care of getting the dependencies for Ubuntu (should also
 work with any other distro that uses the `apt` package manager, not tested) and Arch Linux (should also
 work with any other distro that uses the `pacman` package manager, not tested)
 
+For example, on Ubuntu you would do-
+```sh
+git clone -b imgui https://github.com/CodePurble/rp-scrabble.git
+cd rp-scrabble
+chmod +x install.sh
+./install.sh ubuntu
+```
+
 If you aren't on any of these distributions, you will need to get the
 dependencies yourself, before attempting to build this project.
 
