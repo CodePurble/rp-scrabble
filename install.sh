@@ -41,10 +41,7 @@ case $1 in
         ;;
 esac
 
-if [ ! -d "$BUILD_DIR" ]; then mkdir -vp $BUILD_DIR; fi
-if [ ! -d "$SHARE_DIR" ]; then mkdir -vp $SHARE_DIR; fi
-mkdir -vp $SHARE_DIR/logs
-mkdir -vp $SHARE_DIR/assets
+mkdir -vp $BUILD_DIR $SHARE_DIR/logs $SHARE_DIR/assets
 install -Cv ./assets/layout.ini ./assets/twl06_wordlist.txt -t $SHARE_DIR/assets -m 644
 
 cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release && make -C $BUILD_DIR -j $(nproc)
