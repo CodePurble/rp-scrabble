@@ -5,6 +5,7 @@ project (rp-scrabble)
 find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW3 REQUIRED glfw3)
 
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GLFW3_CFLAGS} -Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${GLFW3_CFLAGS} -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${GLFW3_CFLAGS} -Wall")
@@ -28,3 +29,9 @@ file(GLOB SOURCE_FILES "${SOURCE_DIR}/*.cpp" "${IMGUI_DIR}/*.cpp")
 include_directories(${INCLUDE_DIR} ${IMGUI_DIR} ${GLFW3_INCLUDE_DIRS})
 add_executable(rp-scrabble ${SOURCE_FILES})
 target_link_libraries(rp-scrabble ${GLFW3_LIBRARIES} GL)
+set_target_properties(rp-scrabble PROPERTIES
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
+install(TARGETS rp-scrabble DESTINATION bin)
