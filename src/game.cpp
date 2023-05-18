@@ -380,7 +380,13 @@ int Game::run()
                 );
                 ImGui::SameLine();
                 ImGui::HelpMarker(
-                    "To make a play, follow the below steps:\n\n*Type in the letters that you want to place in the text-box (in the order you want to place them)\n* Select the direction you want to place the tiles in\n* Click the square on the board where you want to place the first tile"
+                    "(Play help)",
+                    "To make a play, follow the below steps:\n\n* Type in the letters that you want to place in the text-box (in the order you want to place them)\n* Select the direction you want to place the tiles in\n* Click the square on the board where you want to place the first tile"
+                );
+                ImGui::SameLine();
+                ImGui::HelpMarker(
+                    "(Square types)",
+                    "Normal (Brown)\nDLS (Light blue): Double Letter Score\nDWS (Pink): Double Word Score\nTLS (Dark blue): Triple Letter Score\nTWS (Red): Triple Word Score"
                 );
                 ImGui::RadioButton("Horizontal", &directionSelected, 0);
                 ImGui::SameLine();
